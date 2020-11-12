@@ -29,13 +29,14 @@
           <el-tabs type="border-card">
             <el-tab-pane label="模型管理">
 
-              <el-button-group>
-                <el-button type="primary" icon="el-icon-search" @click="handleSearch()">查询</el-button>
-                <el-button type="primary" icon="el-icon-circle-plus" @click="handleAdd()">新增</el-button>
-                <el-button type="primary" icon="el-icon-edit" @click="handleEdit()">修改</el-button>
-                <el-button type="primary" icon="el-icon-remove" @click="handleDel()">删除</el-button>
-
-              </el-button-group>
+              <div class="block">
+                <el-button-group>
+                  <el-button type="success" icon="el-icon-search" @click="handleSearch()">查询</el-button>
+                  <el-button type="primary" icon="el-icon-circle-plus" @click="handleAdd()">新增</el-button>
+                  <el-button type="warning" icon="el-icon-edit" @click="handleEdit()">修改</el-button>
+                  <el-button type="danger" icon="el-icon-remove" @click="handleDel()">删除</el-button>
+                </el-button-group>
+              </div>
 
               <template>
                 <el-table
@@ -44,6 +45,7 @@
                   tooltip-effect="dark"
                   highlight-current-row
                   style="width: 100%;"
+                  border
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column type="selection" width="55" />
@@ -94,7 +96,7 @@
                     <div class="pagination">
                       <el-pagination
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="total"
+                        :total="searchForm.total"
                         :page-size="searchForm.size"
                         :current-page="searchForm.page"
                         @current-change="handleCurrentChange"
@@ -165,4 +167,7 @@
 </script>
 
 <style>
+  .block {
+    padding: 10px 0px;
+  }
 </style>
