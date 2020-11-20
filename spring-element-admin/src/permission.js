@@ -22,7 +22,7 @@ NProgress.configure({
 
 const whiteList = ['/login', '/auth-redirect'] // no redirect whitelist
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async(to, from, next) => {
   // start progress bar
   NProgress.start()
 
@@ -46,19 +46,19 @@ router.beforeEach(async (to, from, next) => {
       } else {
         try {
           const routers = await getRouters()
-          const accessRoutes = getAsyncRoutes(routers.data);
+          const accessRoutes = getAsyncRoutes(routers.data)
           // 动态添加格式化过的路由
-          //console.log(accessRoutes);
-          router.addRoutes(accessRoutes);
-          store.dispatch('user/setRouters',accessRoutes)
-          //debugger;
-          next();
-          // next({ ...to,
-          //   replace: true
-          // })
+          // console.log(accessRoutes);
+          router.addRoutes(accessRoutes)
+          store.dispatch('user/setRouters', accessRoutes)
+          // debugger;
+          // next();
+          next({ ...to,
+            replace: true
+          })
           // next()
         } catch (error) {
-          console.log(error);
+          console.log(error)
           // remove token and go to login page to re-login
           await store.dispatch('user/resetToken')
           Message.error(error || 'Has Error')

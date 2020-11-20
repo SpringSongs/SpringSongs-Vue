@@ -4,17 +4,14 @@
       <el-col :span="24">
         <div class="bg-white h-100 mx-1 p-1 shadowed">
           <el-tabs type="border-card">
-            <el-tab-pane label="模型分类">
+            <el-tab-pane label="我的文件查询">
               <el-form ref="searchForm" :model="searchForm">
                 <el-row>
                   <el-col :span="6">
                     <div class="demo-input-suffix">
-                      <el-input v-model="searchForm.categoryCode" placeholder="请输入编码" auto-complete="off" />
-                    </div>
-                  </el-col>
-                  <el-col :span="6">
-                    <div class="demo-input-suffix">
-                      <el-input v-model="searchForm.categoryTitle" placeholder="请输入内容" auto-complete="off" />
+                      <el-input v-model="searchForm.description" placeholder="请输入内容">
+                        <template slot="prepend">说明：</template>
+                      </el-input>
                     </div>
                   </el-col>
                 </el-row>
@@ -22,7 +19,7 @@
             </el-tab-pane>
           </el-tabs>
           <el-tabs type="border-card">
-            <el-tab-pane label="模型分类">
+            <el-tab-pane label="我的文件">
               <div class="block">
                 <el-button-group>
                   <el-button type="success" icon="el-icon-search" @click="handleSearch()">查询</el-button>
@@ -38,14 +35,14 @@
                   tooltip-effect="dark"
                   highlight-current-row
                   style="width: 100%;"
-                  border
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column type="selection" width="55" />
                   <el-table-column type="index" width="60" />
-                  <el-table-column prop="categoryCode" label="模型分类编码" width="180" />
-                  <el-table-column prop="categoryTitle" label="模型分类名称" width="180" />
-                  <el-table-column fixed="right" label="操作">
+                  <el-table-column prop="folderName" label="文件夹名称" width="180" />
+                  <el-table-column prop="path" label="文件路径" width="180" />
+                  <el-table-column prop="description" label="说明" width="180" />
+                  <el-table-column fixed="right" label="操作" width="300">
                     <template slot-scope="scope">
                       <el-button icon="el-icon-edit" type="text" size="small" @click="handleSingleEdit(scope.$index, scope.row)">编辑</el-button>
                       <el-button type="text" icon="el-icon-delete" class="red" @click="handleSingleDelete(scope.$index, scope.row)">删除</el-button>
@@ -69,12 +66,26 @@
               </template>
               <!--新增-->
               <el-dialog title="新增" :visible.sync="dialogAddVisible" width="50%" :before-close="handleClose">
-                <el-form ref="addForm" :model="addForm" label-width="120px" :rules="addFormRules">
-                  <el-form-item label="模型分类编码" prop="categoryCode">
-                    <el-input v-model="addForm.categoryCode" auto-complete="off" />
+                <el-form ref="addForm" :model="addForm" label-width="80px" :rules="addFormRules">
+                  <el-upload
+                    class="upload-demo"
+                    action="/SpringAttachment/Upload"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :before-remove="beforeRemove"
+                    multiple
+                    :limit="3"
+                    :on-exceed="handleExceed"
+                    :file-list="fileList"
+                    :on-success="handlerUploadSuccess"
+                  >
+                    <el-button size="small" type="primary">点击上传</el-button>
+                  </el-upload>
+                  <el-form-item label="文件路径" prop="path">
+                    <el-input v-model="addForm.path" auto-complete="off" readonly="readonly" />
                   </el-form-item>
-                  <el-form-item label="模型分类名称" prop="categoryTitle">
-                    <el-input v-model="addForm.categoryTitle" auto-complete="off" />
+                  <el-form-item label="文件说明" prop="path">
+                    <el-input v-model="addForm.description" auto-complete="off" />
                   </el-form-item>
                 </el-form>
                 <span slot="footer" class="dialog-footer">
@@ -84,12 +95,12 @@
               </el-dialog>
               <!--修改-->
               <el-dialog title="修改" :visible.sync="dialogEditVisible" width="50%" :before-close="handleClose">
-                <el-form ref="editForm" :model="editForm" label-width="120px" :rules="editFormRules">
-                  <el-form-item label="模型分类编码" prop="categoryCode">
-                    <el-input v-model="editForm.categoryCode" auto-complete="off" />
+                <el-form ref="editForm" :model="editForm" label-width="80px" :rules="editFormRules">
+                  <el-form-item label="文件路径" prop="path">
+                    <el-input v-model="editForm.path" auto-complete="off" readonly="readonly" />
                   </el-form-item>
-                  <el-form-item label="模型分类名称" prop="categoryTitle">
-                    <el-input v-model="editForm.categoryTitle" auto-complete="off" />
+                  <el-form-item label="文件说明" prop="path">
+                    <el-input v-model="editForm.description" auto-complete="off" />
                   </el-form-item>
                 </el-form>
                 <span slot="footer" class="dialog-footer">
@@ -97,16 +108,15 @@
                   <el-button type="primary" @click="handleUpdate('editForm')">确 定</el-button>
                 </span>
               </el-dialog>
-
             </el-tab-pane>
           </el-tabs>
         </div>
       </el-col>
     </el-row>
-  </div>
-</template>
+  </div></template>
 
-<script src="./SpringActCategory.js">
+<script src="./SpringAttachment.js">
+
 </script>
 
 <style>
