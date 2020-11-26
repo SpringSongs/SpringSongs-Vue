@@ -9,17 +9,23 @@
                 <el-row>
                   <el-col :span="6">
                     <div class="demo-input-suffix">
-                      <el-input v-model="searchForm.categoryCode" placeholder="请输入模型分类" auto-complete="off" />
+                      <el-input v-model="searchForm.categoryCode" placeholder="请输入模型分类" auto-complete="off">
+                        <template slot="prepend">模型分类：</template>
+                      </el-input>
                     </div>
                   </el-col>
                   <el-col :span="6">
                     <div class="demo-input-suffix">
-                      <el-input v-model="searchForm.name" placeholder="请输入模型名称" auto-complete="off" />
+                      <el-input v-model="searchForm.name" placeholder="请输入模型名称" auto-complete="off">
+                        <template slot="prepend">模型名称：</template>
+                      </el-input>
                     </div>
                   </el-col>
                   <el-col :span="6">
                     <div class="demo-input-suffix">
-                      <el-input v-model="searchForm.key" placeholder="请输入模型标识" auto-complete="off" />
+                      <el-input v-model="searchForm.key" placeholder="请输入模型标识" auto-complete="off">
+                        <template slot="prepend">模型标识：</template>
+                      </el-input>
                     </div>
                   </el-col>
                 </el-row>
@@ -49,10 +55,10 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column type="selection" width="55" />
-                  <el-table-column type="index" width="60" />
-                  <el-table-column label="流程ID">
+                  <el-table-column label="#" type="index" width="60" fixed="left" />
+                  <el-table-column label="名称" fixed="left" width="250">
                     <template slot-scope="scope">
-                      {{ scope.row.id }}
+                      {{ scope.row.name }}
                     </template>
                   </el-table-column>
                   <el-table-column label="流程分类">
@@ -60,14 +66,14 @@
                       {{ scope.row.category }}
                     </template>
                   </el-table-column>
-                  <el-table-column label="模型标识">
+                  <el-table-column label="模型标识" width="200">
                     <template slot-scope="scope">
                       {{ scope.row.key }}
                     </template>
                   </el-table-column>
-                  <el-table-column label="模型名称">
+                  <el-table-column label="备注描述" width="250">
                     <template slot-scope="scope">
-                      {{ scope.row.name }}
+                      {{ scope.row.metaInfo.description }}
                     </template>
                   </el-table-column>
                   <el-table-column label="版本号">
@@ -75,19 +81,27 @@
                       {{ scope.row.version }}
                     </template>
                   </el-table-column>
-                  <el-table-column label="创建时间">
+                  <el-table-column label="创建时间" width="250">
                     <template slot-scope="scope">
                       {{ scope.row.createTime }}
                     </template>
                   </el-table-column>
-                  <el-table-column label="操作" width="200">
+                  <el-table-column label="更新时间" width="250">
+                    <template slot-scope="scope">
+                      {{ scope.row.lastUpdateTime }}
+                    </template>
+                  </el-table-column>
+
+                  <el-table-column label="操作" width="350" fixed="right">
                     <template slot-scope="scope">
                       <a
                         class="el-button el-button--primary el-button--small is-plain"
                         :href="`/static/activiti/modeler.html?modelId=${scope.row.id}`"
                         target="_blank"
-                      >编辑</a>
-                      <el-button size="small" @click="deploy(scope.row)">部署</el-button>
+                      >在线设计</a>
+                      <el-button size="small" @click="handlerDeploy(scope.row)">部署发布</el-button>
+                      <el-button size="small" @click="handlerExporyXML(scope.row)">导出XML</el-button>
+                      <el-button size="small" @click="handlerDelete(scope.row)">删除</el-button>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -112,7 +126,12 @@
                   <el-form-item label="组别编码" prop="categoryCode">
                     <el-select v-model="addForm.categoryCode" placeholder="请选择模型类型" @change="springActCategoryListAddChange">
                       <el-option key="" label="请选择" value="" />
-                      <el-option v-for="item in springActCategorys" :key="item.categoryCode" :label="item.categoryTitle" :value="item.categoryCode" />
+                      <el-option
+                        v-for="item in springActCategorys"
+                        :key="item.categoryCode"
+                        :label="item.categoryTitle"
+                        :value="item.categoryCode"
+                      />
                     </el-select>
                   </el-form-item>
                   <el-form-item label="模型名称" prop="name">
@@ -136,7 +155,12 @@
                   <el-form-item label="组别编码" prop="categoryCode">
                     <el-select v-model="editForm.categoryCode" placeholder="请选择任务组别" @change="springActCategoryListEditChange">
                       <el-option key="" label="请选择" value="" />
-                      <el-option v-for="item in springActCategorys" :key="item.categoryCode" :label="item.categoryTitle" :value="item.categoryCode" />
+                      <el-option
+                        v-for="item in springActCategorys"
+                        :key="item.categoryCode"
+                        :label="item.categoryTitle"
+                        :value="item.categoryCode"
+                      />
                     </el-select>
                   </el-form-item>
                   <el-form-item label="模型名称" prop="name">
@@ -161,7 +185,8 @@
       </el-col>
     </el-row>
 
-  </div></template>
+  </div>
+</template>
 
 <script src="./SpringActModel.js">
 </script>

@@ -16,7 +16,7 @@ import editorImage from './components/EditorImage'
 import plugins from './plugins'
 import toolbar from './toolbar'
 import load from './dynamicLoadScript'
-
+// import { uploadFile } from '@/api/springsongs/sys/SpringAttachment/SpringAttachment.js'
 // why use this cdn, detail see https://github.com/PanJiaChen/tinymce-all-in-one
 const tinymceCDN = 'https://cdn.jsdelivr.net/npm/tinymce-all-in-one@4.9.3/tinymce.min.js'
 
@@ -116,7 +116,7 @@ export default {
       const _this = this
       window.tinymce.init({
         selector: `#${this.tinymceId}`,
-        language: this.languageTypeList['en'],
+        language: this.languageTypeList['zh'],
         height: this.height,
         body_class: 'panel-body ',
         object_resizing: false,
@@ -184,6 +184,16 @@ export default {
         //     failure('出现未知问题，刷新页面，或者联系程序员')
         //     console.log(err);
         //   });
+        // },
+        // images_upload_handler(blobInfo, success, failure, progress) {
+        //     progress(0);
+        //     const formData = new FormData();
+        //     formData.append('file', blobInfo.blob());
+        //     uploadFile(formData).then(res=>{
+        //       console.log(res.data);
+        //       success(res.data);
+        //       progress(100);
+        //     })
         // },
       })
     },

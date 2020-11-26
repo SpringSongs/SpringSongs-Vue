@@ -213,7 +213,12 @@
                 <el-form-item label="简要说明" prop="summary">
                   <el-input v-model="addForm.summary" type="textarea" :rows="3" auto-complete="off" />
                 </el-form-item>
-                <el-form-item label="内容" prop="contents" />
+                <el-form-item label="内容" prop="contents">
+                  <div>
+                    <tinymce v-model="addForm.contents" :height="300" />
+                  </div>
+                  <div class="editor-content" v-html="contents" />
+                </el-form-item>
                 <el-form-item label="作者" prop="author">
                   <el-input v-model="addForm.author" auto-complete="off" />
                 </el-form-item>
@@ -289,7 +294,12 @@
                 <el-form-item label="简要说明" prop="summary">
                   <el-input v-model="editForm.summary" type="textarea" :rows="3" auto-complete="off" />
                 </el-form-item>
-                <el-form-item label="内容" prop="contents" />
+                <el-form-item label="内容" prop="contents">
+                  <div>
+                    <tinymce v-model="editForm.contents" :height="300" />
+                  </div>
+                  <div class="editor-content" v-html="contents" />
+                </el-form-item>
                 <el-form-item label="作者" prop="author">
                   <el-input v-model="editForm.author" auto-complete="off" />
                 </el-form-item>

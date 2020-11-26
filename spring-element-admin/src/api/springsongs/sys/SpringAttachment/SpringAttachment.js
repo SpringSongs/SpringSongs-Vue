@@ -43,3 +43,14 @@ export function batchDelete(data) {
     data
   })
 }
+
+export function uploadFile(data) {
+  return request({
+    url: '/SpringAttachment/Upload',
+    method: 'post',
+    data,
+    headers: {
+      'Conten-type': 'multipart/form-data'
+    }
+  })
+}

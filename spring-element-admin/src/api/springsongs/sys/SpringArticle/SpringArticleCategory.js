@@ -45,6 +45,7 @@ export function batchDelete(data) {
 }
 
 export function getCategorysByParent(data) {
+  data = qs.stringify(data)
   return request({
     url: '/SpringArticleCategory/GetCategorysByParent',
     method: 'post',

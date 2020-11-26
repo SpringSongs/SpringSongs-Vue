@@ -11,16 +11,15 @@ import {
   loadCategoryTreeByParentId,
   listCategoryToTree
 } from '@/api/springsongs/sys/SpringArticle/SpringArticle'
+import Tinymce from '@/components/Tinymce'
 export default {
   name: 'Editor',
   components: {
-    // quillEditor
+    Tinymce
   },
   data() {
     return {
-      editorOption: {
-        placeholder: 'Hello World'
-      },
+      contents: '',
       tableData: [],
       total: 1,
       multipleSelection: [],
@@ -217,7 +216,7 @@ export default {
         this.searchForm.searchDate.createTimeStart = this.searchForm.created_on[0]
         this.searchForm.searchDate.createTimeEnd = this.searchForm.created_on[1]
       }
-      search(self.searchForm).then(
+      search(self.searchForm.page, self.searchForm.size, self.searchForm).then(
         function(response) {
           self.tableData = response.data
           self.searchForm.total = response.count

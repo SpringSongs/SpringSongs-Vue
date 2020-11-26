@@ -44,3 +44,17 @@ export function listAllSpringActCategory() {
     method: 'post'
   })
 }
+
+export function deploy(id) {
+  return request({
+    url: `/SpringActModel/Deploy/${id}`,
+    method: 'put'
+  })
+}
+
+export function exportXML(id) {
+  return request({
+    url: `/SpringActModel/Export/${id}`,
+    method: 'get'
+  })
+}

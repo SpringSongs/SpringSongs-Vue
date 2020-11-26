@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 import qs from 'qs'
-export function search(data) {
+export function search(page, size, data) {
   return request({
-    url: '/SpringArticle/ListByPage',
+    url: '/SpringArticle/ListByPage?page=' + page + '&size=' + size,
     method: 'post',
     data
   })
@@ -11,7 +11,7 @@ export function search(data) {
 export function get(id) {
   return request({
     url: '/SpringArticle/Detail/' + id,
-    method: 'post'
+    method: 'get'
   })
 }
 
@@ -47,28 +47,28 @@ export function batchDelete(data) {
 export function auditStatus(id) {
   return request({
     url: '/SpringArticle/Audit/' + id,
-    method: 'post'
+    method: 'put'
   })
 }
 
 export function hotStatus(id) {
   return request({
     url: '/SpringArticle/HotStatus/' + id,
-    method: 'post'
+    method: 'put'
   })
 }
 
 export function topStatus(id) {
   return request({
     url: '/SpringArticle/TopStatus/' + id,
-    method: 'post'
+    method: 'put'
   })
 }
 
 export function featured(id) {
   return request({
     url: '/SpringArticle/Featured/' + id,
-    method: 'post'
+    method: 'put'
   })
 }
 

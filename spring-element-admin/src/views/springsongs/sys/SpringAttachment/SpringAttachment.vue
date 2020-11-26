@@ -69,10 +69,11 @@
                 <el-form ref="addForm" :model="addForm" label-width="80px" :rules="addFormRules">
                   <el-upload
                     class="upload-demo"
-                    action="/SpringAttachment/Upload"
+                    action="http://localhost:8090/SpringAttachment/Upload"
                     :on-preview="handlePreview"
                     :on-remove="handleRemove"
                     :before-remove="beforeRemove"
+                    :with-credentials="true"
                     multiple
                     :limit="3"
                     :on-exceed="handleExceed"

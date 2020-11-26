@@ -3,7 +3,9 @@ import {
   save,
   edit,
   batchDelete,
-  listAllSpringActCategory
+  listAllSpringActCategory,
+  deploy,
+  exportXML
 } from '@/api/springsongs/activiti/SpringActModel/SpringActModel'
 export default {
   data() {
@@ -21,9 +23,13 @@ export default {
       dialogEditVisible: false,
       dialogImportVisible: false,
       // 新增界面数据
-      addForm: {},
+      addForm: {
+        description: ''
+      },
       uploadForm: {},
-      editForm: {},
+      editForm: {
+        description: ''
+      },
       href: '',
       addFormRules: {
         categoryCode: [{
@@ -95,6 +101,9 @@ export default {
       search(self.searchForm.page, self.searchForm.size, self.searchForm).then(
         function(response) {
           self.tableData = response.data
+          self.tableData.forEach(item => {
+            item.metaInfo = JSON.parse(item.metaInfo)
+          })
           self.searchForm.total = response.count
           self.loading = false
         }
@@ -140,7 +149,8 @@ export default {
         this.listSpringActCategory()
         self.editForm = self.multipleSelection[0]
         self.editForm.categoryCode = self.multipleSelection[0].category
-        console.log(self.editForm)
+        // let metaInfo=JSON.parse(self.multipleSelection[0].metaInfo);
+        self.editForm.description = self.multipleSelection[0].metaInfo.description
         this.dialogEditVisible = true
       }
     },
@@ -150,6 +160,8 @@ export default {
       this.listSpringActCategory()
       self.editForm = row
       self.editForm.categoryCode = row.category
+      // let metaInfo=JSON.parse(row.metaInfo);
+      self.editForm.description = row.metaInfo.description
       this.dialogEditVisible = true
     },
 
@@ -206,6 +218,26 @@ export default {
         .then(function(response) {
           self.springActCategorys = response.data
         })
+    },
+    handlerDeploy(data) {
+      const self = this
+      var id = data.id
+      this.$confirm('确认部署发布' + data.name + '吗？', '确认部署发布', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deploy(id).then(response => {
+          self.$message.success(response.msg)
+          this.handleSearch()
+        })
+      }).catch(() => {})
+    },
+    handlerExporyXML(data) {
+      exportXML(data.id).then(res => {
+        self.$message.success(res.msg)
+      }
+      )
     },
     // 上传
     // 关装对话框
