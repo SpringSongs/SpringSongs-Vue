@@ -45,6 +45,9 @@ export default {
           self.loading = false
         }
       )
+    },
+    handlerInfo(data) {
+      this.$router.push({ path: `/Activiti/${data.router}/`, query: { id: data.businessId, taskId: data.taskId }})
     }
   }
 }

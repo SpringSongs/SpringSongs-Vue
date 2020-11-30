@@ -109,6 +109,17 @@
               </template>
             </el-tab-pane>
           </el-tabs>
+          <el-dialog title="页面路由配置" :visible.sync="dialogRouterVisible" width="50%" :before-close="handleClose">
+            <el-form ref="routerForm" :model="routerForm" label-width="80px" :rules="routerFormRules">
+              <el-form-item label="页面路由" prop="router">
+                <el-input v-model="routerForm.router" auto-complete="off" />
+              </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="dialogRouterVisible = false">取 消</el-button>
+              <el-button type="primary" add-form- @click="handleSaveRouter('routerForm')">确 定</el-button>
+            </span>
+          </el-dialog>
         </div>
       </el-col>
     </el-row>

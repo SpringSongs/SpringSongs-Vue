@@ -1,20 +1,36 @@
 import {
   search,
-  save
+  save,
+  submitSpringActVacation,
+  listSpringDictionaryDetailByDictionaryCode,
+  batchDelete
 } from '@/api/springsongs/activiti/SpringNewProcess/commonvaction'
 export default {
   data() {
     return {
       tableData: [],
       multipleSelection: [],
+      springDictionaryDetailList: [],
       searchForm: {
         size: 20,
         page: 0,
         total: 0
       },
       dialogAddVisible: false,
-      addForm: {},
+      addForm: {
+        time: 1
+      },
       addFormRules: {
+        vacationType: [{
+          required: true,
+          message: '请选择分类',
+          trigger: 'blur'
+        }],
+        title: [{
+          required: true,
+          message: '请输入标题',
+          trigger: 'blur'
+        }],
         reason: [{
           required: true,
           message: '请输入请假申请原因',
@@ -61,12 +77,15 @@ export default {
     },
     // 显示新增界面
     handleAdd: function() {
+      this.handleListSpringDictionaryDetailByDictionaryCode()
       this.dialogAddVisible = true
     },
     // 保存
     handleSave: function(formName) {
       console.log(formName)
-      const { key } = this.$route.query
+      const {
+        key
+      } = this.$route.query
       this.addForm.procDefKey = key
       if (this.addForm.startEndTime) {
         this.addForm.startTime = this.addForm.startEndTime[0]
@@ -84,6 +103,48 @@ export default {
           this.$message.error('请填写必填项')
         }
       })
+    },
+    handleListSpringDictionaryDetailByDictionaryCode() {
+      const self = this
+      listSpringDictionaryDetailByDictionaryCode('vacation').then(res => {
+        self.springDictionaryDetailList = res.data
+      })
+    },
+    handleSubmit() {
+      const self = this
+      if (self.multipleSelection.length === 0) {
+        self.$message.warning('请选择提交项目')
+      } else if (self.multipleSelection.length > 1) {
+        self.$message.warning('只允许提交一项项目')
+      } else {
+        submitSpringActVacation(self.multipleSelection[0]).then((res) => {
+          self.$message.success(res.msg)
+        })
+      }
+    },
+    handleDel: function() {
+      debugger
+      const self = this
+      const ids = []
+      if (self.multipleSelection.length === 0) {
+        self.$message.warning('请选择删除项目')
+        return
+      } else if (self.multipleSelection.length > 1) {
+        self.$message.warning('只允许删除一个项目')
+        return
+      }
+      this.$confirm('确认删除该记录吗?', '提示', {
+        type: 'warning'
+      }).then(() => {
+        self.multipleSelection.map((item) => {
+          ids.push(item.id)
+        })
+        console.log(ids)
+        batchDelete(ids).then(res => {
+          self.$message.success(res.msg)
+          self.handleSearch()
+        })
+      }).catch(() => {})
     },
     // 上传
     // 关装对话框

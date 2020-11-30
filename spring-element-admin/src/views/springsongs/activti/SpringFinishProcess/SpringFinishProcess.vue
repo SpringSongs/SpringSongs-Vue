@@ -43,34 +43,19 @@
                   border
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column label="任务ID">
+                  <el-table-column label="任务名称">
                     <template slot-scope="scope">
-                      {{ scope.row.taskId }}
+                      {{ scope.row.startTitle }}
                     </template>
                   </el-table-column>
-                  <el-table-column label="名称">
-                    <template slot-scope="scope">
-                      {{ scope.row.title }}
-                    </template>
-                  </el-table-column>
-                  <el-table-column label="分类">
+                  <el-table-column label="所属流程">
                     <template slot-scope="scope">
                       {{ scope.row.pdName }}
                     </template>
                   </el-table-column>
-                  <el-table-column label="流程key">
+                  <el-table-column label="流程发起人">
                     <template slot-scope="scope">
-                      {{ scope.row.nodeKey }}
-                    </template>
-                  </el-table-column>
-                  <el-table-column label="版本">
-                    <template slot-scope="scope">
-                      {{ scope.row.version }}
-                    </template>
-                  </el-table-column>
-                  <el-table-column label="流程定义ID">
-                    <template slot-scope="scope">
-                      {{ scope.row.processDefKey }}
+                      {{ scope.row.startUserName }}
                     </template>
                   </el-table-column>
                   <el-table-column label="状态">
@@ -78,16 +63,14 @@
                       {{ scope.row.status }}
                     </template>
                   </el-table-column>
-
-                  <el-table-column label="发布时间">
+                  <el-table-column label="发起时间" width="300">
                     <template slot-scope="scope">
-                      {{ scope.row.time }}
+                      {{ scope.row.submitTime }}
                     </template>
                   </el-table-column>
-
-                  <el-table-column label="流程ID">
+                  <el-table-column label="状态">
                     <template slot-scope="scope">
-                      {{ scope.row.processInstanceId }}
+                      {{ scope.row.status }}
                     </template>
                   </el-table-column>
                 </el-table>

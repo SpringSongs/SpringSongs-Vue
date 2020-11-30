@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-// import qs from 'qs'
+import qs from 'qs'
 export function search(page, size, data) {
   // var data = qs.stringify(data)
   return request({
@@ -17,9 +17,44 @@ export function save(data) {
   })
 }
 
-export function get(data) {
+export function batchDelete(data) {
+  data = qs.stringify({
+    'ids': data
+  }, {
+    indices: false
+  })
+  console.log(data)
   return request({
-    url: '/SpringActVacation/Detail',
+    url: '/SpringActVacation/SetDeleted',
+    method: 'post',
+    data
+  })
+}
+
+export function submitSpringActVacation(data) {
+  return request({
+    url: '/SpringActVacation/SubmitSpringActVacation',
+    method: 'post',
+    data
+  })
+}
+export function get(id) {
+  return request({
+    url: '/SpringActVacation/Detail?id=' + id,
+    method: 'get'
+  })
+}
+
+export function listSpringDictionaryDetailByDictionaryCode(dictionaryCode) {
+  return request({
+    url: '/SpringDictionaryDetail/ListSpringDictionaryDetailByDictionaryCode?dictionaryCode=' + dictionaryCode,
+    method: 'get'
+  })
+}
+
+export function passOrReject(data, taskId) {
+  return request({
+    url: '/SpringActVacationApprove/CompleteSpringActVacationApprove?taskId=' + taskId,
     method: 'post',
     data
   })

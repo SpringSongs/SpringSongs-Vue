@@ -23,3 +23,26 @@ export function converToModel(procDefId) {
     method: 'put'
   })
 }
+
+export function save(data) {
+  return request({
+    url: '/SpringActProcessRouter/Create',
+    method: 'post',
+    data
+  })
+}
+
+export function edit(data, id) {
+  return request({
+    url: '/SpringActProcessRouter/Edit',
+    method: 'put',
+    data
+  })
+}
+
+export function findSpringActProcessRouterByProcDefKey(procDefKey) {
+  return request({
+    url: `/SpringActProcessRouter/FindSpringActProcessRouterByProcDefKey?procDefKey=${procDefKey}`,
+    method: 'get'
+  })
+}
