@@ -58,14 +58,16 @@
                       {{ scope.row.startUserName }}
                     </template>
                   </el-table-column>
-                  <el-table-column label="状态">
-                    <template slot-scope="scope">
-                      {{ scope.row.status }}
-                    </template>
-                  </el-table-column>
                   <el-table-column label="发起时间" width="300">
                     <template slot-scope="scope">
                       {{ scope.row.submitTime }}
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="审核结果" width="300">
+                    <template slot-scope="scope">
+                      <el-tag v-if="scope.row.auditStr === '2'" size="success">通过</el-tag>
+                      <el-tag v-else-if="scope.row.auditStr === '3'" size="small" type="danger">不通过</el-tag>
+                      <el-tag v-else size="small" type="info">处理中</el-tag>
                     </template>
                   </el-table-column>
                   <el-table-column label="状态">

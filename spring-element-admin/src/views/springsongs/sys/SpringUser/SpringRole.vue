@@ -42,8 +42,8 @@
                 >
                   <el-table-column type="selection" width="55" />
                   <el-table-column type="index" width="60" />
-                  <el-table-column prop="title" label="名称" width="180" />
-                  <el-table-column prop="desc" label="说明" width="180" />
+                  <el-table-column prop="title" label="名称" width="250" />
+                  <el-table-column prop="desc" label="说明" width="250" />
                   <el-table-column prop="enableEdit" label="允许编辑" width="180">
                     <template slot-scope="scope">
                       <el-tag v-if="scope.row.enableEdit === true" size="small" @click="handleAuditStatus(scope.$index, scope.row)">允许</el-tag>

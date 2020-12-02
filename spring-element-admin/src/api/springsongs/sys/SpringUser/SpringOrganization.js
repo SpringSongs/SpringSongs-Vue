@@ -18,7 +18,7 @@ export function listAllToTree() {
 export function get(id) {
   return request({
     url: '/SpringOrganization/Detail?id=' + id,
-    method: 'post'
+    method: 'get'
   })
 }
 
@@ -33,7 +33,7 @@ export function save(data) {
 export function edit(data) {
   return request({
     url: '/SpringOrganization/Edit',
-    method: 'post',
+    method: 'put',
     data
   })
 }

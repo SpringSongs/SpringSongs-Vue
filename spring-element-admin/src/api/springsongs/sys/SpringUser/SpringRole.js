@@ -10,8 +10,8 @@ export function search(page, size, data) {
 
 export function get(id) {
   return request({
-    url: '/SpringRole/Detail/' + id,
-    method: 'post'
+    url: '/SpringRole/Detail?id=' + id,
+    method: 'get'
   })
 }
 
@@ -26,7 +26,7 @@ export function save(data) {
 export function edit(data) {
   return request({
     url: '/SpringRole/Edit',
-    method: 'post',
+    method: 'put',
     data
   })
 }

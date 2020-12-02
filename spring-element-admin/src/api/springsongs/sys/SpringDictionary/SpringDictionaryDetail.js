@@ -10,8 +10,8 @@ export function search(data) {
 
 export function get(id) {
   return request({
-    url: '/SpringDictionaryDetail/Detail/' + id,
-    method: 'post'
+    url: '/SpringDictionaryDetail/Detail?id=' + id,
+    method: 'get'
   })
 }
 
@@ -26,7 +26,7 @@ export function save(data) {
 export function edit(data) {
   return request({
     url: '/SpringDictionaryDetail/Edit/',
-    method: 'post',
+    method: 'put',
     data
   })
 }

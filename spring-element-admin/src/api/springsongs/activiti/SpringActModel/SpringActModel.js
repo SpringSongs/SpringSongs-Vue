@@ -26,7 +26,7 @@ export function save(data) {
 export function edit(data, id) {
   return request({
     url: '/SpringActModel/Edit/' + id,
-    method: 'post',
+    method: 'put',
     data
   })
 }
@@ -41,7 +41,7 @@ export function batchDelete(id) {
 export function listAllSpringActCategory() {
   return request({
     url: '/SpringActCategory/ListAll',
-    method: 'post'
+    method: 'get'
   })
 }
 

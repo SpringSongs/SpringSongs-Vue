@@ -26,7 +26,7 @@ export function save(data) {
 export function edit(data) {
   return request({
     url: '/SpringArticle/Edit/',
-    method: 'post',
+    method: 'put',
     data
   })
 }
@@ -72,21 +72,16 @@ export function featured(id) {
   })
 }
 
-export function loadCategoryTreeByParentId(data) {
-  console.log(data)
-  data = qs.stringify({
-    'parentId': data
-  })
+export function loadCategoryTreeByParentId(parentId) {
   return request({
-    url: '/SpringArticleCategory/GetCategorysByParent',
-    method: 'post',
-    data
+    url: '/SpringArticleCategory/GetCategorysByParent?parentId=' + parentId,
+    method: 'get'
   })
 }
 
 export function listCategoryToTree() {
   return request({
     url: '/SpringArticleCategory/listAllRecord',
-    method: 'post'
+    method: 'get'
   })
 }

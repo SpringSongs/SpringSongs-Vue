@@ -9,12 +9,16 @@
                 <el-row>
                   <el-col :span="6">
                     <div class="demo-input-suffix">
-                      <el-input v-model="searchForm.categoryCode" placeholder="请输入编码" auto-complete="off" />
+                      <el-input v-model="searchForm.categoryCode" placeholder="请输入编码" auto-complete="off">
+                        <template slot="prepend">编码：</template>
+                      </el-input>
                     </div>
                   </el-col>
                   <el-col :span="6">
                     <div class="demo-input-suffix">
-                      <el-input v-model="searchForm.categoryTitle" placeholder="请输入内容" auto-complete="off" />
+                      <el-input v-model="searchForm.categoryTitle" placeholder="请输入标题" auto-complete="off">
+                        <template slot="prepend">标题：</template>
+                      </el-input>
                     </div>
                   </el-col>
                 </el-row>

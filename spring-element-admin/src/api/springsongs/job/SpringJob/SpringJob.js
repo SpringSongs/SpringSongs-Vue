@@ -11,13 +11,13 @@ export function search(page, size, data) {
 export function get(id) {
   return request({
     url: '/SpringJob/Detail/' + id,
-    method: 'post'
+    method: 'get'
   })
 }
 
 export function save(data) {
   return request({
-    url: '/SpringJob/Create',
+    url: '/SpringJob/AddTask',
     method: 'post',
     data
   })
@@ -25,8 +25,8 @@ export function save(data) {
 
 export function edit(data) {
   return request({
-    url: '/SpringJob/Edit',
-    method: 'post',
+    url: '/SpringJob/UpdateTask',
+    method: 'put',
     data
   })
 }
@@ -47,7 +47,7 @@ export function batchDelete(data) {
 export function listAllSpringJobGroupCategory() {
   return request({
     url: '/SpringJobGroup/ListAll',
-    method: 'post'
+    method: 'get'
   })
 }
 
@@ -55,7 +55,7 @@ export function pause(data) {
   data = qs.stringify(data)
   return request({
     url: '/SpringJob/PauseTask',
-    method: 'post',
+    method: 'put',
     data
   })
 }
@@ -64,7 +64,7 @@ export function resume(data) {
   data = qs.stringify(data)
   return request({
     url: '/SpringJob/ResumeTask',
-    method: 'post',
+    method: 'put',
     data
   })
 }

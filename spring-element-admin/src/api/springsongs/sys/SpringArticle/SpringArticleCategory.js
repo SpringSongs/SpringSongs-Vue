@@ -11,7 +11,7 @@ export function search(page, sise, data) {
 export function get(id) {
   return request({
     url: '/SpringArticleCategory/Detail?id=' + id,
-    method: 'post'
+    method: 'get'
   })
 }
 
@@ -26,7 +26,7 @@ export function save(data) {
 export function edit(data) {
   return request({
     url: '/SpringArticleCategory/Edit',
-    method: 'post',
+    method: 'put',
     data
   })
 }
@@ -44,11 +44,9 @@ export function batchDelete(data) {
   })
 }
 
-export function getCategorysByParent(data) {
-  data = qs.stringify(data)
+export function getCategorysByParent(parentId) {
   return request({
-    url: '/SpringArticleCategory/GetCategorysByParent',
-    method: 'post',
-    data
+    url: '/SpringArticleCategory/GetCategorysByParent?parentId=' + parentId,
+    method: 'get'
   })
 }

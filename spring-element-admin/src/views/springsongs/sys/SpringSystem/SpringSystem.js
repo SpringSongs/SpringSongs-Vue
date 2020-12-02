@@ -1,5 +1,6 @@
 import {
   search,
+  get,
   save,
   edit,
   batchDelete
@@ -123,8 +124,10 @@ export default {
       } else if (self.multipleSelection.length > 1) {
         self.$message.warning('只允许选择一项修改项目')
       } else {
-        self.editForm = self.multipleSelection[0]
-        self.dialogEditVisible = true
+        get(self.multipleSelection[0].id).then(res => {
+          self.editForm = res.data
+          self.dialogEditVisible = true
+        })
       }
     },
     // 显示编辑界面
@@ -133,8 +136,10 @@ export default {
       if (row.enableEdit === false) {
         self.$message.warning('项目不允许编辑')
       } else {
-        self.editForm = row
-        this.dialogEditVisible = true
+        get(row.id).then(res => {
+          self.editForm = res.data
+          self.dialogEditVisible = true
+        })
       }
     },
     // 关装对话框

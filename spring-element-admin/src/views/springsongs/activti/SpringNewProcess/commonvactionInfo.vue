@@ -38,8 +38,8 @@
         </el-form-item>
         <el-form-item label="审批结果" prop="result">
           <el-radio-group v-model="passOrRejectForm.result">
-            <el-radio-button label="1">通过</el-radio-button>
-            <el-radio-button label="0">驳回</el-radio-button>
+            <el-radio-button label="2">通过</el-radio-button>
+            <el-radio-button label="3">驳回</el-radio-button>
           </el-radio-group>
         </el-form-item>
       </el-form>

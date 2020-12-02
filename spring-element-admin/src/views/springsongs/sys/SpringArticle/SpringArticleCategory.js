@@ -1,5 +1,6 @@
 import {
   search,
+  get,
   save,
   edit,
   batchDelete,
@@ -125,9 +126,7 @@ export default {
     },
     // 加载树型区域菜单
     loadTrea: function(resolve, parentId) {
-      getCategorysByParent({
-        'parentId': parentId
-      }).then(res => {
+      getCategorysByParent(parentId).then(res => {
         resolve(res.data)
       })
     },
@@ -199,18 +198,20 @@ export default {
       } else if (self.multipleSelection.length > 1) {
         self.$message.warning('只允许选择一项修改项目')
       } else {
-        self.editForm = self.multipleSelection[0]
-        console.log(self.editForm)
-        this.dialogEditVisible = true
+        get(self.multipleSelection[0].id).then(res => {
+          self.editForm = res.data
+          self.dialogEditVisible = true
+        })
       }
     },
     // 显示编辑界面
     handleSingleEdit: function(index, row) {
       const self = this
-      self.editForm = row
-      self.dialogEditVisible = true
+      get(row.id).then(res => {
+        self.editForm = res.data
+        self.dialogEditVisible = true
+      })
     },
-
     // 显示导入界面
     handleImport: function() {
       this.dialogImportVisible = true

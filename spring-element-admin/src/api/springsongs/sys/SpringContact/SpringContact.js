@@ -10,8 +10,8 @@ export function search(data) {
 
 export function get(id) {
   return request({
-    url: '/SpringContact/Detail/' + id,
-    method: 'post'
+    url: '/SpringContact/Detail?id=' + id,
+    method: 'get'
   })
 }
 
@@ -26,7 +26,7 @@ export function save(data) {
 export function edit(data) {
   return request({
     url: '/SpringContact/Edit/',
-    method: 'post',
+    method: 'put',
     data
   })
 }

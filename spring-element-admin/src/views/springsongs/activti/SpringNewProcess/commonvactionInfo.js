@@ -9,7 +9,9 @@ export default {
         time: 1
       },
       dialogPassOrRejectVisible: false,
-      passOrRejectForm: {},
+      passOrRejectForm: {
+        vacationId: ''
+      },
       passOrRejectFormRules: {
         remark: [{
           required: true,
@@ -32,9 +34,10 @@ export default {
   },
   methods: {
     handleInfo(id) {
-      const left = this
+      const self = this
       get(id).then(res => {
-        left.addForm = res.data
+        self.addForm = res.data
+        self.passOrRejectForm.vacationId = self.addForm.id
       })
     },
     handleExamineAndApprove() {

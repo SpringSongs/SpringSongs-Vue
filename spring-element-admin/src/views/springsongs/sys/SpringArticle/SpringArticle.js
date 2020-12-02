@@ -12,10 +12,12 @@ import {
   listCategoryToTree
 } from '@/api/springsongs/sys/SpringArticle/SpringArticle'
 import Tinymce from '@/components/Tinymce'
+import SpringArticleAddorEdit from './SpringArticleAddorEdit'
 export default {
   name: 'Editor',
   components: {
-    Tinymce
+    Tinymce,
+    SpringArticleAddorEdit
   },
   data() {
     return {
@@ -184,7 +186,6 @@ export default {
       } else if (self.multipleSelection.length > 1) {
         self.$message.warning('只允许选择一项修改项目')
       } else {
-        self.editForm = self.multipleSelection[0]
         get(self.multipleSelection[0].id).then(res => {
           self.editForm = res.data
         })
@@ -197,9 +198,9 @@ export default {
       const self = this
       get(row.id).then(res => {
         self.editForm = res.data
+        this.dialogEditVisible = true
       })
       self.handleListCategoryTree()
-      this.dialogEditVisible = true
     },
     // 关装对话框
     handleClose: function(done) {

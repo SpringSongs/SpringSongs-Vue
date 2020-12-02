@@ -11,7 +11,7 @@ export function search(page, size, data) {
 export function get(id) {
   return request({
     url: '/SpringResource/Detail?id=' + id,
-    method: 'post'
+    method: 'get'
   })
 }
 
@@ -26,7 +26,7 @@ export function save(data) {
 export function edit(data) {
   return request({
     url: '/SpringResource/Edit/',
-    method: 'post',
+    method: 'put',
     data
   })
 }
@@ -47,7 +47,7 @@ export function batchDelete(data) {
 export function listAllSystem() {
   return request({
     url: '/SpringSystem/ListAll',
-    method: 'post'
+    method: 'get'
   })
 }
 
