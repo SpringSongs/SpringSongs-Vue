@@ -1,5 +1,6 @@
 ## 平台简介
-
+* spring-element-admin为前端
+* springsongs为后端
 * 前端采用Vue、Element UI。
 * 后端采用Spring Boot、Spring Security、wt。
 * 权限认证使用Jwt，支持多终端认证系统。
