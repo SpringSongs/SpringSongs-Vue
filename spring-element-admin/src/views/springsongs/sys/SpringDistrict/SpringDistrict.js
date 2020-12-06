@@ -206,7 +206,8 @@ export default {
       this.handleSearch()
     },
     chooseArea() {
-
+      this.searchForm.parentId = this.areaValue
+      this.handleSearch()
     },
     handleRefresh() {
       this.searchForm.parentId = 0
