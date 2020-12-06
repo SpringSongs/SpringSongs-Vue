@@ -41,3 +41,19 @@ export function setUserToTask(data, procDefKey) {
     data
   })
 }
+
+export function listUserPage(page, size, data) {
+  return request({
+    url: '/SpringUser/ListByPage/?page=' + page + '&size=' + size,
+    method: 'post',
+    data
+  })
+}
+
+export function listRole(page, size, data) {
+  return request({
+    url: '/SpringRole/ListByPage?page=' + page + '&size=' + size,
+    method: 'post',
+    data
+  })
+}

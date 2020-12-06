@@ -280,7 +280,6 @@ export default {
     },
     handleRoleSearch: function() {
       const self = this
-
       listRole(self.searchFormRole.page, self.searchFormRole.limits, self.searchFormRole).then(res => {
         self.tableRoleData = res.data
         self.totalRole = res.count

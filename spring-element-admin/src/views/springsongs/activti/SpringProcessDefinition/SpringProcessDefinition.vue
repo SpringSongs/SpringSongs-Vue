@@ -128,16 +128,16 @@
                   </div>
                   <div class="right">
                     <el-form-item label="类型">
-                      <el-radio-group v-model="addForm.radioArray[list.taskDefKey+'_taskType']">
+                      <el-radio-group v-model="addForm.radioArray[list.taskDefKey+'_taskType']" @change.native="selectUsers(list.taskDefKey)">
                         <el-radio label="assignee">人员</el-radio>
                         <el-radio label="candidateUser">候选人</el-radio>
                         <el-radio label="candidateGroup">候选组</el-radio>
-
                       </el-radio-group>
                     </el-form-item>
                     <el-form-item label="选择">
-                      <el-input v-model="addForm.name[list.taskDefKey+'_name']" auto-complete="off" />
-                      <el-input v-model="addForm.id[list.taskDefKey+'_id']" auto-complete="off" />
+                      <el-input v-model="addForm.name[list.taskDefKey+'_name']" auto-complete="off" readonly />
+                      <el-button type="primary" size="small" @click="clearUserOrRole(list.taskDefKey)">清空</el-button>
+                      <el-input v-model="addForm.id[list.taskDefKey+'_id']" auto-complete="off" type="hidden" />
                     </el-form-item>
                   </div>
                 </el-card>
@@ -147,6 +147,67 @@
               </div>
             </div>
           </el-dialog>
+          <el-drawer title="选择人员" :visible.sync="drawer" :direction="direction" :before-close="handleClose" size="50%">
+            <div v-if="checkUserOrGroup==false">
+              <el-table
+                ref="multipleTable"
+                :data="tableUserData"
+                tooltip-effect="dark"
+                highlight-current-row
+                style="width: 100%;"
+                border
+              >
+                <el-table-column type="index" width="60" label="#" />
+                <el-table-column prop="userName" label="用户名" width="180" />
+                <el-table-column prop="trueName" label="真实姓名" width="180" />
+                <el-table-column label="操作" width="100">
+                  <template slot-scope="scope">
+                    <el-button icon="el-icon-edit" type="text" size="small" @click="handleAddUser(scope.row)">添加该用户</el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+              <el-row>
+                <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+                  <div class="pagination">
+                    <el-pagination
+                      layout="total, sizes, prev, pager, next, jumper"
+                      :total="tableUserFrom.total"
+                      :page-size="tableUserFrom.size"
+                      :current-page="tableUserFrom.page"
+                      @current-change="handleTableUserDataCurrentChange"
+                      @size-change="sizeTableUserDataChangeHandle"
+                    />
+                  </div>
+                </el-col>
+              </el-row>
+            </div>
+            <div v-else>
+              <el-table ref="multipleTable" :data="tableRoleData" tooltip-effect="dark" highlight-current-row style="width: 100%;">
+                <el-table-column type="index" width="60" label="#" />
+                <el-table-column prop="title" label="名称" width="180" />
+                <el-table-column prop="desc" label="说明" width="180" />
+                <el-table-column label="操作" width="100">
+                  <template slot-scope="scope">
+                    <el-button icon="el-icon-edit" type="text" size="small" @click="handleAddUser(scope.row)">添加该角色</el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+              <el-row>
+                <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+                  <div class="pagination">
+                    <el-pagination
+                      layout="total, sizes, prev, pager, next, jumper"
+                      :total="searchFormRole.total"
+                      :page-size="searchFormRole.size"
+                      :current-page="searchFormRole.page"
+                      @size-change="sizeRoleDataChangeHandle"
+                      @current-change="handleCurrentChangeRole"
+                    />
+                  </div>
+                </el-col>
+              </el-row>
+            </div>
+          </el-drawer>
         </div>
       </el-col>
     </el-row>

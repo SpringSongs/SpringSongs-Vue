@@ -42,7 +42,7 @@
                   border
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column label="任务名称">
+                  <el-table-column label="任务名称" width="250">
                     <template slot-scope="scope">
                       {{ scope.row.startTitle }}
                     </template>
@@ -52,12 +52,12 @@
                       {{ scope.row.pdName }}
                     </template>
                   </el-table-column>
-                  <el-table-column label="流程发起人">
+                  <el-table-column label="流程发起人" width="180">
                     <template slot-scope="scope">
                       {{ scope.row.startUserName }}
                     </template>
                   </el-table-column>
-                  <el-table-column label="状态">
+                  <el-table-column label="流程状态">
                     <template slot-scope="scope">
                       {{ scope.row.status }}
                     </template>

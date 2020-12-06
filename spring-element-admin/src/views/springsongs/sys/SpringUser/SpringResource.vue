@@ -45,7 +45,7 @@
                   row-key="id"
                   highlight-current-row
                   border
-                  default-expand-all
+
                   :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
                 >
                   <el-table-column type="index" width="60" />
