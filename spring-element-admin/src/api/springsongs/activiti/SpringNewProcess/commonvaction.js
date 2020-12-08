@@ -17,13 +17,20 @@ export function save(data) {
   })
 }
 
+export function edit(data) {
+  return request({
+    url: '/SpringActVacation/Edit',
+    method: 'put',
+    data
+  })
+}
+
 export function batchDelete(data) {
   data = qs.stringify({
     'ids': data
   }, {
     indices: false
   })
-  console.log(data)
   return request({
     url: '/SpringActVacation/SetDeleted',
     method: 'post',
@@ -57,5 +64,12 @@ export function passOrReject(data, taskId) {
     url: '/SpringActVacationApprove/CompleteSpringActVacationApprove?taskId=' + taskId,
     method: 'post',
     data
+  })
+}
+
+export function findByVacationId(vacationId) {
+  return request({
+    url: '/SpringActVacationApprove/FindByVacationId?vacationId=' + vacationId,
+    method: 'get'
   })
 }

@@ -1,14 +1,18 @@
 import {
   search,
+  get,
   save,
+  edit,
   submitSpringActVacation,
   listSpringDictionaryDetailByDictionaryCode,
-  batchDelete
+  batchDelete,
+  findByVacationId
 } from '@/api/springsongs/activiti/SpringNewProcess/commonvaction'
 export default {
   data() {
     return {
       tableData: [],
+      tableVacationApproveData: [],
       multipleSelection: [],
       springDictionaryDetailList: [],
       searchForm: {
@@ -17,10 +21,36 @@ export default {
         total: 0
       },
       dialogAddVisible: false,
+      dialogViewVisible: false,
+      dialogEditVisible: false,
+      editForm: {},
+      viewForm: {},
       addForm: {
         time: 1
       },
       addFormRules: {
+        vacationType: [{
+          required: true,
+          message: '请选择分类',
+          trigger: 'blur'
+        }],
+        title: [{
+          required: true,
+          message: '请输入标题',
+          trigger: 'blur'
+        }],
+        reason: [{
+          required: true,
+          message: '请输入请假申请原因',
+          trigger: 'blur'
+        }],
+        time: [{
+          required: true,
+          message: '请输入请假天数',
+          trigger: 'blur'
+        }]
+      },
+      editFormRules: {
         vacationType: [{
           required: true,
           message: '请选择分类',
@@ -145,6 +175,41 @@ export default {
           self.handleSearch()
         })
       }).catch(() => {})
+    },
+    handleViewProcess(row) {
+      const self = this
+      self.dialogViewVisible = true
+      get(row.id).then(res => {
+        self.viewForm = res.data
+      })
+      findByVacationId(row.id).then(res => {
+        self.tableVacationApproveData = res.data
+      })
+    },
+    // 更新
+    handleUpdate: function(formName) {
+      const self = this
+      edit(self.editForm).then((res) => {
+        self.$message.success(res.msg)
+        self.handleSearch()
+        self.dialogEditVisible = false
+      })
+    },
+    // 显示编辑界面
+    handleEdit: function() {
+      const self = this
+      if (self.multipleSelection.length === 0) {
+        self.$message.warning('请选择修改项目')
+      } else if (self.multipleSelection.length > 1) {
+        self.$message.warning('只允许选择一项修改项目')
+      } else {
+        this.handleListSpringDictionaryDetailByDictionaryCode()
+        get(self.multipleSelection[0].id).then(res => {
+          self.editForm = res.data
+          self.editForm.startEndTime = ['' + res.data.startTime + '', '' + res.data.endTime + '']
+          self.dialogEditVisible = true
+        })
+      }
     },
     // 上传
     // 关装对话框
