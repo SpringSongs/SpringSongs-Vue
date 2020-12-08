@@ -27,30 +27,33 @@ export default {
       dialogEditVisible: false,
       dialogImportVisible: false,
       // 新增界面数据
-      addForm: {},
+      addForm: {
+        parentId: 0,
+        parentName: '中国'
+      },
       uploadForm: {},
       editForm: {},
       addFormRules: {
-        title: [{
+        name: [{
           required: true,
-          message: '请输入标题',
+          message: '请输入名称',
           trigger: 'blur'
         }],
-        content: [{
+        parentName: [{
           required: true,
-          message: '请输入内容',
+          message: '请输入父级',
           trigger: 'blur'
         }]
       },
       editFormRules: {
-        title: [{
+        name: [{
           required: true,
-          message: '请输入标题',
+          message: '请输入名称',
           trigger: 'blur'
         }],
-        content: [{
+        parentName: [{
           required: true,
-          message: '请输入内容',
+          message: '请输入父级',
           trigger: 'blur'
         }]
       }
@@ -90,7 +93,38 @@ export default {
     },
     // 显示新增界面
     handleAdd: function() {
-      this.dialogAddVisible = true
+      const self = this
+      let currentParentNameHasValue = false
+      let obj = {}
+      self.dialogAddVisible = true
+      if (self.searchForm.parentId !== 0) {
+        self.addForm.parentId = self.searchForm.parentId
+        obj = self.provinceData.find((item) => {
+          return item.id === self.addForm.parentId
+        })
+        if (obj !== undefined) {
+          self.addForm.parentName = obj.name
+          currentParentNameHasValue = true
+        }
+        if (!currentParentNameHasValue) {
+          obj = self.cityData.find((item) => {
+            return item.id === self.addForm.parentId
+          })
+          if (obj !== undefined) {
+            self.addForm.parentName = obj.name
+            currentParentNameHasValue = true
+          }
+        }
+        if (!currentParentNameHasValue) {
+          obj = self.areaData.find((item) => {
+            return item.id === self.addForm.parentId
+          })
+          if (obj !== undefined) {
+            self.addForm.parentName = obj.name
+            currentParentNameHasValue = true
+          }
+        }
+      }
     },
     // 保存
     handleSave: function(formName) {
@@ -113,8 +147,9 @@ export default {
       const self = this
       edit(self.editForm).then((res) => {
         self.$message.success(res.msg)
-        self.handleSearch()
+        // self.handleSearch()
         self.dialogEditVisible = false
+        console.log(self.editForm)
       })
     },
     // 显示编辑界面
@@ -128,6 +163,38 @@ export default {
         get(self.multipleSelection[0].id).then(res => {
           self.editForm = res.data
           this.dialogEditVisible = true
+          let currentParentNameHasValue = false
+          let obj = {}
+          if (self.editForm.parentId === 0) {
+            self.editForm.parentName = '中国'
+            currentParentNameHasValue = true
+          }
+          obj = self.provinceData.find((item) => {
+            return item.id === self.editForm.parentId
+          })
+
+          if (obj !== undefined) {
+            self.editForm.parentName = obj.name
+            currentParentNameHasValue = true
+          }
+          if (!currentParentNameHasValue) {
+            obj = self.cityData.find((item) => {
+              return item.id === self.editForm.parentId
+            })
+            if (obj !== undefined) {
+              self.editForm.parentName = obj.name
+              currentParentNameHasValue = true
+            }
+          }
+          if (!currentParentNameHasValue) {
+            obj = self.areaData.find((item) => {
+              return item.id === self.editForm.parentId
+            })
+            if (obj !== undefined) {
+              self.editForm.parentName = obj.name
+              currentParentNameHasValue = true
+            }
+          }
         })
       }
     },
@@ -137,6 +204,37 @@ export default {
       get(row.id).then(res => {
         self.editForm = res.data
         this.dialogEditVisible = true
+        let currentParentNameHasValue = false
+        let obj = {}
+        if (self.editForm.parentId === 0) {
+          self.editForm.parentName = '中国'
+          currentParentNameHasValue = true
+        }
+        obj = self.provinceData.find((item) => {
+          return item.id === self.editForm.parentId
+        })
+        if (obj !== undefined) {
+          self.editForm.parentName = obj.name
+          currentParentNameHasValue = true
+        }
+        if (!currentParentNameHasValue) {
+          obj = self.cityData.find((item) => {
+            return item.id === self.editForm.parentId
+          })
+          if (obj !== undefined) {
+            self.editForm.parentName = obj.name
+            currentParentNameHasValue = true
+          }
+        }
+        if (!currentParentNameHasValue) {
+          obj = self.areaData.find((item) => {
+            return item.id === self.editForm.parentId
+          })
+          if (obj !== undefined) {
+            self.editForm.parentName = obj.name
+            currentParentNameHasValue = true
+          }
+        }
       })
     },
 
@@ -211,6 +309,13 @@ export default {
     },
     handleRefresh() {
       this.searchForm.parentId = 0
+      this.addForm.parentName = '中国'
+      this.listSpringDistrictByParentId(0)
+      this.provinceValue = ''
+      this.cityValue = ''
+      this.areaValue = ''
+      this.cityData = []
+      this.areaData = []
       this.handleSearch()
     },
     // 上传

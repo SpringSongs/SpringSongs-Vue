@@ -37,8 +37,7 @@
             <el-tab-pane label="行政区域">
               <div class="block">
                 <el-button-group>
-                  <el-button type="primary" icon="el-icon-search" @click="handleRefresh()">刷新</el-button>
-                  <el-button type="success" icon="el-icon-search" @click="handleSearch()">查询</el-button>
+                  <el-button type="success" icon="el-icon-search" @click="handleRefresh()">刷新</el-button>
                   <el-button type="primary" icon="el-icon-circle-plus" @click="handleAdd()">新增</el-button>
                   <el-button type="warning" icon="el-icon-edit" @click="handleEdit()">修改</el-button>
                   <el-button type="danger" icon="el-icon-remove" @click="handleDel()">删除</el-button>
@@ -82,7 +81,10 @@
               <!--新增-->
               <el-dialog title="新增" :visible.sync="dialogAddVisible" width="50%" :before-close="handleClose">
                 <el-form ref="addForm" :model="addForm" label-width="80px" :rules="addFormRules">
-                  <el-form-item label="名称" prop="title">
+                  <el-form-item label="父级" prop="parentName">
+                    <el-input v-model="addForm.parentName" auto-complete="off" readonly />
+                  </el-form-item>
+                  <el-form-item label="名称" prop="name">
                     <el-input v-model="addForm.name" auto-complete="off" />
                   </el-form-item>
                 </el-form>
@@ -94,7 +96,10 @@
               <!--修改-->
               <el-dialog title="修改" :visible.sync="dialogEditVisible" width="50%" :before-close="handleClose">
                 <el-form ref="editForm" :model="editForm" label-width="80px" :rules="editFormRules">
-                  <el-form-item label="名称" prop="title">
+                  <el-form-item label="父级" prop="parentName">
+                    <el-input v-model="editForm.parentName" auto-complete="off" readonly />
+                  </el-form-item>
+                  <el-form-item label="名称" prop="name">
                     <el-input v-model="editForm.name" auto-complete="off" />
                   </el-form-item>
                 </el-form>
