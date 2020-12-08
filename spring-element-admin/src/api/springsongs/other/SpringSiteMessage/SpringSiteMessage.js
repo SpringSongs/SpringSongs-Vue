@@ -43,3 +43,10 @@ export function batchDelete(data) {
     data
   })
 }
+
+export function countNotReadMessageByUserId() {
+  return request({
+    url: '/SpringSiteMessage/CountNotReadMessageByUserId',
+    method: 'get'
+  })
+}
