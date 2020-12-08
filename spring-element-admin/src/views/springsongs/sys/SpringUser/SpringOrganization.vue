@@ -22,17 +22,17 @@
                 default-expand-all
                 :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
               >
-                <el-table-column prop="code" label="编码" width="180">
+                <el-table-column prop="code" label="编码">
                   <template slot-scope="scope">
                     <span>{{ scope.row.code }}</span>
                   </template>
                 </el-table-column>
-                <el-table-column prop="title" label="名称" width="180">
+                <el-table-column prop="title" label="名称">
                   <template slot-scope="scope">
                     <span>{{ scope.row.title }}</span>
                   </template>
                 </el-table-column>
-                <el-table-column label="操作">
+                <el-table-column label="操作" width="250">
                   <template slot-scope="scope">
                     <el-button icon="el-icon-edit" type="text" size="small" @click="handleChild(scope.$index, scope.row)">添加子节点</el-button>
                     <el-button icon="el-icon-edit" type="text" size="small" @click="handleSingleEdit(scope.$index, scope.row)">编辑</el-button>

@@ -40,12 +40,12 @@
                 >
                   <el-table-column type="selection" width="55" />
                   <el-table-column type="index" width="60" />
-                  <el-table-column prop="fromUserName" label="来自用户" width="300" />
-                  <el-table-column prop="title" label="标题" width="300" />
-                  <el-table-column label="状态" width="300">
+                  <el-table-column prop="fromUserName" label="来自用户" />
+                  <el-table-column prop="title" label="标题" />
+                  <el-table-column label="状态" width="200">
                     <template slot-scope="scope">
-                      <el-tag v-if="scope.row.status === 0" size="success">未读</el-tag>
-                      <el-tag v-else-if="scope.row.status === 1" size="small" type="danger">已读</el-tag>
+                      <el-tag v-if="scope.row.status === 0" size="danger">未读</el-tag>
+                      <el-tag v-else-if="scope.row.status === 1" size="small" type="success">已读</el-tag>
                     </template>
                   </el-table-column>
                 </el-table>

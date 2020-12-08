@@ -38,9 +38,9 @@
                   <el-table-column type="selection" width="55" />
                   <el-table-column type="index" width="60" />
                   <el-table-column prop="createdBy" label="用户" width="180" />
-                  <el-table-column prop="createdIp" label="IP" width="180" />
+                  <el-table-column prop="createdIp" label="IP" />
                   <el-table-column prop="description" label="说明" width="180" />
-                  <el-table-column prop="createdOn" label="日期" width="180" />
+                  <el-table-column prop="createdOn" label="日期" />
                 </el-table>
                 <el-row>
                   <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">

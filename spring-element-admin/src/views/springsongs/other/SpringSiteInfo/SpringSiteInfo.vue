@@ -40,7 +40,7 @@
                 >
                   <el-table-column type="selection" width="55" />
                   <el-table-column type="index" width="60" />
-                  <el-table-column prop="title" label="标题" width="300" />
+                  <el-table-column prop="title" label="标题" />
                   <el-table-column fixed="right" label="操作" width="180">
                     <template slot-scope="scope">
                       <el-button icon="el-icon-edit" type="text" size="small" @click="handleSingleEdit(scope.$index, scope.row)">编辑</el-button>

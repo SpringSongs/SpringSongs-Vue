@@ -65,7 +65,7 @@
                   <el-table-column prop="groupCode" label="组别编码" width="180" />
                   <el-table-column prop="groupTitle" label="组别名称" width="180" />
                   <el-table-column prop="taskTitle" label="任务名称" width="180" />
-                  <el-table-column prop="taskClassTitle" label="任务类" width="180" />
+                  <el-table-column prop="taskClassTitle" label="任务类" width="400" />
                   <el-table-column prop="cronExpression" label="时间表达式" width="180" />
                   <el-table-column prop="status" label="状态" width="180">
                     <template slot-scope="scope">

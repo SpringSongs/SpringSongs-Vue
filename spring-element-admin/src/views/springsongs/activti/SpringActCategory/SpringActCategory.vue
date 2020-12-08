@@ -47,9 +47,9 @@
                 >
                   <el-table-column type="selection" width="55" />
                   <el-table-column type="index" width="60" />
-                  <el-table-column prop="categoryCode" label="模型分类编码" width="180" />
-                  <el-table-column prop="categoryTitle" label="模型分类名称" width="180" />
-                  <el-table-column fixed="right" label="操作">
+                  <el-table-column prop="categoryCode" label="模型分类编码" />
+                  <el-table-column prop="categoryTitle" label="模型分类名称" />
+                  <el-table-column fixed="right" label="操作" width="180">
                     <template slot-scope="scope">
                       <el-button icon="el-icon-edit" type="text" size="small" @click="handleSingleEdit(scope.$index, scope.row)">编辑</el-button>
                       <el-button type="text" icon="el-icon-delete" class="red" @click="handleSingleDelete(scope.$index, scope.row)">删除</el-button>
