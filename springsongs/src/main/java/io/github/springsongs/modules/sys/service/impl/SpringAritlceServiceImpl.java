@@ -223,7 +223,7 @@ public class SpringAritlceServiceImpl implements ISpringAritlceService {
 				predicates.add(deletionStateCode);
 				Predicate[] pre = new Predicate[predicates.size()];
 				query.where(predicates.toArray(pre));
-				query.orderBy(cb.desc(root.get("createdOn").as(Date.class)));
+				query.orderBy(cb.asc(root.get("sortOrder").as(Integer.class)),cb.desc(root.get("createdOn").as(Date.class)));
 				return query.getRestriction();
 			}
 		};
@@ -282,7 +282,7 @@ public class SpringAritlceServiceImpl implements ISpringAritlceService {
 	public void delete(List<String> ids) {
 		if (CollectionUtils.isEmpty(ids)) {
 			throw new SpringSongsException(ResultCode.PARAMETER_NOT_NULL_ERROR);
-		} else if (ids.size() > 1000) {
+		} else if (ids.size() > Constant.MAX_ITEM_SIZE) {
 			throw new SpringSongsException(ResultCode.PARAMETER_MORE_1000);
 		}
 		try {

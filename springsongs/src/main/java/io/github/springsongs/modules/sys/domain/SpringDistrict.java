@@ -79,6 +79,17 @@ public class SpringDistrict extends SpringBase {
 		this.parentId = parentId;
 	}
 
+	 @Size(max=45, min=0)
+     @Description(title ="上级名称")
+     @Column(name="parent_name")
+     private String parentName;
+     public String getParentName(){
+         return  this.parentName;
+     }
+     public void setParentName(String parentName){
+         this.parentName=parentName;
+     }
+     
 	@Description(title = "sort_order")
 	@Column(name = "sort_order")
 	@ApiModelProperty("排序")
@@ -91,4 +102,15 @@ public class SpringDistrict extends SpringBase {
 	public void setSortOrder(short sortOrder) {
 		this.sortOrder = sortOrder;
 	}
+	
+	@Description(title ="0未删1已删")
+    @Column(name="deleted_status")
+	@ApiModelProperty("0未删1已删")
+    private boolean deletedStatus;
+    public boolean getDeletedStatus(){
+        return  this.deletedStatus;
+    }
+    public void setDeletedStatus(boolean deletedStatus){
+        this.deletedStatus=deletedStatus;
+    }
 }

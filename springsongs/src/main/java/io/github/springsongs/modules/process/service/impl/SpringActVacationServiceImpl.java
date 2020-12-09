@@ -44,6 +44,9 @@ import io.github.springsongs.modules.process.dto.SpringActVacationDTO;
 import io.github.springsongs.modules.process.repo.SpringActVacationRepo;
 import io.github.springsongs.modules.process.service.ISpringActVacationApproveService;
 import io.github.springsongs.modules.process.service.ISpringActVacationService;
+import io.github.springsongs.modules.sys.dto.SpringSiteMessageDTO;
+import io.github.springsongs.modules.sys.service.ISpringSiteMessageService;
+import io.github.springsongs.util.ActivitiConstants;
 
 @Service
 public class SpringActVacationServiceImpl implements ISpringActVacationService {
@@ -55,6 +58,9 @@ public class SpringActVacationServiceImpl implements ISpringActVacationService {
 
 	@Autowired
 	private ISpringActVacationService springActVacationService;
+	
+	@Autowired
+	private ISpringSiteMessageService springSiteMessageService;
 
 	@Autowired
 	private ISpringActVacationApproveService springActVacationApproveService;
@@ -113,6 +119,9 @@ public class SpringActVacationServiceImpl implements ISpringActVacationService {
 		SpringActVacation springActVacation = springActVacationRepo.getOne(record.getId());
 		if (null == springActVacation) {
 			throw new SpringSongsException(ResultCode.INFO_NOT_FOUND);
+		}
+		if (!StringUtils.isEmpty(springActVacation.getProcessInstanceId())) {
+			throw new SpringSongsException(ResultCode.TASK_HADED_SUBMIT);
 		}
 		SpringActVacation springActVacationDO = new SpringActVacation();
 		BeanUtils.copyProperties(record, springActVacationDO);
@@ -186,7 +195,7 @@ public class SpringActVacationServiceImpl implements ISpringActVacationService {
 	}
 
 	@Transactional
-	public String submitSpringActVacation(SpringActVacationDTO vacation) throws Exception {
+	public String submitSpringActVacation(SpringActVacationDTO vacation) {
 		if (!StringUtils.isEmpty(vacation.getProcessInstanceId())) {
 			throw new SpringSongsException(ResultCode.TASK_HADED_SUBMIT);
 		}
@@ -215,8 +224,30 @@ public class SpringActVacationServiceImpl implements ISpringActVacationService {
 		task.setCategory(processDefinition.getCategory());
 		SpringActUseTask springActUseTask = springActUseTaskRepo.findUserTaskByTaskDefKey(task.getTaskDefinitionKey());
 		taskService.saveTask(task);
-		if ("assignee".equals(springActUseTask.getTaskType())) {
+		if (ActivitiConstants.ASSIGNEE.equals(springActUseTask.getTaskType())) {
 			taskService.setAssignee(task.getId(), springActUseTask.getCandidateIds());
+			SpringSiteMessageDTO springSiteMessageDTO = new SpringSiteMessageDTO();
+			springSiteMessageDTO.setFromUserId(vacation.getUserId());
+			springSiteMessageDTO.setFromUserName(vacation.getTrueName());
+			springSiteMessageDTO.setToUserId(springActUseTask.getCandidateIds());
+			springSiteMessageDTO.setToUserName(springActUseTask.getCandidateName());
+			springSiteMessageDTO.setTitle("你有" + vacation.getTitle() + "需要处理");
+			springSiteMessageDTO.setContent(vacation.getReason());
+			springSiteMessageDTO.setCreatedBy(vacation.getCreatedBy());
+			springSiteMessageDTO.setCreatedIp(vacation.getCreatedIp());
+			springSiteMessageDTO.setCreatedOn(vacation.getCreatedOn());
+			springSiteMessageDTO.setCreatedUserId(vacation.getCreatedUserId());
+			springSiteMessageService.insert(springSiteMessageDTO);
+		} else if (ActivitiConstants.CANDIDATE_USER.equals(springActUseTask.getTaskType())) {
+			String[] candidateUsers = springActUseTask.getCandidateIds().split(",");
+			for (String candidateUser : candidateUsers) {
+				taskService.addCandidateUser(task.getId(), candidateUser);
+			}
+		} else if (ActivitiConstants.CANDIDATE_GROUP.equals(springActUseTask.getTaskType())) {
+			String[] candidateUsers = springActUseTask.getCandidateIds().split(",");
+			for (String candidateUser : candidateUsers) {
+				taskService.addCandidateGroup(task.getId(), candidateUser);
+			}
 		}
 		return processInstanceId;
 	}
