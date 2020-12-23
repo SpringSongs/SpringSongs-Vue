@@ -1,5 +1,5 @@
-*.js linguist-language=TypeScript
-*.vue linguist-language=Vue
+*.js linguist-language=java
+*.vue linguist-language=java
 *.css linguist-language=java
 *.html linguist-language=java
 *.java linguist-language=java

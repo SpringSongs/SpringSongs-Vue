@@ -1,5 +1,5 @@
 ## 平台简介
-* spring-element-admin为前端
+* springsongs-element为前端
 * springsongs为后端
 * 前端采用Vue、Element UI。
 * 后端采用Spring Boot、Spring Data JPA、Spring Security、Jwt、MySQL。
@@ -27,3 +27,7 @@
 16. 行政区域：全国行政区域管理。
 17. 站点信息：公司相关信息管理。
 18. 站内短信：站内收发短信。
+19. 名片管理。
+
+## QQ交流群
+677020010
