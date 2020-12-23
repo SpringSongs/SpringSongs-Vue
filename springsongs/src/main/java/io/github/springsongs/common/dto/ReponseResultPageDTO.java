@@ -25,14 +25,7 @@ public class ReponseResultPageDTO<T> {
 		this.code = code;
 	}
 
-	public T getData() {
-		return data;
-	}
-
-	public void setData(T data) {
-		this.data = data;
-	}
-
+	
 	
 	public String getMessage() {
 		return message;
@@ -42,6 +35,14 @@ public class ReponseResultPageDTO<T> {
 		this.message = message;
 	}
 
+	public T getData() {
+		return data;
+	}
+
+	public void setData(T data) {
+		this.data = data;
+	}
+
 	public long getCount() {
 		return count;
 	}
@@ -49,5 +50,7 @@ public class ReponseResultPageDTO<T> {
 	public void setCount(long count) {
 		this.count = count;
 	}
+
+	
 
 }

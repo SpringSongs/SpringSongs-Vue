@@ -3,3 +3,7 @@ springsongs/.DS_Store
 springsongs/src/main/.DS_Store
 springsongs/src/main/docker/.DS_Store
 .DS_Store
+springsongs/target/**
+**.prefs
+springsongs/.classpath
+springsongs/.project

@@ -12,7 +12,7 @@
 	<groupId>io.github</groupId>
 	<artifactId>springsongs</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springsongs</name>
+	<name>springsongsV2</name>
 	<description>authority project for Spring Boot</description>
 
 	<properties>
