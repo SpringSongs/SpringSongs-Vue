@@ -26,11 +26,11 @@ export default {
       total: 1,
       multipleSelection: [],
       searchForm: {
-        size: 20,
-        page: 0,
-        total: 0,
         searchDate: {}
       },
+      page:0,
+      size:20,
+      total:0,
       ListTreeProps: {
         label: 'name',
         children: [],
@@ -121,8 +121,8 @@ export default {
   },
   methods: {
     sizeChangeHandle(val) {
-      this.searchForm.size = val
-      this.searchForm.page = 0
+      this.size = val
+      this.page = 0
       this.handleSearch()
     },
 
@@ -136,7 +136,7 @@ export default {
       this.multipleSelection = val
     },
     handleCurrentChange: function(val) {
-      this.searchForm.page = val
+      this.page = val
       this.handleSearch()
     },
     handleArticleCategory: function() {
@@ -217,10 +217,10 @@ export default {
         this.searchForm.searchDate.createTimeStart = this.searchForm.created_on[0]
         this.searchForm.searchDate.createTimeEnd = this.searchForm.created_on[1]
       }
-      search(self.searchForm.page, self.searchForm.size, self.searchForm).then(
+      search(self.page, self.size, self.searchForm).then(
         function(response) {
           self.tableData = response.data
-          self.searchForm.total = response.count
+          self.total = response.count
           self.loading = false
         }
       )

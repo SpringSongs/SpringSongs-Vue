@@ -97,9 +97,9 @@
                     <div class="pagination">
                       <el-pagination
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="searchForm.total"
-                        :page-size="searchForm.size"
-                        :current-page="searchForm.page"
+                        :total="total"
+                        :page-size="size"
+                        :current-page="page"
                         @current-change="handleCurrentChange"
                         @size-change="sizeChangeHandle"
                       />

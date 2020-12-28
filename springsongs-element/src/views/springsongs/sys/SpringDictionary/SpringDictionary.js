@@ -11,10 +11,11 @@ export default {
       tableData: [],
       multipleSelection: [],
       searchForm: {
-        size: 20,
-        page: 0,
-        total: 0
+        
       },
+      size: 20,
+        page: 0,
+        total: 0,
       dialogAddVisible: false,
       dialogEditVisible: false,
       // 新增界面数据
@@ -77,15 +78,15 @@ export default {
   },
   methods: {
     sizeChangeHandle(val) {
-      this.searchForm.size = val
-      this.searchForm.page = 0
+      this.size = val
+      this.page = 0
       this.handleSearch()
     },
     handleSelectionChange: function(val) {
       this.multipleSelection = val
     },
     handleCurrentChange: function(val) {
-      this.searchForm.page = val
+      this.page = val
       this.handleSearch()
     },
     // 重置表单
@@ -144,10 +145,10 @@ export default {
     // 查询
     handleSearch: function() {
       const self = this
-      search(self.searchForm).then(
+      search(self.searchForm,self.page,self.size).then(
         function(response) {
           self.tableData = response.data
-          self.searchForm.total = response.count
+          self.total = response.count
           self.loading = false
         }
       )

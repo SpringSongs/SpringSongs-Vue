@@ -21,10 +21,10 @@ export default {
       total: 1,
       multipleSelection: [],
       searchForm: {
-        page: 0,
-        size: 20,
-        parentId: '0'
+        parentId: '0',
       },
+      page: 0,
+      size: 20,
       node: Object,
       resolve: Object,
       systemList: [],
@@ -112,13 +112,13 @@ export default {
       // clipboard(text, event)
     },
     sizeChangeHandle(val) {
-      this.searchForm.size = val
-      this.searchForm.page = 0
+      this.size = val
+      this.page = 0
       this.handleSearch()
     },
     systemListChange: function(selectVal) {
       // this.node_had.childNodes = []
-      this.systemId = selectVal
+      //this.systemId = selectVal
       this.addForm.systemId = selectVal
       // this.handleLoadTrea(this.node_had, this.resolve_had)
       // this.handleSearch()
@@ -173,11 +173,6 @@ export default {
     // 查询
     handleSearch: function() {
       const self = this
-      if (self.systemId === '') {
-        self.searchForm.systemId = 'Base'
-      } else {
-        self.searchForm.systemId = self.systemId
-      }
       ListAllToTree(self.searchForm.systemId).then(
         function(response) {
           self.tableData = response.data

@@ -12,8 +12,11 @@ export default {
       total: 1,
       multipleSelection: [],
       searchForm: {
-        size: 20
+        
       },
+      size: 20,
+        page:0,
+        total:0,
       dialogAddVisible: false,
       dialogEditVisible: false,
       param: '',
@@ -93,15 +96,15 @@ export default {
   },
   methods: {
     sizeChangeHandle(val) {
-      this.searchForm.size = val
-      this.searchForm.page = 0
+      this.size = val
+      this.page = 0
       this.handleSearch()
     },
     handleSelectionChange: function(val) {
       this.multipleSelection = val
     },
     handleCurrentChange: function(val) {
-      this.searchForm.page = val
+      this.page = val
       this.handleSearch()
     },
     // 重置表单
@@ -146,10 +149,10 @@ export default {
     handleSearch: function() {
       const self = this
       self.searchForm.dictionaryCode = this.param
-      search(self.searchForm).then(
+      search(self.searchForm,self.page,self.size).then(
         function(response) {
           self.tableData = response.data
-          self.searchForm.total = response.count
+          self.total = response.count
           self.loading = false
         }
       )

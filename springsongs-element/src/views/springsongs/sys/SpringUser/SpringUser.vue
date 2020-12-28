@@ -343,9 +343,9 @@
                     <div class="pagination">
                       <el-pagination
                         layout="prev, pager, next"
-                        :total="totalRole"
-                        :page-size="20"
-                        :current-page="searchFormRole.page"
+                        :total="searchRoleTotal"
+                        :page-size="searchRoleSize"
+                        :current-page="searchRolePage"
                         @current-change="handleCurrentChangeRole"
                       />
                     </div>
@@ -381,9 +381,9 @@
                     <div class="pagination">
                       <el-pagination
                         layout="prev, pager, next"
-                        :total="totalRoleUser"
-                        :page-size="20"
-                        :current-page="searchFormRoleUser.page"
+                        :total="searchRoleUserTotal"
+                        :page-size="searchRoleUserSize"
+                        :current-page="searchRoleUserPage"
                         @current-change="handleCurrentChangeRoleUser"
                       />
                     </div>

@@ -12,10 +12,11 @@ export default {
       fileList: [],
       multipleSelection: [],
       searchForm: {
-        size: 20,
-        page: 0,
-        total: 0
+        
       },
+      size: 20,
+        page: 0,
+        total: 0,
       dialogAddVisible: false,
       dialogEditVisible: false,
       dialogImportVisible: false,
@@ -63,15 +64,15 @@ export default {
   },
   methods: {
     sizeChangeHandle(val) {
-      this.searchForm.size = val
-      this.searchForm.page = 0
+      this.size = val
+      this.page = 0
       this.handleSearch()
     },
     handleSelectionChange(val) {
       this.multipleSelection = val
     },
     handleCurrentChange(val) {
-      this.searchForm.currPage = val
+      this.page = val
       this.handleSearch()
     },
     // 重置表单
@@ -79,22 +80,22 @@ export default {
       this.$refs[formName].resetFields()
     },
     // 查询
-    handleSearch: function() {
+    handleSearch: function () {
       const self = this
-      search(self.searchForm.page, self.searchForm.size, self.searchForm).then(
-        function(response) {
+      search(self.page, self.size, self.searchForm).then(
+        function (response) {
           self.tableData = response.data
-          self.searchForm.total = response.count
+          self.total = response.count
           self.loading = false
         }
       )
     },
     // 显示新增界面
-    handleAdd: function() {
+    handleAdd: function () {
       this.dialogAddVisible = true
     },
     // 保存
-    handleSave: function(formName) {
+    handleSave: function (formName) {
       const self = this
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -109,7 +110,7 @@ export default {
       })
     },
     // 更新
-    handleUpdate: function(formName) {
+    handleUpdate: function (formName) {
       const self = this
       edit(self.editForm).then((res) => {
         self.$message.success(res.msg)
@@ -118,7 +119,7 @@ export default {
       })
     },
     // 显示编辑界面
-    handleEdit: function() {
+    handleEdit: function () {
       const self = this
       if (self.multipleSelection.length === 0) {
         self.$message.warning('请选择修改项目')
@@ -132,7 +133,7 @@ export default {
       }
     },
     // 显示编辑界面
-    handleSingleEdit: function(index, row) {
+    handleSingleEdit: function (index, row) {
       const self = this
       get(row.id).then(res => {
         self.editForm = res.data
@@ -141,12 +142,12 @@ export default {
     },
 
     // 显示导入界面
-    handleImport: function() {
+    handleImport: function () {
       this.dialogImportVisible = true
     },
 
     // 删除
-    handleDel: function() {
+    handleDel: function () {
       const self = this
       const ids = []
       if (self.multipleSelection.length === 0) {
@@ -163,7 +164,7 @@ export default {
           self.$message.success(res.msg)
           self.handleSearch()
         })
-      }).catch(() => {})
+      }).catch(() => { })
     },
     handleSingleDelete(index, row) {
       const self = this
@@ -176,7 +177,7 @@ export default {
           self.$message.success(res.msg)
           self.handleSearch()
         })
-      }).catch(() => {})
+      }).catch(() => { })
     },
 
     // 上传
@@ -186,7 +187,7 @@ export default {
         .then(_ => {
           done()
         })
-        .catch(_ => {})
+        .catch(_ => { })
     }
   }
 }

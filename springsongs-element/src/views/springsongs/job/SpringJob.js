@@ -15,10 +15,11 @@ export default {
       fileList: [],
       multipleSelection: [],
       searchForm: {
-        size: 20,
-        page: 0,
-        total: 0
+
       },
+      size: 20,
+      page: 0,
+      total: 0,
       springJobGroups: [],
       dialogAddVisible: false,
       dialogEditVisible: false,
@@ -101,15 +102,15 @@ export default {
   },
   methods: {
     sizeChangeHandle(val) {
-      this.searchForm.size = val
-      this.searchForm.page = 0
+      this.size = val
+      this.page = 0
       this.handleSearch()
     },
     handleSelectionChange(val) {
       this.multipleSelection = val
     },
     handleCurrentChange(val) {
-      this.searchForm.currPage = val
+      this.page = val
       this.handleSearch()
     },
     // 重置表单
@@ -117,23 +118,23 @@ export default {
       this.$refs[formName].resetFields()
     },
     // 查询
-    handleSearch: function() {
+    handleSearch: function () {
       const self = this
-      search(self.searchForm.page, self.searchForm.size, self.searchForm).then(
-        function(response) {
+      search(self.page, self.size, self.searchForm).then(
+        function (response) {
           self.tableData = response.data
-          self.searchForm.total = response.count
+          self.total = response.count
           self.loading = false
         }
       )
     },
     // 显示新增界面
-    handleAdd: function() {
+    handleAdd: function () {
       this.listSpringGroup()
       this.dialogAddVisible = true
     },
     // 保存
-    handleSave: function(formName) {
+    handleSave: function (formName) {
       const self = this
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -148,7 +149,7 @@ export default {
       })
     },
     // 更新
-    handleUpdate: function(formName) {
+    handleUpdate: function (formName) {
       const self = this
       edit(self.editForm).then((res) => {
         self.$message.success(res.msg)
@@ -157,7 +158,7 @@ export default {
       })
     },
     // 显示编辑界面
-    handleEdit: function() {
+    handleEdit: function () {
       const self = this
       if (self.multipleSelection.length === 0) {
         self.$message.warning('请选择修改项目')
@@ -171,7 +172,7 @@ export default {
       }
     },
     // 显示编辑界面
-    handleSingleEdit: function(index, row) {
+    handleSingleEdit: function (index, row) {
       const self = this
       this.listSpringGroup()
       self.editForm = row
@@ -179,12 +180,12 @@ export default {
     },
 
     // 显示导入界面
-    handleImport: function() {
+    handleImport: function () {
       this.dialogImportVisible = true
     },
 
     // 删除
-    handleDel: function() {
+    handleDel: function () {
       const self = this
       const ids = []
       if (self.multipleSelection.length === 0) {
@@ -201,7 +202,7 @@ export default {
           self.$message.success(res.msg)
           self.handleSearch()
         })
-      }).catch(() => {})
+      }).catch(() => { })
     },
     handleSingleDelete(index, row) {
       const self = this
@@ -212,11 +213,11 @@ export default {
           taskClassName: row.taskClassTitle,
           groupCode: row.groupCode
         }
-        deleteTask(para).then(function(response) {
+        deleteTask(para).then(function (response) {
           self.$message.success(response.msg)
           self.handleSearch()
         })
-      }).catch(() => {})
+      }).catch(() => { })
     },
     handlePauseEdit(index, row) {
       const self = this
@@ -227,11 +228,11 @@ export default {
           taskClassName: row.taskClassTitle,
           groupCode: row.groupCode
         }
-        pause(para).then(function(response) {
+        pause(para).then(function (response) {
           self.$message.success(response.msg)
           self.handleSearch()
         })
-      }).catch(() => {})
+      }).catch(() => { })
     },
     handleResumeEdit(index, row) {
       const self = this
@@ -242,23 +243,23 @@ export default {
           taskClassName: row.taskClassTitle,
           groupCode: row.groupCode
         }
-        resume(para).then(function(response) {
+        resume(para).then(function (response) {
           self.$message.success(response.msg)
           self.handleSearch()
         })
-      }).catch(() => {})
+      }).catch(() => { })
     },
     listSpringGroup() {
       const self = this
       listAllSpringJobGroupCategory()
-        .then(function(response) {
+        .then(function (response) {
           self.springJobGroups = response.data
           // console.log(self.springJobGroups);
           // self.$message.success(response.data.msg);
           // self.handleSearch();
         })
     },
-    springJobGroupListAddChange: function(selectVal) {
+    springJobGroupListAddChange: function (selectVal) {
       let obj = {}
       console.log(selectVal)
       obj = this.springJobGroups.find((item) => {
@@ -271,7 +272,7 @@ export default {
       this.addForm.groupTitle = obj.title
       this.addForm.groupCode = obj.code
     },
-    springJobGroupListEditChange: function(selectVal) {
+    springJobGroupListEditChange: function (selectVal) {
       let obj = {}
       obj = this.springJobGroups.find((item) => {
         return item.code === selectVal
@@ -290,7 +291,7 @@ export default {
         .then(_ => {
           done()
         })
-        .catch(_ => {})
+        .catch(_ => { })
     }
   }
 }

@@ -52,20 +52,21 @@ export default {
         children: 'children'
       },
       searchForm: {
-        size: 20,
-        page: 0,
-        total: 0
+
       },
+      searchSize: 20,
+      searchPage: 0,
+      searchTotal: 0,
       searchFormRole: {
-        limits: 20,
-        page: 0,
-        total: 0
       },
+      searchRoleSize: 20,
+      searchRolePage: 0,
+      searchRoleTotal: 0,
       searchFormRoleUser: {
-        limits: 20,
-        page: 0,
-        total: 0
       },
+      searchRoleUserSize: 20,
+      searchRoleUserPage: 0,
+      searchRoleUserTotal: 0,
       dialogAddVisible: false,
       dialogEditVisible: false,
       dialogImportVisible: false,
@@ -155,8 +156,12 @@ export default {
   },
   methods: {
     sizeChangeHandle(val) {
-      this.searchForm.size = val
-      this.searchForm.page = 0
+      this.searchSize = val
+      this.searchPage = 0
+      this.handleSearch()
+    },
+    handleCurrentChange(val) {
+      this.searchPage = val
       this.handleSearch()
     },
     handleSelectionChange(val) {
@@ -169,26 +174,22 @@ export default {
       this.multipleSelectionRoleUser = val
     },
     handleCurrentChangeRoleUser(val) {
-      this.searchFormRoleUser.page = val
-      this.handleRoleSearch()
+      this.searchRoleUserPage = val
+      this.handleUserRoleSearch()
     },
     handleCurrentChangeRole(val) {
-      this.searchFormRole.page = val
+      this.searchRolePage = val
       this.handleRoleSearch()
-    },
-    handleCurrentChange(val) {
-      this.searchForm.page = val
-      this.handleSearch()
     },
     // 重置表单
     resetForm(formName) {
       this.$refs[formName].resetFields()
     },
-    handleRefresh: function() {
+    handleRefresh: function () {
       this.searchForm.organizationId = ''
       this.handleSearch()
     },
-    treeDataTranslate: function(data, id = 'id', pid = 'parentId') {
+    treeDataTranslate: function (data, id = 'id', pid = 'parentId') {
       var res = []
       var temp = {}
       for (var i = 0; i < data.length; i++) {
@@ -210,29 +211,29 @@ export default {
       }
       return res
     },
-    handleListOrganizeTree: function() {
+    handleListOrganizeTree: function () {
       const self = this
       listOrganizeTree().then((res) => {
         self.menuList = self.treeDataTranslate(res.data)
       })
     },
-    handleSetRoles: function(index, row) {
+    handleSetRoles: function (index, row) {
       this.userId = row.id
       this.handleRoleSearch()
       this.dialogRoleVisible = true
     },
-    handleViewRoles: function(index, row) {
+    handleViewRoles: function (index, row) {
       this.userId = row.id
       this.dialogRoleUserVisible = true
       this.handleUserRoleSearch()
     },
     // 显示新增界面
-    handleAdd: function() {
+    handleAdd: function () {
       this.handleListOrganizeTree()
       this.dialogAddVisible = true
     },
     // 显示编辑界面
-    handleEdit: function() {
+    handleEdit: function () {
       const self = this
       if (self.multipleSelection.length === 0) {
         self.$message.warning('请选择修改项目')
@@ -258,7 +259,7 @@ export default {
       }
     },
     // 显示编辑界面
-    handleSingleEdit: function(index, row) {
+    handleSingleEdit: function (index, row) {
       const self = this
       if (row.enableEdit === false) {
         self.$message.warning('项目不允许编辑')
@@ -276,35 +277,35 @@ export default {
         .then(_ => {
           done()
         })
-        .catch(_ => {})
+        .catch(_ => { })
     },
-    handleRoleSearch: function() {
+    handleRoleSearch: function () {
       const self = this
-      listRole(self.searchFormRole.page, self.searchFormRole.limits, self.searchFormRole).then(res => {
+      listRole(self.searchRolePage, self.searchRoleSize, self.searchFormRole).then(res => {
         self.tableRoleData = res.data
-        self.totalRole = res.count
+        self.searchRoleTotal = res.count
       })
     },
-    handleUserRoleSearch: function() {
+    handleUserRoleSearch: function () {
       const self = this
-      ListRoleByUserId(self.userId, self.searchFormRole.page, self.searchFormRole.limits, self.searchFormRole).then(
+      ListRoleByUserId(self.userId, self.searchRoleUserPage, self.searchRoleUserSize, self.searchFormRole).then(
         res => {
           self.tableRoleUserData = res.data
-          self.totalRoleUser = res.count
+          self.searchRoleUserTotal = res.count
         })
     },
     // 查询
-    handleSearch: function() {
+    handleSearch: function () {
       const self = this
-      search(self.searchForm.page, self.searchForm.size, self.searchForm).then(
-        function(response) {
+      search(self.searchPage, self.searchSize, self.searchForm).then(
+        function (response) {
           self.tableData = response.data
-          self.searchForm.total = response.count
+          self.searchTotal = response.count
           self.loading = false
         }
       )
     },
-    handleSetRoleSave: function() {
+    handleSetRoleSave: function () {
       const self = this
       const ids = []
       if (self.multipleSelectionRole.length === 0) {
@@ -320,7 +321,7 @@ export default {
       }
     },
     // 保存
-    handleSave: function(formName) {
+    handleSave: function (formName) {
       const self = this
       self.$refs[formName]
         .validate(valid => {
@@ -335,7 +336,7 @@ export default {
           }
         })
     },
-    handleUpdatePwd: function(formName) {
+    handleUpdatePwd: function (formName) {
       const self = this
       self.$refs[formName].validate(valid => {
         if (valid) {
@@ -351,7 +352,7 @@ export default {
       })
     },
     // 更新
-    handleUpdate: function(formName) {
+    handleUpdate: function (formName) {
       const self = this
       edit(this.editForm).then((res) => {
         self.$message.success(res.msg)
@@ -360,7 +361,7 @@ export default {
       })
     },
     // 删除
-    handleDel: function() {
+    handleDel: function () {
       const self = this
       const ids = []
       if (self.multipleSelection.length === 0) {
@@ -380,7 +381,7 @@ export default {
             self.handleSearch()
           })
         })
-        .catch(() => {})
+        .catch(() => { })
     },
     handleSingleDelete(index, row) {
       const self = this
@@ -400,7 +401,7 @@ export default {
             self.handleSearch()
           })
         })
-        .catch(() => {})
+        .catch(() => { })
     },
     menuListTreeCurrentChangeHandle(data, node) {
       this.addForm.organizationId = data.id

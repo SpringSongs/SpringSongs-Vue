@@ -23,11 +23,12 @@ export default {
         }]
       },
       searchForm: {
-        page: 0,
+        
+        category: ''
+      },
+      page: 0,
         total: 0,
         size: 20,
-        category: ''
-      }
     }
   },
   created() {
@@ -35,12 +36,12 @@ export default {
   },
   methods: {
     sizeChangeHandle(val) {
-      this.searchForm.size = val
-      this.searchForm.page = 0
+      this.size = val
+      this.page = 0
       this.handleSearch()
     },
     handleCurrentChange(val) {
-      this.searchForm.currPage = val
+      this.page = val
       this.handleSearch()
     },
     handleSelectionChange(val) {
@@ -48,10 +49,10 @@ export default {
     },
     handleSearch: function() {
       const self = this
-      search(self.searchForm.page, self.searchForm.size, self.searchForm.category).then(
+      search(self.page, self.size, self.searchForm.category).then(
         function(response) {
           self.tableData = response.data
-          self.searchForm.total = response.count
+          self.total = response.count
           self.loading = false
         }
       )

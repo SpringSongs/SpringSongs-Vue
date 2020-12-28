@@ -26,20 +26,22 @@ export default {
       multipleSelectionUser: [],
       multipleSelectionUserRole: [],
       searchForm: {
-        total: 0,
-        size: 20,
-        page: 0
+        
       },
+      searchtotal: 0,
+      searchsize: 20,
+      searchpage: 0,
       searchUserForm: {
-        total: 0,
-        size: 20,
-        page: 0
+        
       },
+      searchUserTotal: 0,
+      searchUserSize: 20,
+      searchUserPage: 0,
       searchUserRoleForm: {
-        total: 0,
-        size: 20,
-        page: 0
       },
+      searchUserRoleCount:0,
+      searchUserRoleSize:20,
+      searchUserRolePage:0,
       menuListTreeProps: {
         label: 'title',
         children: 'children'
@@ -100,8 +102,8 @@ export default {
   },
   methods: {
     sizeChangeHandle(val) {
-      this.searchForm.size = val
-      this.searchForm.page = 0
+      this.searchsize = val
+      this.searchpage = 0
       this.handleSearch()
     },
     handleSelectionChange: function(val) {
@@ -118,11 +120,25 @@ export default {
       this.handleUserRoleSearch()
     },
     handleCurrentChangeUser: function(val) {
-      self.searchUserForm.page = val
+      self.searchUserPage = val
+      this.handleUserSearch()
+    },
+    sizeChangeHandleUser:function(val) {
+      this.searchUserSize = val
+      this.searchUserPage = 0
+      this.handleUserSearch()
+    },
+    sizeChangeHandleRoleUser:function(val) {
+      this.searchUserRoleSize = val
+      this.searchUserRolePage = 0
+      this.handleUserSearch()
+    },
+    handleCurrentChangeRoleUser:function(val) {
+      self.searchUserRolePage = val
       this.handleUserSearch()
     },
     handleCurrentChange: function(val) {
-      this.searchForm.page = val
+      this.searchpage = val
       this.handleSearch()
     },
     handleSetAuthority: function(index, row) {
@@ -198,20 +214,20 @@ export default {
     },
     handleUserSearch: function() {
       const self = this
-      listUserPage(self.searchUserForm.page, self.searchUserForm.size, self.searchUserForm).then(
+      listUserPage(self.searchUserPage, self.searchUserSize, self.searchUserForm).then(
         function(response) {
           self.tableUserData = response.data
-          self.searchUserForm.total = response.count
+          self.searchUserTotal = response.count
           self.loading = false
         }
       )
     },
     handleUserRoleSearch: function() {
       const self = this
-      ListUsersByRoleId(this.roleId, self.searchUserForm.page, self.searchUserForm.size, self.searchUserForm).then(
+      ListUsersByRoleId(this.roleId, self.searchUserRolePage, self.searchUserRoleSize, self.searchUserForm).then(
         function(response) {
           self.tableRoleUserData = response.data
-          self.searchUserRoleForm.total = response.count
+          self.searchUserRoleTotal = response.count
           self.loading = false
         }
       )
@@ -224,10 +240,10 @@ export default {
     // 查询
     handleSearch: function() {
       const self = this
-      search(self.searchForm.page, self.searchForm.size, self.searchForm).then(
+      search(self.searchpage, self.searchsize, self.searchForm).then(
         function(response) {
           self.tableData = response.data
-          self.searchForm.total = response.count
+          self.searchtotal = response.count
           self.loading = false
         }
       )

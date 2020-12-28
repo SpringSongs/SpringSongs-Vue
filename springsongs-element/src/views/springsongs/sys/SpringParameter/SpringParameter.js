@@ -12,10 +12,11 @@ export default {
       total: 1,
       multipleSelection: [],
       searchForm: {
-        size: 20,
-        page: 0,
-        total: 0
+
       },
+      size: 20,
+      page: 0,
+      total: 0,
       dialogAddVisible: false,
       dialogEditVisible: false,
       // 新增界面数据
@@ -74,27 +75,27 @@ export default {
   },
   methods: {
     sizeChangeHandle(val) {
-      this.searchForm.size = val
-      this.searchForm.page = 0
+      this.size = val
+      this.page = 0
       this.handleSearch()
     },
-    handleSelectionChange: function(val) {
+    handleSelectionChange: function (val) {
       this.multipleSelection = val
     },
-    handleCurrentChange: function(val) {
-      this.searchForm.page = val
+    handleCurrentChange: function (val) {
+      this.page = val
       this.handleSearch()
     },
     // 重置表单
-    resetForm: function(formName) {
+    resetForm: function (formName) {
       this.$refs[formName].resetFields()
     },
     // 显示新增界面
-    handleAdd: function() {
+    handleAdd: function () {
       this.dialogAddVisible = true
     },
     // 显示编辑界面
-    handleEdit: function() {
+    handleEdit: function () {
       const self = this
       if (self.multipleSelection.length === 0) {
         self.$message.warning('请选择修改项目')
@@ -108,7 +109,7 @@ export default {
       }
     },
     // 显示编辑界面
-    handleSingleEdit: function(index, row) {
+    handleSingleEdit: function (index, row) {
       const self = this
       if (row.enableEdit === false) {
         self.$message.warning('项目不允许编辑')
@@ -120,18 +121,18 @@ export default {
       }
     },
     // 查询
-    handleSearch: function() {
+    handleSearch: function () {
       const self = this
-      search(self.searchForm.page, self.searchForm.size, self.searchForm).then(
-        function(response) {
+      search(self.page, self.size, self.searchForm).then(
+        function (response) {
           self.tableData = response.data
-          self.searchForm.total = response.count
+          self.total = response.count
           self.loading = false
         }
       )
     },
     // 保存
-    handleSave: function(formName) {
+    handleSave: function (formName) {
       const self = this
       self.$refs[formName]
         .validate(valid => {
@@ -148,7 +149,7 @@ export default {
         })
     },
     // 更新
-    handleUpdate: function(formName) {
+    handleUpdate: function (formName) {
       const self = this
       edit(self.editForm).then((res) => {
         self.$message.success(res.msg)
@@ -157,7 +158,7 @@ export default {
       })
     },
     // 删除
-    handleDel: function() {
+    handleDel: function () {
       const self = this
       const ids = []
       if (self.multipleSelection.length === 0) {
@@ -177,7 +178,7 @@ export default {
             self.handleSearch()
           })
         })
-        .catch(() => {})
+        .catch(() => { })
     },
     handleSingleDelete(index, row) {
       const self = this
@@ -197,7 +198,7 @@ export default {
             self.handleSearch()
           })
         })
-        .catch(() => {})
+        .catch(() => { })
     },
     // 关装对话框
     handleClose(done) {
@@ -205,7 +206,7 @@ export default {
         .then(_ => {
           done()
         })
-        .catch(_ => {})
+        .catch(_ => { })
     }
   }
 }

@@ -14,10 +14,11 @@ export default {
       fileList: [],
       multipleSelection: [],
       searchForm: {
-        size: 20,
-        page: 0,
-        total: 1
+        
       },
+      size: 20,
+        page: 0,
+        total: 0,
       springActCategorys: [],
       dialogAddVisible: false,
       dialogEditVisible: false,
@@ -80,15 +81,15 @@ export default {
   },
   methods: {
     sizeChangeHandle(val) {
-      this.searchForm.size = val
-      this.searchForm.page = 0
+      this.size = val
+      this.page = 0
       this.handleSearch()
     },
     handleSelectionChange(val) {
       this.multipleSelection = val
     },
     handleCurrentChange(val) {
-      this.searchForm.currPage = val
+      this.page = val
       this.handleSearch()
     },
     // 重置表单
@@ -98,13 +99,13 @@ export default {
     // 查询
     handleSearch: function() {
       const self = this
-      search(self.searchForm.page, self.searchForm.size, self.searchForm).then(
+      search(self.page, self.size, self.searchForm).then(
         function(response) {
           self.tableData = response.data
           self.tableData.forEach(item => {
             item.metaInfo = JSON.parse(item.metaInfo)
           })
-          self.searchForm.total = response.count
+          self.total = response.count
           self.loading = false
         }
       )
