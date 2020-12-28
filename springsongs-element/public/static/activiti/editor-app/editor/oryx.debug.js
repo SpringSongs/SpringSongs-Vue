@@ -8186,7 +8186,7 @@ ORYX.Core.StencilSet.StencilSet = Clazz.extend({
 		if(ORYX.CONFIG.BACKEND_SWITCH) {
 			this._baseUrl = "editor/stencilsets/bpmn2.0/";
 			this._source = "stencilsets/bpmn2.0/bpmn2.0.json";
-			//debugger;
+			debugger;
 			new Ajax.Request(ACTIVITI.CONFIG.contextRoot + '/editor/stencilset?version=' + Date.now(), {
 	            asynchronous: false,
 	            method: 'get',

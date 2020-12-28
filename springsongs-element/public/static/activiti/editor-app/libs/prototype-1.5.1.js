@@ -1101,6 +1101,7 @@ Ajax.Request.prototype = Object.extend(new Ajax.Base(), {
     var headers = {
       'X-Requested-With': 'XMLHttpRequest',
       'X-Prototype-Version': Prototype.Version,
+      'X-Token':'',
       'Accept': 'text/javascript, text/html, application/xml, text/xml, */*'
     };
 
