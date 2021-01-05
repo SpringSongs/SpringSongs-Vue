@@ -144,12 +144,11 @@ public class SpringArticleCommentServiceImpl implements ISpringArticleCommentSer
 	@Override
 	public Page<SpringArticleCommentDTO> getAllRecordByPage(SpringArticleCommentQuery springArticleCommentQuery,
 			Pageable pageable) {
-		if (pageable.getPageSize()>Constant.MAX_PAGE_SIZE) {
-			throw new SpringSongsException(ResultCode.PARAMETER_NOT_NULL_ERROR);
+		if (pageable.getPageSize()<=0||pageable.getPageSize() > Constant.MAX_PAGE_SIZE) {
+			throw new SpringSongsException(ResultCode.PARAMETER_MORE_1000);
 		}
-		int page=pageable.getPageNumber()<=0?1:pageable.getPageNumber()-1;
+		int page=pageable.getPageNumber()<=0?0:pageable.getPageNumber()-1;
 		pageable = PageRequest.of(page, pageable.getPageSize());
-
 		Specification<SpringArticleComment> specification = new Specification<SpringArticleComment>() {
 
 			@Override

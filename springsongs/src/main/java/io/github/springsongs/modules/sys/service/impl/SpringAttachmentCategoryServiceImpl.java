@@ -134,10 +134,10 @@ public class SpringAttachmentCategoryServiceImpl implements ISpringAttachmentCat
 	 */
 	@Override
 	public Page<SpringAttachmentCategoryDTO> getAllRecordByPage(SpringAttachmentCategory record, Pageable pageable) {
-		if (pageable.getPageSize()>Constant.MAX_PAGE_SIZE) {
-			throw new SpringSongsException(ResultCode.PARAMETER_NOT_NULL_ERROR);
+		if (pageable.getPageSize()<=0||pageable.getPageSize() > Constant.MAX_PAGE_SIZE) {
+			throw new SpringSongsException(ResultCode.PARAMETER_MORE_1000);
 		}
-		int page=pageable.getPageNumber()<=0?1:pageable.getPageNumber()-1;
+		int page=pageable.getPageNumber()<=0?0:pageable.getPageNumber()-1;
 		pageable = PageRequest.of(page, pageable.getPageSize());
 
 		Specification<SpringAttachmentCategory> specification = new Specification<SpringAttachmentCategory>() {
