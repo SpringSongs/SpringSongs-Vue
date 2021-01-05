@@ -46,8 +46,23 @@ export function batchDelete(data) {
 
 export function listOrganizeTree() {
   return request({
-    url: '/SpringOrganization/ListAllToTree',
+    url: '/SpringOrganization/listAllRecord',
     method: 'get'
+  })
+}
+
+export function getUserInfo() {
+  return request({
+    url: '/SpringUser/GetUserInfo',
+    method: 'get',
+  })
+}
+
+export function updateUserInfo(data) {
+  return request({
+    url: '/SpringUser/UpdateUserInfo',
+    method: 'put',
+    data
   })
 }
 

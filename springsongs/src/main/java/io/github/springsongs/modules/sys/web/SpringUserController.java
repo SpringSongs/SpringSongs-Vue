@@ -73,14 +73,25 @@ public class SpringUserController extends BaseController {
 		return ResponseDTO.successed(null, ResultCode.SESSION_HAS_GONE);
 	}
 
-	@ApiOperation(value = "查询用户信息与菜单", notes = "查询用户信息与菜单", response = ResponseDTO.class)
+	@ApiOperation(value = "查询用户信息", notes = "查询用户信息与菜单", response = ResponseDTO.class)
 	@GetMapping(value = "/GetUserInfo")
-	public ResponseDTO<UserInfoDTO> getUserInfo() {
-		UserInfoDTO userInfoDTO = new UserInfoDTO();
-		userInfoDTO.setRoles(this.getAuth());
-		List<MenuDTO> menuList = springResourceService.ListModuleByUserId(this.getUser().getId());
-		userInfoDTO.setMenuDTOs(menuList);
-		return ResponseDTO.successed(userInfoDTO, ResultCode.SELECT_SUCCESSED);
+	public ResponseDTO<SpringUser> getUserInfo() {
+		SpringUser springUser = springUserService.selectByPrimaryKey(this.getUser().getId());
+		return ResponseDTO.successed(springUser, ResultCode.SELECT_SUCCESSED);
+	}
+	
+	@ApiOperation(value = "修改用户信息", notes = "根据SpringUserDTO修改用户", response = ResponseDTO.class)
+	@ApiImplicitParams({ @ApiImplicitParam(name = "viewEntity", dataType = "SpringUserDTO"),
+			@ApiImplicitParam(name = "request", dataType = "HttpServletRequest"), })
+	@PutMapping(value = "/UpdateUserInfo")
+	public ResponseDTO<String> updateUserInfo(@RequestBody @Valid SpringUserDTO viewEntity, HttpServletRequest request) {
+		viewEntity.setId(this.getUser().getId());
+		viewEntity.setUpdatedOn(new Date());
+		viewEntity.setUpdatedUserId(this.getUser().getId());
+		viewEntity.setUpdatedBy(this.getUser().getUserName());
+		viewEntity.setUpdatedIp(IpKit.getRealIp(request));
+		springUserService.updateByPrimaryKey(viewEntity);
+		return ResponseDTO.successed(null, ResultCode.UPDATE_SUCCESSED);
 	}
 
 	@ApiOperation(value = "获取用户分页列表", response = ReponseResultPageDTO.class)
@@ -127,7 +138,6 @@ public class SpringUserController extends BaseController {
 		return ResponseDTO.successed(null, ResultCode.SAVE_SUCCESSED);
 	}
 
-	
 	@ApiOperation(value = "修改用户", notes = "根据SpringUserDTO修改用户", response = ResponseDTO.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "viewEntity", dataType = "SpringUserDTO"),
 			@ApiImplicitParam(name = "request", dataType = "HttpServletRequest"), })
