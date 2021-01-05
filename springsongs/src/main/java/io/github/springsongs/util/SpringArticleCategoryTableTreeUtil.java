@@ -1,12 +1,14 @@
-package io.github.springsongs.modules.sys.dto;
+package io.github.springsongs.util;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpringArticleCategoryTreeDTO {
+import io.github.springsongs.modules.sys.dto.SpringArticleCategoryDTO;
+
+public class SpringArticleCategoryTableTreeUtil {
 	private List<SpringArticleCategoryDTO> springArticleCategoryDTOList = new ArrayList<>();
 
-	public SpringArticleCategoryTreeDTO(List<SpringArticleCategoryDTO> springArticleCategoryDTOList) {
+	public SpringArticleCategoryTableTreeUtil(List<SpringArticleCategoryDTO> springArticleCategoryDTOList) {
 		super();
 		this.springArticleCategoryDTOList = springArticleCategoryDTOList;
 	}

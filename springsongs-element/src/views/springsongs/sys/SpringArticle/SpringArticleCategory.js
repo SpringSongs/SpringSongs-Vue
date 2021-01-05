@@ -1,5 +1,5 @@
 import {
-  search,
+  listAllToTree,
   get,
   save,
   edit,
@@ -14,9 +14,6 @@ export default {
       total: 1,
       multipleSelection: [],
       searchForm: {
-        size: 20,
-        total: 0,
-        page: 0,
         parentId: '0'
       },
       dialogAddVisible: false,
@@ -150,7 +147,7 @@ export default {
     // 查询
     handleSearch: function() {
       const self = this
-      search(self.searchForm.page, self.searchForm.size, self.searchForm).then(
+      listAllToTree().then(
         function(response) {
           self.tableData = response.data
           self.searchForm.total = response.count

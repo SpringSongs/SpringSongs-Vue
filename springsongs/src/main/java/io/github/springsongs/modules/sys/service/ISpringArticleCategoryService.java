@@ -31,4 +31,6 @@ public interface ISpringArticleCategoryService {
 	List<SpringArticleCategoryDTO> listAll();
 	
 	List<SpringArticleCategoryDTO> ListAllToTree();
+	
+	List<SpringArticleCategoryDTO> ListAllToTableTree();
 }

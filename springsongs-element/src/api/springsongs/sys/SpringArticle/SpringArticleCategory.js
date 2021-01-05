@@ -50,3 +50,10 @@ export function getCategorysByParent(parentId) {
     method: 'get'
   })
 }
+
+export function listAllToTree() {
+  return request({
+    url: '/SpringArticleCategory/ListAllToTree',
+    method: 'get'
+  })
+}

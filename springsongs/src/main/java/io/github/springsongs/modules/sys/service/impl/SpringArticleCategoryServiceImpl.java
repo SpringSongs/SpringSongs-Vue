@@ -27,12 +27,12 @@ import io.github.springsongs.exception.SpringSongsException;
 import io.github.springsongs.modules.sys.domain.SpringArticleCategory;
 import io.github.springsongs.modules.sys.dto.ElementUiTreeDTO;
 import io.github.springsongs.modules.sys.dto.SpringArticleCategoryDTO;
-import io.github.springsongs.modules.sys.dto.SpringArticleCategoryTreeDTO;
 import io.github.springsongs.modules.sys.dto.SpringResourceDTO;
 import io.github.springsongs.modules.sys.query.SpringArticleCategoryQuery;
 import io.github.springsongs.modules.sys.repo.SpringArticleCategoryRepo;
 import io.github.springsongs.modules.sys.service.ISpringArticleCategoryService;
 import io.github.springsongs.util.Constant;
+import io.github.springsongs.util.SpringArticleCategoryTableTreeUtil;
 
 @Service
 public class SpringArticleCategoryServiceImpl implements ISpringArticleCategoryService {
@@ -298,7 +298,16 @@ public class SpringArticleCategoryServiceImpl implements ISpringArticleCategoryS
 	@Override
 	public List<SpringArticleCategoryDTO> ListAllToTree() {
 		List<SpringArticleCategoryDTO> springArticleCategoryDTOList = this.listAll();
-		SpringArticleCategoryTreeDTO springArticleCategoryTreeDTO = new SpringArticleCategoryTreeDTO(
+		SpringArticleCategoryTableTreeUtil springArticleCategoryTreeDTO = new SpringArticleCategoryTableTreeUtil(
+				springArticleCategoryDTOList);
+		springArticleCategoryDTOList = springArticleCategoryTreeDTO.builTree();
+		return springArticleCategoryDTOList;
+	}
+
+	@Override
+	public List<SpringArticleCategoryDTO> ListAllToTableTree() {
+		List<SpringArticleCategoryDTO> springArticleCategoryDTOList = this.listAll();
+		SpringArticleCategoryTableTreeUtil springArticleCategoryTreeDTO = new SpringArticleCategoryTableTreeUtil(
 				springArticleCategoryDTOList);
 		springArticleCategoryDTOList = springArticleCategoryTreeDTO.builTree();
 		return springArticleCategoryDTOList;

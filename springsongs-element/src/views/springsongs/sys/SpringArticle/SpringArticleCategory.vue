@@ -1,37 +1,8 @@
 <template>
   <div class="app-container">
     <el-row>
-      <el-col :span="4">
-        <el-tabs type="border-card">
-          <el-tab-pane label="文章例表">
-            <div>
-              <el-button @click="handleArticle()">文章例表</el-button>
-            </div>
-            <div>
-              <el-button>文章分类</el-button>
-            </div>
-            <div>
-              <el-button @click="handleArticleComment()">文章评论</el-button>
-            </div>
 
-          </el-tab-pane>
-        </el-tabs>
-        <el-tabs type="border-card">
-          <el-tab-pane label="文章分类">
-            <div class="treesearch">
-              <el-tree
-                lazy
-                node-key="id"
-                :load="handleLoadTrea"
-                :props="ListTreeProps"
-                highlight-current
-                @node-click="handleNodeClick"
-              />
-            </div>
-          </el-tab-pane>
-        </el-tabs>
-      </el-col>
-      <el-col :span="20">
+      <el-col :span="24">
         <div class="bg-white h-100 mx-1 p-1 shadowed">
           <el-tabs type="border-card">
             <el-tab-pane label="文章分类">
@@ -48,12 +19,12 @@
 
               <template>
                 <el-table
-                  ref="multipleTable"
                   :data="tableData"
-                  tooltip-effect="dark"
+                  row-key="id"
                   highlight-current-row
-                  style="width: 100%;"
-                  @selection-change="handleSelectionChange"
+                  border
+                  default-expand-all
+                  :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
                 >
                   <el-table-column type="selection" width="55" />
                   <el-table-column type="index" width="60" />
@@ -70,20 +41,6 @@
                     </template>
                   </el-table-column>
                 </el-table>
-                <el-row>
-                  <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-                    <div class="pagination">
-                      <el-pagination
-                        layout="total, sizes, prev, pager, next, jumper"
-                        :total="searchForm.total"
-                        :page-size="searchForm.size"
-                        :current-page="searchForm.page"
-                        @current-change="handleCurrentChange"
-                        @size-change="sizeChangeHandle"
-                      />
-                    </div>
-                  </el-col>
-                </el-row>
               </template>
               <!--新增-->
               <el-dialog title="新增" :visible.sync="dialogAddVisible" width="50%" :before-close="handleClose">

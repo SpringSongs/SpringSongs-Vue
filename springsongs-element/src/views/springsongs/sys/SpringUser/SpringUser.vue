@@ -1,17 +1,10 @@
 <template>
   <div class="app-container">
     <el-row>
-      <el-col :span="4">
+      <el-col :span="5">
         <el-tabs type="border-card">
           <el-tab-pane label="组织机构">
-            <div class="block">
-              <el-row>
-                <el-button type="primary" icon="el-icon-edit" circle />
-                <el-button type="success" icon="el-icon-check" circle />
-                <el-button type="warning" icon="el-icon-star-off" circle />
-                <el-button type="danger" icon="el-icon-delete" circle />
-              </el-row>
-            </div>
+
             <div class="treesearch">
               <el-tree
                 ref="menuListTree"
@@ -27,7 +20,7 @@
           </el-tab-pane>
         </el-tabs>
       </el-col>
-      <el-col :span="20">
+      <el-col :span="19">
         <div class="bg-white h-100 mx-1 p-1 shadowed">
           <el-tabs type="border-card">
             <el-tab-pane label="用户管理查询">

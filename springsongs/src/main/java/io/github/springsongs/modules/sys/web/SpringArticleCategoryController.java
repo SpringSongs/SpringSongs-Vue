@@ -116,7 +116,7 @@ public class SpringArticleCategoryController extends BaseController {
 		return ResponseDTO.successed(entitys, ResultCode.SELECT_SUCCESSED);
 	}
 
-	@ApiOperation(value = "查询全部组织机构树", notes = "查询全部组织机构树", response = ResponseDTO.class)
+	@ApiOperation(value = "获取全部内容分类树", notes = "查询全部组织机构树", response = ResponseDTO.class)
 	@GetMapping(value = "/ListAllToTree")
 	public ResponseDTO<SpringArticleCategoryDTO> ListAllToTree() {
 		List<SpringArticleCategoryDTO> entitys = springArticleCategoryService.ListAllToTree();
