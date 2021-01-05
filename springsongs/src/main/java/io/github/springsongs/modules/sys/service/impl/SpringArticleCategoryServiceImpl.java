@@ -15,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ import io.github.springsongs.modules.sys.dto.ElementUiTreeDTO;
 import io.github.springsongs.modules.sys.dto.SpringArticleCategoryDTO;
 import io.github.springsongs.modules.sys.dto.SpringArticleCategoryTreeDTO;
 import io.github.springsongs.modules.sys.dto.SpringResourceDTO;
-import io.github.springsongs.modules.sys.dto.query.SpringArticleCategoryQuery;
+import io.github.springsongs.modules.sys.query.SpringArticleCategoryQuery;
 import io.github.springsongs.modules.sys.repo.SpringArticleCategoryRepo;
 import io.github.springsongs.modules.sys.service.ISpringArticleCategoryService;
 import io.github.springsongs.util.Constant;
@@ -152,6 +153,9 @@ public class SpringArticleCategoryServiceImpl implements ISpringArticleCategoryS
 		if (pageable.getPageSize() > Constant.MAX_PAGE_SIZE) {
 			throw new SpringSongsException(ResultCode.PARAMETER_NOT_NULL_ERROR);
 		}
+		int page=pageable.getPageNumber()<=0?1:pageable.getPageNumber()-1;
+		pageable = PageRequest.of(page, pageable.getPageSize());
+
 		Specification<SpringArticleCategory> specification = new Specification<SpringArticleCategory>() {
 			@Override
 			public Predicate toPredicate(Root<SpringArticleCategory> root, CriteriaQuery<?> query, CriteriaBuilder cb) {

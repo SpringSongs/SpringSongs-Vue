@@ -73,7 +73,7 @@
                         layout="total, sizes, prev, pager, next, jumper"
                         :total="searchtotal"
                         :page-size="searchsize"
-                        :current-page="searchage"
+                        :current-page="searchpage"
                         @current-change="handleCurrentChange"
                         @size-change="sizeChangeHandle"
                       />
@@ -149,18 +149,53 @@
               </el-dialog>
 
               <el-dialog title="分配用户" :visible.sync="dialogSetUsersVisible" width="50%" :before-close="handleClose">
+                <el-form ref="searchUserForm" :model="searchUserForm">
+                  <el-row>
+                    <el-col :span="12">
+                      <div class="demo-input-suffix">
+                        <el-input v-model="searchUserForm.userName" placeholder="请输入内容">
+                          <template slot="prepend">用户名：</template>
+                        </el-input>
+                      </div>
+                    </el-col>
+                    <el-col :span="12">
+                      <div class="demo-input-suffix">
+                        <el-input v-model="searchUserForm.trueName" placeholder="请输入内容">
+                          <template slot="prepend">真实姓名：</template>
+                        </el-input>
+                      </div>
+                    </el-col>
+                  </el-row>
+                  <el-row>
+                    <el-col :span="12">
+                      <div class="demo-input-suffix">
+                        <el-input v-model="searchUserForm.mobile" placeholder="请输入内容">
+                          <template slot="prepend">手机号：</template>
+                        </el-input>
+                      </div>
+                    </el-col>
+                  </el-row>
+                  <div class="block">
+                    <el-button-group>
+                      <el-button type="success" icon="el-icon-search" @click="handleUserSearch()">查询</el-button>
+                    </el-button-group>
+                  </div>
+                </el-form>
                 <el-table
                   ref="multipleTable"
                   :data="tableUserData"
                   tooltip-effect="dark"
                   highlight-current-row
                   style="width: 100%;"
+                  border
                   @selection-change="handleSelectionChangeUserData"
                 >
                   <el-table-column type="selection" width="55" />
                   <el-table-column type="index" width="60" />
                   <el-table-column prop="userName" label="用户名" width="180" />
                   <el-table-column prop="trueName" label="真实姓名" width="180" />
+                  <el-table-column prop="email" label="邮箱" width="180" />
+                  <el-table-column prop="mobile" label="手机号" width="180" />
                 </el-table>
                 <el-row>
                   <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
@@ -205,13 +240,25 @@
                         :page-size="searchUserRoleSize"
                         :current-page="searchUserRolePage"
                         @current-change="handleCurrentChangeRoleUser"
-                         @size-change="sizeChangeHandleRoleUser"
+                        @size-change="sizeChangeHandleRoleUser"
                       />
                     </div>
                   </el-col>
                 </el-row>
               </el-dialog>
               <el-dialog title="授权" :visible.sync="dialogAuthorityVisible" width="50%" :before-close="handleClose">
+                <el-form ref="searchResourceForm" :model="searchResourceForm">
+                  <el-row>
+                    <el-col :span="6">
+                      <div class="demo-input-suffix">
+                        <el-select v-model="searchResourceForm.systemId" placeholder="请选择子系统" @change="systemListChange">
+                          <el-option key="" label="请选择" value="" />
+                          <el-option v-for="item in systemList" :key="item.code" :label="item.title" :value="item.code" />
+                        </el-select>
+                      </div>
+                    </el-col>
+                  </el-row>
+                </el-form>
                 <div class="tree">
                   <el-tree
                     ref="menuListTree"

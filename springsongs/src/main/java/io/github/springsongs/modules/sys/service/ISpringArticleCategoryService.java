@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import io.github.springsongs.modules.sys.dto.ElementUiTreeDTO;
 import io.github.springsongs.modules.sys.dto.SpringArticleCategoryDTO;
-import io.github.springsongs.modules.sys.dto.query.SpringArticleCategoryQuery;
+import io.github.springsongs.modules.sys.query.SpringArticleCategoryQuery;
 
 public interface ISpringArticleCategoryService {
 	void deleteByPrimaryKey(String id);

@@ -4,12 +4,13 @@ import {
   save,
   edit,
   batchDelete,
-  listSpringResources,
+  SpringResourcesTree,
   listAuthority,
   listUserPage,
   ListUsersByRoleId,
   setUsersToRole,
-  setAuthority
+  setAuthority,
+  listAllSystem
 } from '@/api/springsongs/sys/SpringUser/SpringRole'
 import axios from 'axios'
 export default {
@@ -26,24 +27,25 @@ export default {
       multipleSelectionUser: [],
       multipleSelectionUserRole: [],
       searchForm: {
-        
+
       },
       searchtotal: 0,
       searchsize: 20,
       searchpage: 0,
       searchUserForm: {
-        
+
       },
       searchUserTotal: 0,
       searchUserSize: 20,
       searchUserPage: 0,
-      searchUserRoleForm: {
-      },
-      searchUserRoleCount:0,
-      searchUserRoleSize:20,
-      searchUserRolePage:0,
+      searchUserRoleForm: {},
+      searchUserRoleCount: 0,
+      searchUserRoleSize: 20,
+      searchUserRolePage: 0,
+      searchResourceForm: {},
+      systemList: {},
       menuListTreeProps: {
-        label: 'title',
+        label: 'text',
         children: 'children'
       },
       tempKey: '9999999999999',
@@ -123,17 +125,17 @@ export default {
       self.searchUserPage = val
       this.handleUserSearch()
     },
-    sizeChangeHandleUser:function(val) {
+    sizeChangeHandleUser: function(val) {
       this.searchUserSize = val
       this.searchUserPage = 0
       this.handleUserSearch()
     },
-    sizeChangeHandleRoleUser:function(val) {
+    sizeChangeHandleRoleUser: function(val) {
       this.searchUserRoleSize = val
       this.searchUserRolePage = 0
       this.handleUserSearch()
     },
-    handleCurrentChangeRoleUser:function(val) {
+    handleCurrentChangeRoleUser: function(val) {
       self.searchUserRolePage = val
       this.handleUserSearch()
     },
@@ -144,55 +146,50 @@ export default {
     handleSetAuthority: function(index, row) {
       this.roleId = row.id
       this.dialogAuthorityVisible = true
-      this.initMenuTree()
+      this.initMenuTree("Base")
+      this.handleListSystem();
     },
     // 重置表单
     resetForm: function(formName) {
       this.$refs[formName].resetFields()
     },
-    treeDataTranslate: function(data, id = 'id', pid = 'parentId') {
-      var res = []
-      var temp = {}
-      for (var i = 0; i < data.length; i++) {
-        temp[data[i][id]] = data[i]
-      }
-      for (var k = 0; k < data.length; k++) {
-        if (temp[data[k][pid]] && data[k][id] !== data[k][pid]) {
-          if (!temp[data[k][pid]]['children']) {
-            temp[data[k][pid]]['children'] = []
-          }
-          if (!temp[data[k][pid]]['_level']) {
-            temp[data[k][pid]]['_level'] = 1
-          }
-          data[k]['_level'] = temp[data[k][pid]]._level + 1
-          temp[data[k][pid]]['children'].push(data[k])
-        } else {
-          res.push(data[k])
-        }
-      }
-      return res
+    systemListChange: function(selectVal) {
+      this.initMenuTree(selectVal);
     },
-    listMenuTree: function() {
-      return listSpringResources(0, 1000, { page: 0, size: 1000 })
+    listMenuTree: function(systemCode) {
+      if (systemCode === '') {
+        systemCode = 'Base';
+      }
+      return SpringResourcesTree(systemCode);
     },
     listAuthority: function() {
       const self = this
       return listAuthority(self.roleId)
     },
-    initMenuTree: function() {
+    initMenuTree: function(systemCode) {
       const self = this
-      axios.all([this.listMenuTree(), this.listAuthority()])
+      axios.all([this.listMenuTree(systemCode), this.listAuthority()])
         .then(axios.spread(function(menu, perms) {
           if (menu.code === 200) {
-            self.menuList = self.treeDataTranslate(menu.data)
+            self.menuList = menu.data;
+            self.$refs.menuListTree.setCheckedKeys([])
           } else {
             self.$message.error(menu.msg)
           }
           if (perms.code === 200) {
+            console.log(perms.data);
             self.menuIdList = perms.data
-            var idx = self.menuIdList.indexOf(self.tempKey)
-            if (idx !== -1) {
-              self.menuIdList.splice(idx, self.menuIdList.length - idx)
+            let ids = [];
+            for (var i = 0; i < self.menuIdList.length; i++) {
+              if (self.menuIdList[i].length > 36) {
+                ids = self.menuIdList[i].split(',');
+              }
+            }
+            for (var id of ids) {
+              var idx = self.menuIdList.indexOf(id)
+              if (idx !== -1) {
+                self.menuIdList.splice(idx, 1)
+              }
             }
             self.$refs.menuListTree.setCheckedKeys(self.menuIdList)
           }
@@ -200,8 +197,11 @@ export default {
     },
     handleAuthoritySave: function() {
       const self = this
-      self.menuIdList = [].concat(self.$refs.menuListTree.getCheckedKeys(), [this.tempKey], self.$refs.menuListTree
+      self.menuIdList = [].concat(self.$refs.menuListTree.getCheckedKeys(), [this.tempKey + ',' + self.$refs.menuListTree
+          .getHalfCheckedKeys().toString()
+        ], self.$refs.menuListTree
         .getHalfCheckedKeys())
+      console.log(self.menuIdList);
       setAuthority(this.roleId, self.menuIdList).then((res) => {
         self.$message.success(res.msg)
         self.dialogAuthorityVisible = false
@@ -231,6 +231,12 @@ export default {
           self.loading = false
         }
       )
+    },
+    handleListSystem: function() {
+      const self = this
+      listAllSystem().then(res => {
+        self.systemList = res.data
+      })
     },
     handleViewUsers: function(index, row) {
       this.dialogRoleUsersVisible = true

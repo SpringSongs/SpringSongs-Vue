@@ -70,14 +70,15 @@ public class SpringRole extends SpringBase implements Serializable {
 	@Description(title = "说明")
 	@Column(name = "description")
 	@ApiModelProperty("说明")
-	private String desc;
+	private String description;
 
-	public String getDesc() {
-		return this.desc;
+
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Description(title = "允许编辑0不允许1允许")

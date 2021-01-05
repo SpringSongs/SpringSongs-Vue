@@ -36,7 +36,7 @@ import io.github.springsongs.modules.sys.domain.SpringUserSecurity;
 import io.github.springsongs.modules.sys.dto.MenuDTO;
 import io.github.springsongs.modules.sys.dto.SpringUserDTO;
 import io.github.springsongs.modules.sys.dto.UserInfoDTO;
-import io.github.springsongs.modules.sys.dto.query.SpringUserQuery;
+import io.github.springsongs.modules.sys.query.SpringUserQuery;
 import io.github.springsongs.modules.sys.service.ISpringResourceService;
 import io.github.springsongs.modules.sys.service.ISpringUserService;
 import io.github.springsongs.util.HttpUtils;

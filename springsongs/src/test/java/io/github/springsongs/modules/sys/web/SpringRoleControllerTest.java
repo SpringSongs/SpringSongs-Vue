@@ -53,7 +53,7 @@ class SpringRoleControllerTest {
 	void testGetPage() throws Exception {
 		SpringRole entity = new SpringRole();
 		entity.setTitle("ZnTXJtqlRHZeMUdqwXkIJsWLaydSolHPOTHk");
-		entity.setDesc("ngLOuQPHvHjakasPetAQSvtXGERxxPHJSQRc");
+		entity.setDescription("ngLOuQPHvHjakasPetAQSvtXGERxxPHJSQRc");
 		entity.setCreatedUserId("IDlIeOKZDHxntGsQVdKOzDnmBSpIPcLKYfXY");
 		entity.setCreatedBy("sBuTsUYKNCZUpbVmsdefdQrBtiNnpHhcKdUL");
 		entity.setCreatedIp("GxPtqwXgwYSkKnQDKsPdkzxQOWzbelSKPxyU");
@@ -77,7 +77,7 @@ class SpringRoleControllerTest {
 	void testGet() throws Exception {
 		SpringRole entity = new SpringRole();
 		entity.setTitle("DyllsAIAvGChkBgsOiDlaNVxsjGjeIsVqhCY");
-		entity.setDesc("bAjZhUFcOMdTkztNfABqoAknjmSxrOhQPOye");
+		entity.setDescription("bAjZhUFcOMdTkztNfABqoAknjmSxrOhQPOye");
 		entity.setCreatedUserId("EpEEDjiilLBaDIhecQUqqvgSiYPOFwTpyVWr");
 		entity.setCreatedBy("bOjZJlABiYBNtPAHoHGOpnThDNmlphBFPBsU");
 		entity.setCreatedIp("EDpaqLxLPyScYcGripNzACrsxuNIwFlIyiPR");
@@ -102,7 +102,7 @@ class SpringRoleControllerTest {
 		int databaseSizeBeforeCreate = dao.findAll().size();
 		SpringRole entity = new SpringRole();
 		entity.setTitle("tKwMWHROmqDReGROvzpqkhdzqbqGNPzUaNoH");
-		entity.setDesc("NdqzlsKETrFclJuKzGCDNPtWfSwFHwjIMsBs");
+		entity.setDescription("NdqzlsKETrFclJuKzGCDNPtWfSwFHwjIMsBs");
 		entity.setCreatedUserId("RRZOdzYUqwyJXCETOvgVWZQTdVowIhKneCiA");
 		entity.setCreatedBy("RiXxNWqsNroyLxNCUMltKQGrRrQgHrCMkDaV");
 		entity.setCreatedIp("rQVhorEKrYtHCsivEXqlQvGvgGSqChvBHYZA");
@@ -117,7 +117,7 @@ class SpringRoleControllerTest {
 		assertThat(testSpringRoleEntity.getCreatedBy()).isEqualTo("RiXxNWqsNroyLxNCUMltKQGrRrQgHrCMkDaV");
 		assertThat(testSpringRoleEntity.getCreatedIp()).isEqualTo("rQVhorEKrYtHCsivEXqlQvGvgGSqChvBHYZA");
 		assertThat(testSpringRoleEntity.getCreatedUserId()).isEqualTo("RRZOdzYUqwyJXCETOvgVWZQTdVowIhKneCiA");
-		assertThat(testSpringRoleEntity.getDesc()).isEqualTo("NdqzlsKETrFclJuKzGCDNPtWfSwFHwjIMsBs");
+		assertThat(testSpringRoleEntity.getDescription()).isEqualTo("NdqzlsKETrFclJuKzGCDNPtWfSwFHwjIMsBs");
 		assertThat(testSpringRoleEntity.getTitle()).isEqualTo("tKwMWHROmqDReGROvzpqkhdzqbqGNPzUaNoH");
 		assertThat(testSpringRoleEntity.getUpdatedBy()).isEqualTo("pCudzbIyUPgwUJckMAVzuCExYBrBEAZzkVYD");
 		assertThat(testSpringRoleEntity.getUpdatedIp()).isEqualTo("EzgEwPkOXyhARkQQKXxBWeVibmePZssOUacs");
@@ -129,7 +129,7 @@ class SpringRoleControllerTest {
 	void testUpdate() throws Exception {
 		SpringRole entity = new SpringRole();
 		entity.setTitle("izPBOjixCDzdUrOjYqgOpHyyjLshTIEmVpSJ");
-		entity.setDesc("BZGgqmhXkYQqOBdiSmDojENaIoGUEKnnPhPo");
+		entity.setDescription("BZGgqmhXkYQqOBdiSmDojENaIoGUEKnnPhPo");
 		entity.setCreatedUserId("xhUNXEbzpkcrYOOFkXfrGMFqZxrztXMCnvtE");
 		entity.setCreatedBy("XfctDBbytlGrWykkaDZzERMbrJGjXdfVbNIA");
 		entity.setCreatedIp("BOjgtUVRNgyQOMDfSQNkNZpQMiVVViBaFwNt");
@@ -140,7 +140,7 @@ class SpringRoleControllerTest {
 		int databaseSizeBeforeUpdate = dao.findAll().size();
 		SpringRole updatedEntity = dao.findById(entity.getId()).get();
 		updatedEntity.setTitle("dUlHLBaqWMFzYCqOLziVGIQRRwyOSVUXQxkm");
-		updatedEntity.setDesc("feyoNklSmzQrUwyVBPlspnPUGMZeDteUWgSc");
+		updatedEntity.setDescription("feyoNklSmzQrUwyVBPlspnPUGMZeDteUWgSc");
 		updatedEntity.setCreatedUserId("GhpltAsGUsHMcGzfLIEXTOxDfIYAShgwLyJu");
 		updatedEntity.setCreatedBy("LaeBKmpNxAHVBpOWSRULnbyrQjHWZOxKKDTa");
 		updatedEntity.setCreatedIp("NCQdaGrGWEKNQipfzJFNXyBoifPMvaTPhURT");
@@ -156,7 +156,7 @@ class SpringRoleControllerTest {
 		assertThat(testSpringRoleEntity.getCreatedBy()).isEqualTo("LaeBKmpNxAHVBpOWSRULnbyrQjHWZOxKKDTa");
 		assertThat(testSpringRoleEntity.getCreatedIp()).isEqualTo("NCQdaGrGWEKNQipfzJFNXyBoifPMvaTPhURT");
 		assertThat(testSpringRoleEntity.getCreatedUserId()).isEqualTo("GhpltAsGUsHMcGzfLIEXTOxDfIYAShgwLyJu");
-		assertThat(testSpringRoleEntity.getDesc()).isEqualTo("feyoNklSmzQrUwyVBPlspnPUGMZeDteUWgSc");
+		assertThat(testSpringRoleEntity.getDescription()).isEqualTo("feyoNklSmzQrUwyVBPlspnPUGMZeDteUWgSc");
 		assertThat(testSpringRoleEntity.getTitle()).isEqualTo("dUlHLBaqWMFzYCqOLziVGIQRRwyOSVUXQxkm");
 		assertThat(testSpringRoleEntity.getUpdatedBy()).isEqualTo("iRAmGQMKTFtLXngCoBdTVFSVmrnfqQvGGomX");
 		assertThat(testSpringRoleEntity.getUpdatedIp()).isEqualTo("LWQuqMwqgXbIVWBrxuSeSKREVEqKlRpfMMaF");
@@ -168,7 +168,7 @@ class SpringRoleControllerTest {
 	void testSetDeleted() throws Exception {
 		SpringRole entity = new SpringRole();
 		entity.setTitle("tuuGOyUrjPTgBMUspSqUjzKoJiBYZTcPLtoC");
-		entity.setDesc("zxfvXmVjFSSwllIgDKrOHPAijtjRhCsPYvUC");
+		entity.setDescription("zxfvXmVjFSSwllIgDKrOHPAijtjRhCsPYvUC");
 		entity.setCreatedUserId("aExUixAarJXnuEyiLRImsqUGBFghBZtgwnxO");
 		entity.setCreatedBy("UKDptDHimqANtMFzTIZanZIxLdlEcsLmbppV");
 		entity.setCreatedIp("hpgJxcYDGYmKlxyRpmEXZMLcXbdssuwImyTB");

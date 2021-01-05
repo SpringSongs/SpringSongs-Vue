@@ -19,11 +19,11 @@ export default {
       fileList: [],
       multipleSelection: [],
       searchForm: {
-        
+
       },
       size: 20,
-        page: 0,
-        total: 0,
+      page: 0,
+      total: 0,
       dialogAddVisible: false,
       dialogEditVisible: false,
       dialogImportVisible: false,
@@ -279,13 +279,13 @@ export default {
     },
     listSpringDistrictByParentId(parentId) {
       const self = this
-      this.searchForm.page = 0
+      this.page = 0
       listSpringDistrictByParentId(parentId).then(res => {
         self.provinceData = res.data
       })
     },
     chooseProvince(value) {
-      this.searchForm.page = 0
+      this.page = 0
       const self = this
       this.cityValue = ''
       this.areaValue = ''
@@ -294,11 +294,11 @@ export default {
       listSpringDistrictByParentId(this.provinceValue).then(res => {
         self.cityData = res.data
       })
-      this.searchForm.parentId = this.provinceValue
+      this.parentId = this.provinceValue
       this.handleSearch()
     },
     chooseCity(value) {
-      this.searchForm.page = 0
+      this.page = 0
       const self = this
       this.areaValue = ''
       listSpringDistrictByParentId(this.cityValue).then(res => {
@@ -308,7 +308,7 @@ export default {
       this.handleSearch()
     },
     chooseArea() {
-      this.searchForm.page = 0
+      this.page = 0
       this.searchForm.parentId = this.areaValue
       this.handleSearch()
     },

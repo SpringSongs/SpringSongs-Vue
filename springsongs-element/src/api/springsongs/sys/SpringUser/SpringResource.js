@@ -51,9 +51,9 @@ export function listAllSystem() {
   })
 }
 
-export function ListAllToTree(systemId) {
+export function ListAllToTree(systemCode) {
   return request({
-    url: '/SpringResource/ListAllToTree?systemId=' + systemId,
+    url: '/SpringResource/ListAllToTableTree?systemCode=' + systemCode,
     method: 'get'
   })
 }

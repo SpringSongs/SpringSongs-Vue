@@ -15,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -92,6 +93,8 @@ public class SpringSiteNoticeServiceImpl implements ISpringSiteNoticeService {
 		if (pageable.getPageSize() > Constant.MAX_PAGE_SIZE) {
 			throw new SpringSongsException(ResultCode.PARAMETER_NOT_NULL_ERROR);
 		}
+		int page=pageable.getPageNumber()<=0?1:pageable.getPageNumber()-1;
+		pageable = PageRequest.of(page, pageable.getPageSize());
 
 		Specification<SpringSiteNotice> specification = new Specification<SpringSiteNotice>() {
 

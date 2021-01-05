@@ -18,6 +18,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ import io.github.springsongs.enumeration.ResultCode;
 import io.github.springsongs.exception.SpringSongsException;
 import io.github.springsongs.modules.sys.domain.SpringAritlce;
 import io.github.springsongs.modules.sys.dto.SpringAritlceDTO;
-import io.github.springsongs.modules.sys.dto.query.SpringAritlceQuery;
+import io.github.springsongs.modules.sys.query.SpringAritlceQuery;
 import io.github.springsongs.modules.sys.repo.SpringAritlceRepo;
 import io.github.springsongs.modules.sys.service.ISpringAritlceService;
 import io.github.springsongs.util.Constant;
@@ -166,6 +167,9 @@ public class SpringAritlceServiceImpl implements ISpringAritlceService {
 		if (pageable.getPageSize() > Constant.MAX_PAGE_SIZE) {
 			throw new SpringSongsException(ResultCode.PARAMETER_NOT_NULL_ERROR);
 		}
+		int page=pageable.getPageNumber()<=0?1:pageable.getPageNumber()-1;
+		pageable = PageRequest.of(page, pageable.getPageSize());
+
 		Specification<SpringAritlce> specification = new Specification<SpringAritlce>() {
 
 			@Override

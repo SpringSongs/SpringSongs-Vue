@@ -19,6 +19,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,7 +33,7 @@ import io.github.springsongs.modules.sys.domain.SpringUser;
 import io.github.springsongs.modules.sys.domain.SpringUserRole;
 import io.github.springsongs.modules.sys.domain.SpringUserSecurity;
 import io.github.springsongs.modules.sys.dto.SpringUserDTO;
-import io.github.springsongs.modules.sys.dto.query.SpringUserQuery;
+import io.github.springsongs.modules.sys.query.SpringUserQuery;
 import io.github.springsongs.modules.sys.repo.SpringLogOnRepo;
 import io.github.springsongs.modules.sys.repo.SpringUserRepo;
 import io.github.springsongs.modules.sys.repo.SpringUserRoleRepo;
@@ -179,6 +180,9 @@ public class SpringUserServiceImpl implements ISpringUserService {
 		if (pageable.getPageSize() > Constant.MAX_PAGE_SIZE) {
 			throw new SpringSongsException(ResultCode.PARAMETER_NOT_NULL_ERROR);
 		}
+		int page=pageable.getPageNumber()<=0?1:pageable.getPageNumber()-1;
+		pageable = PageRequest.of(page, pageable.getPageSize());
+
 		Specification<SpringUser> specification = new Specification<SpringUser>() {
 
 			@Override

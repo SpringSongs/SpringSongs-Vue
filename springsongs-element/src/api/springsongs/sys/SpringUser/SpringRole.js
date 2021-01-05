@@ -100,3 +100,17 @@ export function setUsersToRole(roleId, data) {
     data
   })
 }
+
+export function listAllSystem() {
+  return request({
+    url: '/SpringSystem/ListAll',
+    method: 'get'
+  })
+}
+
+export function SpringResourcesTree(systemCode) {
+  return request({
+    url: '/SpringResource/ListAllToTree?systemCode='+systemCode,
+    method: 'get'
+  })
+}

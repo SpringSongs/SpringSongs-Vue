@@ -26,7 +26,7 @@ import io.github.springsongs.enumeration.ResultCode;
 import io.github.springsongs.modules.sys.dto.ElementUiTreeDTO;
 import io.github.springsongs.modules.sys.dto.SpringArticleCategoryDTO;
 import io.github.springsongs.modules.sys.dto.SpringOrganizationDTO;
-import io.github.springsongs.modules.sys.dto.query.SpringArticleCategoryQuery;
+import io.github.springsongs.modules.sys.query.SpringArticleCategoryQuery;
 import io.github.springsongs.modules.sys.service.ISpringArticleCategoryService;
 import io.github.springsongs.util.IpKit;
 import io.swagger.annotations.Api;
