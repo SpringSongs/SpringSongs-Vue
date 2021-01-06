@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 import qs from 'qs'
-export function search(data) {
+export function search(data,page,size) {
   return request({
-    url: '/SpringDictionary/ListByPage',
+    url: '/SpringDictionary/ListByPage?page='+page+'&size='+size,
     method: 'post',
     data
   })
