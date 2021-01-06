@@ -48,7 +48,7 @@ public class SpringAttachment  extends SpringBase  implements Serializable {
 		this.id = id;
 	}
 
-	@NotBlank(message = "请填写文件夾主键")
+	
 	@Size(max = 36, min = 1)
 	@Description(title = "文件夾主键")
 	@Column(name = "folder_id")
@@ -63,7 +63,7 @@ public class SpringAttachment  extends SpringBase  implements Serializable {
 		this.folderId = folderId;
 	}
 
-	@NotBlank(message = "请填写文件夹名称")
+	
 	@Size(max = 45, min = 1)
 	@Description(title = "文件夹名称")
 	@Column(name = "folder_name")

@@ -8,6 +8,9 @@
               <el-tab-pane label="个人资料" name="account">
                 <account :user="user" />
               </el-tab-pane>
+              <el-tab-pane label="密码" name="password">
+                <PassWord />
+              </el-tab-pane>
             </el-tabs>
           </el-card>
         </el-col>
@@ -24,11 +27,12 @@ import {
   mapGetters
 } from 'vuex'
 import Account from './components/Account'
-
+import PassWord from './components/PassWord'
 export default {
   name: 'Profile',
   components: {
-    Account
+    Account,
+    PassWord
   },
   data() {
     return {
@@ -52,6 +56,7 @@ export default {
       const self = this
       getUserInfo().then(response => {
         self.user = response.data
+        self.user.imageUrl = response.data.avatar
       })
     }
   }

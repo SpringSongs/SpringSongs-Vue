@@ -74,6 +74,14 @@ export function updatePwd(data) {
   })
 }
 
+export function userUpdatePwd(data) {
+  return request({
+    url: '/SpringUser/UserUpdatePwd',
+    method: 'post',
+    data
+  })
+}
+
 export function listRole(page, size, data) {
   return request({
     url: '/SpringRole/ListByPage?page=' + page + '&size=' + size,

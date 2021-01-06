@@ -187,6 +187,25 @@ public class SpringUserController extends BaseController {
 			return ResponseDTO.successed(null, ResultCode.SAVE_SUCCESSED);
 		}
 	}
+	
+	@ApiOperation(value = "设置用户密码", notes = "根据SpringUserSecurity设置用户密码", response = ResponseDTO.class)
+	@ApiImplicitParams({ @ApiImplicitParam(name = "viewEntity", dataType = "SpringUserSecurity"),
+			@ApiImplicitParam(name = "request", dataType = "HttpServletRequest"), })
+	@PostMapping(value = "/UserUpdatePwd")
+	public ResponseDTO<String> userUpdatePwd(@RequestBody SpringUserSecurity viewEntity, HttpServletRequest request) {
+
+		if (StringUtils.isEmpty(viewEntity.getPwd())) {
+			return ResponseDTO.successed(null, ResultCode.PASSWORD_CAN_NOT_EMPTY);
+		} else {
+			viewEntity.setUserId(this.getUser().getId());
+			viewEntity.setCreatedBy(this.getUser().getUserName());
+			viewEntity.setCreatedUserId(this.getUser().getId());
+			viewEntity.setCreatedIp(IpKit.getRealIp(request));
+			viewEntity.setCreatedOn(new Date());
+			springUserService.setPwd(viewEntity);
+			return ResponseDTO.successed(null, ResultCode.SAVE_SUCCESSED);
+		}
+	}
 
 	@ApiOperation(value = "分配用户角色", notes = "分配用户角色", response = ResponseDTO.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "userId", dataType = "String"),

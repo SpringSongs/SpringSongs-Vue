@@ -294,7 +294,7 @@ export default {
       listSpringDistrictByParentId(this.provinceValue).then(res => {
         self.cityData = res.data
       })
-      this.parentId = this.provinceValue
+      this.searchForm.parentId = this.provinceValue
       this.handleSearch()
     },
     chooseCity(value) {

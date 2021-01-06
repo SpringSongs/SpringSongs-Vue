@@ -40,6 +40,7 @@ public enum ResultCode {
 	RESUME_TASK_FAIL(HttpServletResponse.SC_BAD_REQUEST, Constant.RESUME_TASK_FAIL),
 	MODEL_NOT_EXIST(HttpServletResponse.SC_BAD_REQUEST, Constant.MODEL_NOT_EXIST),
 	EXPORT_SUCCESSED(HttpServletResponse.SC_OK, Constant.EXPORT_SUCCESSED),
+	UPLOADED_SUCCESSED(HttpServletResponse.SC_OK, Constant.UPLOADED_SUCCESSED),
 	TASK_HADED_CONFIG(HttpServletResponse.SC_BAD_REQUEST, Constant.TASK_HADED_CONFIG),;
 	final int code;
 	final String message;

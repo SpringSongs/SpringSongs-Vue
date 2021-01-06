@@ -8,7 +8,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,15 +67,16 @@ public class SpringAttachmentServiceImpl implements ISpringAttachmentService {
 	 * @since [产品/模块版本] （可选）
 	 */
 	@Override
-	public void insert(SpringAttachmentDTO record) {
+	public SpringAttachment insert(SpringAttachmentDTO record) {
 		SpringAttachment springAttachment = new SpringAttachment();
 		BeanUtils.copyProperties(record, springAttachment);
 		try {
-			springAttachmentDao.save(record);
+			springAttachmentDao.save(springAttachment);
 		} catch (Exception ex) {
 			logger.error(ex.getMessage());
 			throw new SpringSongsException(ResultCode.SYSTEM_ERROR);
 		}
+		return springAttachment;
 	}
 
 	/**
