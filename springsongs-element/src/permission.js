@@ -45,6 +45,7 @@ router.beforeEach(async(to, from, next) => {
         next()
       } else {
         try {
+          await store.dispatch('user/getInfo')
           const routers = await getRouters()
           const accessRoutes = getAsyncRoutes(routers.data)
           // 动态添加格式化过的路由
