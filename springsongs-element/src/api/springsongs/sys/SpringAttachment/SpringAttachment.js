@@ -26,7 +26,7 @@ export function save(data) {
 export function edit(data) {
   return request({
     url: '/SpringAttachment/Edit/',
-    method: 'post',
+    method: 'put',
     data
   })
 }

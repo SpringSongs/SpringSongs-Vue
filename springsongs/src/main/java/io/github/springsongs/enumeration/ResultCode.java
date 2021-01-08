@@ -41,7 +41,8 @@ public enum ResultCode {
 	MODEL_NOT_EXIST(HttpServletResponse.SC_BAD_REQUEST, Constant.MODEL_NOT_EXIST),
 	EXPORT_SUCCESSED(HttpServletResponse.SC_OK, Constant.EXPORT_SUCCESSED),
 	UPLOADED_SUCCESSED(HttpServletResponse.SC_OK, Constant.UPLOADED_SUCCESSED),
-	TASK_HADED_CONFIG(HttpServletResponse.SC_BAD_REQUEST, Constant.TASK_HADED_CONFIG),;
+	TASK_HADED_CONFIG(HttpServletResponse.SC_BAD_REQUEST, Constant.TASK_HADED_CONFIG), 
+	FILE_CANT_UPLOAD(HttpServletResponse.SC_BAD_REQUEST, Constant.FILE_CANT_UPLOAD),;
 	final int code;
 	final String message;
 

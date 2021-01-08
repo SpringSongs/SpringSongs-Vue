@@ -69,15 +69,9 @@
                 <el-form ref="addForm" :model="addForm" label-width="80px" :rules="addFormRules">
                   <el-upload
                     class="upload-demo"
-                    action="http://localhost:8090/SpringAttachment/Upload"
-                    :on-preview="handlePreview"
-                    :on-remove="handleRemove"
-                    :before-remove="beforeRemove"
+                    action="http://localhost:8091/SpringAttachment/Upload"
                     :with-credentials="true"
-                    multiple
-                    :limit="3"
-                    :on-exceed="handleExceed"
-                    :file-list="fileList"
+                    :show-file-list="false"
                     :on-success="handlerUploadSuccess"
                   >
                     <el-button size="small" type="primary">点击上传</el-button>
