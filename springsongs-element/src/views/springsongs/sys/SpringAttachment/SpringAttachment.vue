@@ -59,10 +59,9 @@
                 >
                   <el-table-column type="selection" width="55" />
                   <el-table-column type="index" width="60" />
-                  <el-table-column prop="folderName" label="文件夹名称" width="180" />
-                  <el-table-column prop="path" label="文件路径" width="180" />
+                  <el-table-column prop="path" label="文件路径" />
                   <el-table-column prop="description" label="说明" width="180" />
-                  <el-table-column fixed="right" label="操作" width="300">
+                  <el-table-column fixed="right" label="操作" width="180">
                     <template slot-scope="scope">
                       <el-button icon="el-icon-edit" type="text" size="small" @click="handleSingleEdit(scope.$index, scope.row)">编辑</el-button>
                       <el-button type="text" icon="el-icon-delete" class="red" @click="handleSingleDelete(scope.$index, scope.row)">删除</el-button>

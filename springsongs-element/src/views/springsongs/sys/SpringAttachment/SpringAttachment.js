@@ -99,6 +99,8 @@ export default {
     },
     menuListTreeCurrentSearchHandle(data, node) {
       this.searchForm.folderId = data.id
+      this.addForm.folderId = data.id
+      this.addForm.folderName = data.text
       this.handleSearch()
     },
     // 显示新增界面
@@ -154,8 +156,7 @@ export default {
     // 保存
     handleSave: function(formName) {
       const self = this
-      self.addForm.folderId = this.$route.params.folderId
-      self.addForm.folderName = this.$route.params.title
+
       this.$refs[formName]
         .validate(valid => {
           if (valid) {
