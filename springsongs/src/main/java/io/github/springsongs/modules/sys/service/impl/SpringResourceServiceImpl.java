@@ -488,7 +488,7 @@ public class SpringResourceServiceImpl implements ISpringResourceService {
 	}
 
 	@Override
-	public List<SpringResourceTableTreeDTO> ListAllToTableTree(String systemCode) {
+	public List<SpringResourceTableTreeDTO> listAllToTableTree(String systemCode) {
 		List<SpringResource> springResourceList = springResourceDao.listAllResources(systemCode);
 		final List<SpringResourceTableTreeDTO> springResourceTreeDTOList = new ArrayList<>();
 		springResourceList.stream().forEach(springResource -> {

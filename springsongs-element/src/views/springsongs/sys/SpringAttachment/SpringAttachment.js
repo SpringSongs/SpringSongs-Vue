@@ -5,19 +5,26 @@ import {
   batchDelete
 
 } from '@/api/springsongs/sys/SpringAttachment/SpringAttachment'
+import {
+  listAllToTree
+} from '@/api/springsongs/sys/SpringAttachment/SpringAttachmentCategory'
 export default {
   data() {
     return {
       tableData: [],
       fileList: [],
-      total: 1,
       multipleSelection: [],
       searchForm: {
-       
+
       },
       size: 20,
       page: 0,
       total: 0,
+      menuList: [],
+      menuListTreeProps: {
+        label: 'text',
+        children: 'children'
+      },
       dialogAddVisible: false,
       dialogEditVisible: false,
       // 新增界面数据
@@ -64,6 +71,7 @@ export default {
   },
   created() {
     this.param = this.$route.params.folderId
+    this.handleTree()
     this.handleSearch()
   },
   methods: {
@@ -82,6 +90,16 @@ export default {
     // 重置表单
     resetForm: function(formName) {
       this.$refs[formName].resetFields()
+    },
+    handleTree: function() {
+      const self = this
+      listAllToTree().then((res) => {
+        self.menuList = res.data
+      })
+    },
+    menuListTreeCurrentSearchHandle(data, node) {
+      this.searchForm.folderId = data.id
+      this.handleSearch()
     },
     // 显示新增界面
     handleAdd: function() {
@@ -117,11 +135,15 @@ export default {
     handleRemove: function() {},
     beforeRemove: function() {},
     handleExceed: function() {},
+    handleRefresh: function() {
+      this.searchForm.folderId = ''
+      this.handleSearch()
+    },
     // 查询
     handleSearch: function() {
       const self = this
-      self.searchForm.folderId = this.param
-      search(self.searchForm,self.page,self.size).then(
+      // self.searchForm.folderId = this.param
+      search(self.searchForm, self.page, self.size).then(
         function(response) {
           self.tableData = response.data
           self.total = response.count

@@ -26,9 +26,11 @@ import io.github.springsongs.enumeration.ResultCode;
 import io.github.springsongs.exception.SpringSongsException;
 import io.github.springsongs.modules.sys.domain.SpringAttachmentCategory;
 import io.github.springsongs.modules.sys.dto.SpringAttachmentCategoryDTO;
+import io.github.springsongs.modules.sys.dto.SpringAttachmentCategoryUiTreeDTO;
 import io.github.springsongs.modules.sys.repo.SpringAttachmentCategoryRepo;
 import io.github.springsongs.modules.sys.service.ISpringAttachmentCategoryService;
 import io.github.springsongs.util.Constant;
+import io.github.springsongs.util.SpringAttachmentCategoryUiTreeUtil;
 
 @Service
 public class SpringAttachmentCategoryServiceImpl implements ISpringAttachmentCategoryService {
@@ -134,10 +136,10 @@ public class SpringAttachmentCategoryServiceImpl implements ISpringAttachmentCat
 	 */
 	@Override
 	public Page<SpringAttachmentCategoryDTO> getAllRecordByPage(SpringAttachmentCategory record, Pageable pageable) {
-		if (pageable.getPageSize()<=0||pageable.getPageSize() > Constant.MAX_PAGE_SIZE) {
+		if (pageable.getPageSize() <= 0 || pageable.getPageSize() > Constant.MAX_PAGE_SIZE) {
 			throw new SpringSongsException(ResultCode.PARAMETER_MORE_1000);
 		}
-		int page=pageable.getPageNumber()<=0?0:pageable.getPageNumber()-1;
+		int page = pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1;
 		pageable = PageRequest.of(page, pageable.getPageSize());
 
 		Specification<SpringAttachmentCategory> specification = new Specification<SpringAttachmentCategory>() {
@@ -202,7 +204,7 @@ public class SpringAttachmentCategoryServiceImpl implements ISpringAttachmentCat
 		for (String id : ids) {
 			List<SpringAttachmentCategory> springAttachmentCategorys = springAttachmentCategoryRepo
 					.listSpringAttachmentCategoryByParentId(id);
-			if (!springAttachmentCategorys.isEmpty()) {
+			if (CollectionUtils.isEmpty(springAttachmentCategorys)) {
 				throw new SpringSongsException(ResultCode.HASED_CHILD_IDS_CANNOT_DELETE);
 			}
 		}
@@ -225,7 +227,7 @@ public class SpringAttachmentCategoryServiceImpl implements ISpringAttachmentCat
 	 */
 	@Override
 	public void batchSaveExcel(List<String[]> list) {
-		
+
 	}
 
 	@Override
@@ -261,6 +263,25 @@ public class SpringAttachmentCategoryServiceImpl implements ISpringAttachmentCat
 			springAttachmentCategoryDTOs.add(springAttachmentCategoryDTO);
 		});
 		return springAttachmentCategoryDTOs;
+	}
+
+	@Override
+	public List<SpringAttachmentCategoryUiTreeDTO> listAllToUiTree(String userId) {
+		List<SpringAttachmentCategory> springAttachmentCategorys = springAttachmentCategoryRepo
+				.listSpringAttachmentCagegoryByUserId(userId);
+		final List<SpringAttachmentCategoryUiTreeDTO> springAttachmentCategoryUiTreeDTOListTemp = new ArrayList<>();
+		springAttachmentCategorys.stream().forEach(springAttachmentCategory -> {
+			SpringAttachmentCategoryUiTreeDTO springAttachmentCategoryUiTreeDTO = new SpringAttachmentCategoryUiTreeDTO();
+			springAttachmentCategoryUiTreeDTO.setId(springAttachmentCategory.getId());
+			springAttachmentCategoryUiTreeDTO.setParentId(springAttachmentCategory.getParentId());
+			springAttachmentCategoryUiTreeDTO.setText(springAttachmentCategory.getTitle());
+			springAttachmentCategoryUiTreeDTOListTemp.add(springAttachmentCategoryUiTreeDTO);
+		});
+		SpringAttachmentCategoryUiTreeUtil springAttachmentCategoryUiTreeUtil = new SpringAttachmentCategoryUiTreeUtil(
+				springAttachmentCategoryUiTreeDTOListTemp);
+		List<SpringAttachmentCategoryUiTreeDTO> springAttachmentCategoryUiTreeDTOList = new ArrayList<>();
+		springAttachmentCategoryUiTreeDTOList = springAttachmentCategoryUiTreeUtil.builTree();
+		return springAttachmentCategoryUiTreeDTOList;
 	}
 
 }

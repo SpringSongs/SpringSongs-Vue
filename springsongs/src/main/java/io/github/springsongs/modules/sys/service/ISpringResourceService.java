@@ -56,7 +56,7 @@ public interface ISpringResourceService {
 
 	public List<EasyUiMenuDTO> listEasyUiResourceByUserId(String userId);
 
-	List<SpringResourceTableTreeDTO> ListAllToTableTree(String systemCode);
+	List<SpringResourceTableTreeDTO> listAllToTableTree(String systemCode);
 	List<SpringResourceUiTreeDTO> listAllToUITree(String systemCode);
 
 }

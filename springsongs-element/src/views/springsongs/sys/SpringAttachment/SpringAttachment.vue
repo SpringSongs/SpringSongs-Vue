@@ -1,7 +1,26 @@
 <template>
   <div class="app-container">
     <el-row>
-      <el-col :span="24">
+      <el-col :span="5">
+        <el-tabs type="border-card">
+          <el-tab-pane label="文件类型">
+
+            <div class="treesearch">
+              <el-tree
+                ref="menuListTree"
+                :data="menuList"
+                :props="menuListTreeProps"
+                node-key="id"
+                :default-expand-all="true"
+                :highlight-current="true"
+                :expand-on-click-node="false"
+                @current-change="menuListTreeCurrentSearchHandle"
+              />
+            </div>
+          </el-tab-pane>
+        </el-tabs>
+      </el-col>
+      <el-col :span="19">
         <div class="bg-white h-100 mx-1 p-1 shadowed">
           <el-tabs type="border-card">
             <el-tab-pane label="我的文件查询">
@@ -22,6 +41,7 @@
             <el-tab-pane label="我的文件">
               <div class="block">
                 <el-button-group>
+                  <el-button type="primary" icon="el-icon-search" @click="handleRefresh()">刷新</el-button>
                   <el-button type="success" icon="el-icon-search" @click="handleSearch()">查询</el-button>
                   <el-button type="primary" icon="el-icon-circle-plus" @click="handleAdd()">新增</el-button>
                   <el-button type="warning" icon="el-icon-edit" @click="handleEdit()">修改</el-button>

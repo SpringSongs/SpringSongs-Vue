@@ -142,7 +142,7 @@ public class SpringResourceController extends BaseController {
 	@GetMapping(value = "/ListAllToTableTree")
 	public ResponseDTO<SpringResourceTableTreeDTO> ListAllToTableTree(
 			@RequestParam(value = "systemCode", required = true) String systemCode) {
-		List<SpringResourceTableTreeDTO> entitys = springResourceService.ListAllToTableTree(systemCode);
+		List<SpringResourceTableTreeDTO> entitys = springResourceService.listAllToTableTree(systemCode);
 		return ResponseDTO.successed(entitys, ResultCode.SELECT_SUCCESSED);
 	}
 	
