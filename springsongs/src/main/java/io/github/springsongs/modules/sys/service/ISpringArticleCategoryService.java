@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import io.github.springsongs.modules.sys.dto.ElementUiTreeDTO;
 import io.github.springsongs.modules.sys.dto.SpringArticleCategoryDTO;
+import io.github.springsongs.modules.sys.dto.SpringArticleCategoryUiTreeDTO;
 import io.github.springsongs.modules.sys.query.SpringArticleCategoryQuery;
 
 public interface ISpringArticleCategoryService {
@@ -33,4 +34,6 @@ public interface ISpringArticleCategoryService {
 	List<SpringArticleCategoryDTO> ListAllToTree();
 	
 	List<SpringArticleCategoryDTO> ListAllToTableTree();
+	
+	List<SpringArticleCategoryUiTreeDTO> ListAllToUiTree();
 }

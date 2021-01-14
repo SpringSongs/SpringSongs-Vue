@@ -27,12 +27,13 @@ import io.github.springsongs.exception.SpringSongsException;
 import io.github.springsongs.modules.sys.domain.SpringArticleCategory;
 import io.github.springsongs.modules.sys.dto.ElementUiTreeDTO;
 import io.github.springsongs.modules.sys.dto.SpringArticleCategoryDTO;
-import io.github.springsongs.modules.sys.dto.SpringResourceDTO;
+import io.github.springsongs.modules.sys.dto.SpringArticleCategoryUiTreeDTO;
 import io.github.springsongs.modules.sys.query.SpringArticleCategoryQuery;
 import io.github.springsongs.modules.sys.repo.SpringArticleCategoryRepo;
 import io.github.springsongs.modules.sys.service.ISpringArticleCategoryService;
 import io.github.springsongs.util.Constant;
-import io.github.springsongs.util.SpringArticleCategoryTableTreeUtil;
+import io.github.springsongs.util.SpringArticleCategoryBuildTableTreeUtil;
+import io.github.springsongs.util.SpringArticleCategoryBuildUiTreeUtil;
 
 @Service
 public class SpringArticleCategoryServiceImpl implements ISpringArticleCategoryService {
@@ -150,10 +151,10 @@ public class SpringArticleCategoryServiceImpl implements ISpringArticleCategoryS
 	 */
 	@Override
 	public Page<SpringArticleCategoryDTO> getAllRecordByPage(SpringArticleCategoryQuery record, Pageable pageable) {
-		if (pageable.getPageSize()<=0||pageable.getPageSize() > Constant.MAX_PAGE_SIZE) {
+		if (pageable.getPageSize() <= 0 || pageable.getPageSize() > Constant.MAX_PAGE_SIZE) {
 			throw new SpringSongsException(ResultCode.PARAMETER_MORE_1000);
 		}
-		int page=pageable.getPageNumber()<=0?0:pageable.getPageNumber()-1;
+		int page = pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1;
 		pageable = PageRequest.of(page, pageable.getPageSize());
 		Specification<SpringArticleCategory> specification = new Specification<SpringArticleCategory>() {
 			@Override
@@ -298,7 +299,7 @@ public class SpringArticleCategoryServiceImpl implements ISpringArticleCategoryS
 	@Override
 	public List<SpringArticleCategoryDTO> ListAllToTree() {
 		List<SpringArticleCategoryDTO> springArticleCategoryDTOList = this.listAll();
-		SpringArticleCategoryTableTreeUtil springArticleCategoryTreeDTO = new SpringArticleCategoryTableTreeUtil(
+		SpringArticleCategoryBuildTableTreeUtil springArticleCategoryTreeDTO = new SpringArticleCategoryBuildTableTreeUtil(
 				springArticleCategoryDTOList);
 		springArticleCategoryDTOList = springArticleCategoryTreeDTO.builTree();
 		return springArticleCategoryDTOList;
@@ -307,10 +308,28 @@ public class SpringArticleCategoryServiceImpl implements ISpringArticleCategoryS
 	@Override
 	public List<SpringArticleCategoryDTO> ListAllToTableTree() {
 		List<SpringArticleCategoryDTO> springArticleCategoryDTOList = this.listAll();
-		SpringArticleCategoryTableTreeUtil springArticleCategoryTreeDTO = new SpringArticleCategoryTableTreeUtil(
+		SpringArticleCategoryBuildTableTreeUtil springArticleCategoryTreeDTO = new SpringArticleCategoryBuildTableTreeUtil(
 				springArticleCategoryDTOList);
 		springArticleCategoryDTOList = springArticleCategoryTreeDTO.builTree();
 		return springArticleCategoryDTOList;
+	}
+
+	@Override
+	public List<SpringArticleCategoryUiTreeDTO> ListAllToUiTree() {
+		List<SpringArticleCategoryDTO> springArticleCategoryDTOList = this.listAll();
+		final List<SpringArticleCategoryUiTreeDTO> springArticleCategoryUiTreeDTOListTemp = new ArrayList<>();
+		springArticleCategoryDTOList.stream().forEach(springArticleCategoryDTO -> {
+			SpringArticleCategoryUiTreeDTO springArticleCategoryUiTreeDTO = new SpringArticleCategoryUiTreeDTO();
+			springArticleCategoryUiTreeDTO.setId(springArticleCategoryDTO.getId());
+			springArticleCategoryUiTreeDTO.setParentId(springArticleCategoryDTO.getParentId());
+			springArticleCategoryUiTreeDTO.setText(springArticleCategoryDTO.getTitle());
+			springArticleCategoryUiTreeDTOListTemp.add(springArticleCategoryUiTreeDTO);
+		});
+		List<SpringArticleCategoryUiTreeDTO> springArticleCategoryUiTreeDTOList = new ArrayList<>();
+		SpringArticleCategoryBuildUiTreeUtil springArticleCategoryTreeDTO = new SpringArticleCategoryBuildUiTreeUtil(
+				springArticleCategoryUiTreeDTOListTemp);
+		springArticleCategoryUiTreeDTOList = springArticleCategoryTreeDTO.builTree();
+		return springArticleCategoryUiTreeDTOList;
 	}
 
 }

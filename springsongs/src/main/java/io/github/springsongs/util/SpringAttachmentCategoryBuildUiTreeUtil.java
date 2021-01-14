@@ -5,10 +5,10 @@ import java.util.List;
 
 import io.github.springsongs.modules.sys.dto.SpringAttachmentCategoryUiTreeDTO;
 
-public class SpringAttachmentCategoryUiTreeUtil {
+public class SpringAttachmentCategoryBuildUiTreeUtil {
 	private List<SpringAttachmentCategoryUiTreeDTO> SpringAttachmentCategoryUiTreeDTOList = new ArrayList<>();
 
-	public SpringAttachmentCategoryUiTreeUtil(List<SpringAttachmentCategoryUiTreeDTO> SpringAttachmentCategoryUiTreeDTOList) {
+	public SpringAttachmentCategoryBuildUiTreeUtil(List<SpringAttachmentCategoryUiTreeDTO> SpringAttachmentCategoryUiTreeDTOList) {
 		super();
 		this.SpringAttachmentCategoryUiTreeDTOList = SpringAttachmentCategoryUiTreeDTOList;
 	}

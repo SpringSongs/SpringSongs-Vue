@@ -23,14 +23,13 @@ export default {
     return {
       contents: '',
       tableData: [],
-      total: 1,
       multipleSelection: [],
       searchForm: {
         searchDate: {}
       },
-      page:0,
-      size:20,
-      total:0,
+      page: 0,
+      size: 20,
+      total: 0,
       ListTreeProps: {
         label: 'name',
         children: [],
@@ -311,33 +310,11 @@ export default {
         })
       }).catch(() => {})
     },
-    treeDataTranslate: function(data, id = 'id', pid = 'parentId') {
-      var res = []
-      var temp = {}
-      for (var i = 0; i < data.length; i++) {
-        temp[data[i][id]] = data[i]
-      }
-      for (var k = 0; k < data.length; k++) {
-        if (temp[data[k][pid]] && data[k][id] !== data[k][pid]) {
-          if (!temp[data[k][pid]]['children']) {
-            temp[data[k][pid]]['children'] = []
-          }
-          if (!temp[data[k][pid]]['_level']) {
-            temp[data[k][pid]]['_level'] = 1
-          }
-          data[k]['_level'] = temp[data[k][pid]]._level + 1
-          temp[data[k][pid]]['children'].push(data[k])
-        } else {
-          res.push(data[k])
-        }
-      }
-      return res
-    },
     handleListCategoryTree: function() {
       const self = this
 
       listCategoryToTree().then(res => {
-        self.menuList = self.treeDataTranslate(res.data)
+        self.menuList = res.data
       })
     },
     menuListTreeCurrentChangeHandle(data, node) {

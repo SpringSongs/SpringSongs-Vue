@@ -5,10 +5,10 @@ import java.util.List;
 
 import io.github.springsongs.modules.sys.dto.SpringOrganizationDTO;
 
-public class SpringOrganizationTableTreeUtil {
+public class SpringOrganizationBuildTableTreeUtil {
 	private List<SpringOrganizationDTO> springOrganizationDTOList = new ArrayList<>();
 
-	public SpringOrganizationTableTreeUtil(List<SpringOrganizationDTO> springOrganizationDTOList) {
+	public SpringOrganizationBuildTableTreeUtil(List<SpringOrganizationDTO> springOrganizationDTOList) {
 		super();
 		this.springOrganizationDTOList = springOrganizationDTOList;
 	}

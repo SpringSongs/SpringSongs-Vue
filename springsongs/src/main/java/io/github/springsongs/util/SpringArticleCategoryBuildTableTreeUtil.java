@@ -5,10 +5,10 @@ import java.util.List;
 
 import io.github.springsongs.modules.sys.dto.SpringArticleCategoryDTO;
 
-public class SpringArticleCategoryTableTreeUtil {
+public class SpringArticleCategoryBuildTableTreeUtil {
 	private List<SpringArticleCategoryDTO> springArticleCategoryDTOList = new ArrayList<>();
 
-	public SpringArticleCategoryTableTreeUtil(List<SpringArticleCategoryDTO> springArticleCategoryDTOList) {
+	public SpringArticleCategoryBuildTableTreeUtil(List<SpringArticleCategoryDTO> springArticleCategoryDTOList) {
 		super();
 		this.springArticleCategoryDTOList = springArticleCategoryDTOList;
 	}

@@ -30,7 +30,7 @@ import io.github.springsongs.modules.sys.dto.SpringAttachmentCategoryUiTreeDTO;
 import io.github.springsongs.modules.sys.repo.SpringAttachmentCategoryRepo;
 import io.github.springsongs.modules.sys.service.ISpringAttachmentCategoryService;
 import io.github.springsongs.util.Constant;
-import io.github.springsongs.util.SpringAttachmentCategoryUiTreeUtil;
+import io.github.springsongs.util.SpringAttachmentCategoryBuildUiTreeUtil;
 
 @Service
 public class SpringAttachmentCategoryServiceImpl implements ISpringAttachmentCategoryService {
@@ -277,7 +277,7 @@ public class SpringAttachmentCategoryServiceImpl implements ISpringAttachmentCat
 			springAttachmentCategoryUiTreeDTO.setText(springAttachmentCategory.getTitle());
 			springAttachmentCategoryUiTreeDTOListTemp.add(springAttachmentCategoryUiTreeDTO);
 		});
-		SpringAttachmentCategoryUiTreeUtil springAttachmentCategoryUiTreeUtil = new SpringAttachmentCategoryUiTreeUtil(
+		SpringAttachmentCategoryBuildUiTreeUtil springAttachmentCategoryUiTreeUtil = new SpringAttachmentCategoryBuildUiTreeUtil(
 				springAttachmentCategoryUiTreeDTOListTemp);
 		List<SpringAttachmentCategoryUiTreeDTO> springAttachmentCategoryUiTreeDTOList = new ArrayList<>();
 		springAttachmentCategoryUiTreeDTOList = springAttachmentCategoryUiTreeUtil.builTree();

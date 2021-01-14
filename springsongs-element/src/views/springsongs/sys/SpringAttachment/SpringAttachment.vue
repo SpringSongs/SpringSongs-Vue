@@ -55,6 +55,7 @@
                   tooltip-effect="dark"
                   highlight-current-row
                   style="width: 100%;"
+                  border
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column type="selection" width="55" />

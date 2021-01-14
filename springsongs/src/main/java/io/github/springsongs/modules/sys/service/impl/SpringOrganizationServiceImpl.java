@@ -29,7 +29,7 @@ import io.github.springsongs.modules.sys.dto.SpringOrganizationDTO;
 import io.github.springsongs.modules.sys.repo.SpringOrganizationRepo;
 import io.github.springsongs.modules.sys.service.ISpringOrganizationService;
 import io.github.springsongs.util.Constant;
-import io.github.springsongs.util.SpringOrganizationTableTreeUtil;
+import io.github.springsongs.util.SpringOrganizationBuildTableTreeUtil;
 
 @Service
 public class SpringOrganizationServiceImpl implements ISpringOrganizationService {
@@ -268,7 +268,7 @@ public class SpringOrganizationServiceImpl implements ISpringOrganizationService
 			BeanUtils.copyProperties(springOrganization, springOrganizationDTO);
 			springOrganizationDTOs.add(springOrganizationDTO);
 		});
-		SpringOrganizationTableTreeUtil springOrganizationTreeDTO = new SpringOrganizationTableTreeUtil(springOrganizationDTOs);
+		SpringOrganizationBuildTableTreeUtil springOrganizationTreeDTO = new SpringOrganizationBuildTableTreeUtil(springOrganizationDTOs);
 		List<SpringOrganizationDTO> springOrganizationTreeDTOs = springOrganizationTreeDTO.builTree();
 		return springOrganizationTreeDTOs;
 	}

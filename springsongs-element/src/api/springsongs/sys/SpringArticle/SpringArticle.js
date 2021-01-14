@@ -81,7 +81,7 @@ export function loadCategoryTreeByParentId(parentId) {
 
 export function listCategoryToTree() {
   return request({
-    url: '/SpringArticleCategory/listAllRecord',
+    url: '/SpringArticleCategory/ListAllToUiTree',
     method: 'get'
   })
 }
