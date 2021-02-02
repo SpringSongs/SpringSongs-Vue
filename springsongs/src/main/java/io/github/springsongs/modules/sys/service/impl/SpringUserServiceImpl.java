@@ -137,7 +137,7 @@ public class SpringUserServiceImpl implements ISpringUserService {
 			BeanUtils.copyProperties(springUser, springUserDTO);
 			if (!StringUtils.isEmpty(springUser.getPortrait())) {
 				SpringAttachment springAttachment = springAttachmentDao.getOne(springUser.getPortrait());
-				springUserDTO.setAvatar(domain+springAttachment.getPath());
+				springUserDTO.setAvatar(domain + springAttachment.getPath());
 			}
 		} catch (Exception ex) {
 			logger.error(ex.getMessage());
@@ -329,17 +329,15 @@ public class SpringUserServiceImpl implements ISpringUserService {
 		if (null == entity) {
 			throw new SpringSongsException(ResultCode.INFO_NOT_FOUND);
 		} else {
-			SpringUserSecurity baseUserLogOnEntity = springLogOnRepo.findByUserId(viewEntity.getUserId());
-			if (null != baseUserLogOnEntity) {
-				viewEntity.setId(baseUserLogOnEntity.getId());
-				viewEntity.setCreatedBy(baseUserLogOnEntity.getCreatedBy());
-				viewEntity.setCreatedUserId(baseUserLogOnEntity.getCreatedUserId());
-				viewEntity.setCreatedIp(baseUserLogOnEntity.getCreatedIp());
-				viewEntity.setCreatedOn(baseUserLogOnEntity.getCreatedOn());
-			}
-			viewEntity.setPwd(passwordEncoder.encode(viewEntity.getPwd().trim()));
 			try {
-				springLogOnRepo.save(viewEntity);
+				SpringUserSecurity baseUserLogOnEntity = springLogOnRepo.findByUserId(viewEntity.getUserId());
+				if (null != baseUserLogOnEntity) {
+					baseUserLogOnEntity.setPwd(passwordEncoder.encode(viewEntity.getPwd().trim()));
+					springLogOnRepo.save(baseUserLogOnEntity);
+				} else {
+					viewEntity.setPwd(passwordEncoder.encode(viewEntity.getPwd().trim()));
+					springLogOnRepo.save(viewEntity);
+				}
 			} catch (Exception ex) {
 				logger.error(ex.getMessage());
 				throw new SpringSongsException(ResultCode.SYSTEM_ERROR);

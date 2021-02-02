@@ -44,7 +44,7 @@ public interface ISpringResourceService {
 
 	void delete(Map map);
 
-	void saveModuleToRole(List<SpringResourceRole> baseModuleRoleEntityList, String roleId);
+	void saveModuleToRole(List<SpringResourceRole> baseModuleRoleEntityList, String roleId,String systemCode);
 
 	void saveModuleToRole(String moduleId, String roleId);
 

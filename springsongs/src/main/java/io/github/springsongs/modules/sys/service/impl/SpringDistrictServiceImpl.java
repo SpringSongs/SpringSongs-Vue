@@ -134,6 +134,12 @@ public class SpringDistrictServiceImpl implements ISpringDistrictService {
 			throw new SpringSongsException(ResultCode.PARAMETER_MORE_1000);
 		}
 		try {
+			for(Long id:ids) {
+				List<SpringDistrict> springDistrictList=springDistrictRepo.listSpringDistrictByParentId(id);
+				if (!CollectionUtils.isEmpty(springDistrictList)) {
+					throw new SpringSongsException(ResultCode.HASED_CHILD_IDS_CANNOT_DELETE);
+				}
+			}
 			springDistrictRepo.setDelete(ids);
 		} catch (Exception ex) {
 			logger.error(ex.getMessage());

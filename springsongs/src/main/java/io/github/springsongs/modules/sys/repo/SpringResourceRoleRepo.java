@@ -71,8 +71,8 @@ public interface SpringResourceRoleRepo extends JpaRepository<SpringResourceRole
 	 */
 	@Transactional
 	@Modifying
-	@Query(value = "delete from SpringResourceRole where roleId=:roleId")
-	public void delete(@Param(value = "roleId") String roleId);
+	@Query(value = "delete from SpringResourceRole where roleId=:roleId and systemCode=:systemCode")
+	public void deleteByRoleIdAndSystemCode(@Param(value = "roleId") String roleId,@Param(value = "systemCode") String systemCode);
 
 	/**
 	 * 查找资源

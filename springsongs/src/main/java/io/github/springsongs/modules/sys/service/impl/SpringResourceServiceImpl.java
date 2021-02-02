@@ -48,9 +48,9 @@ import io.github.springsongs.modules.sys.query.SpringResourceQuery;
 import io.github.springsongs.modules.sys.repo.SpringResourceRepo;
 import io.github.springsongs.modules.sys.repo.SpringResourceRoleRepo;
 import io.github.springsongs.modules.sys.service.ISpringResourceService;
+import io.github.springsongs.modules.sys.util.SpringResourceBuildTableTreeUtil;
+import io.github.springsongs.modules.sys.util.SpringResourceBuildUiTreeUtil;
 import io.github.springsongs.util.Constant;
-import io.github.springsongs.util.SpringResourceBuildTableTreeUtil;
-import io.github.springsongs.util.SpringResourceBuildUiTreeUtil;
 
 @Service
 public class SpringResourceServiceImpl implements ISpringResourceService {
@@ -385,8 +385,8 @@ public class SpringResourceServiceImpl implements ISpringResourceService {
 
 	@Override
 	@Transactional
-	public void saveModuleToRole(List<SpringResourceRole> baseModuleRoleEntityList, String roleId) {
-		springResourceRoleDao.delete(roleId);
+	public void saveModuleToRole(List<SpringResourceRole> baseModuleRoleEntityList, String roleId,String systemCode) {
+		springResourceRoleDao.deleteByRoleIdAndSystemCode(roleId,systemCode);
 		springResourceRoleDao.saveAll(baseModuleRoleEntityList);
 	}
 

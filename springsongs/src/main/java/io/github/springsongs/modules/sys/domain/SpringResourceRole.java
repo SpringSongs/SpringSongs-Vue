@@ -72,5 +72,19 @@ public class SpringResourceRole extends SpringBase  implements Serializable {
 		this.roleId = roleId;
 	}
 
+	@Size(max = 36, min = 0)
+	@Description(title = "系统主键")
+	@Column(name = "system_code")
+	@ApiModelProperty("系统主键")
+	private String systemCode;
+
+	public String getSystemCode() {
+		return systemCode;
+	}
+
+	public void setSystemCode(String systemCode) {
+		this.systemCode = systemCode;
+	}
+	
 
 }

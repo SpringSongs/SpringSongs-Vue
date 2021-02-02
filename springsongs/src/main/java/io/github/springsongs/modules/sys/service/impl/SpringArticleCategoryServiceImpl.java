@@ -31,9 +31,9 @@ import io.github.springsongs.modules.sys.dto.SpringArticleCategoryUiTreeDTO;
 import io.github.springsongs.modules.sys.query.SpringArticleCategoryQuery;
 import io.github.springsongs.modules.sys.repo.SpringArticleCategoryRepo;
 import io.github.springsongs.modules.sys.service.ISpringArticleCategoryService;
+import io.github.springsongs.modules.sys.util.SpringArticleCategoryBuildTableTreeUtil;
+import io.github.springsongs.modules.sys.util.SpringArticleCategoryBuildUiTreeUtil;
 import io.github.springsongs.util.Constant;
-import io.github.springsongs.util.SpringArticleCategoryBuildTableTreeUtil;
-import io.github.springsongs.util.SpringArticleCategoryBuildUiTreeUtil;
 
 @Service
 public class SpringArticleCategoryServiceImpl implements ISpringArticleCategoryService {

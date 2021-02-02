@@ -92,6 +92,7 @@ public class SpringUser extends SpringBase implements Serializable {
     }
 
     @NotBlank(message="请填写用户名")
+    @Pattern(regexp = "^[A-Za-z0-9_]+$", message = "名称请填写字母下划线与数字组合")
     @Size(max=45, min=1)
     @Description(title ="用户名")
     @Column(name="user_name")

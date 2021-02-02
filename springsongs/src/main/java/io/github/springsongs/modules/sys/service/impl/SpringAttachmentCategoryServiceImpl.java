@@ -29,8 +29,8 @@ import io.github.springsongs.modules.sys.dto.SpringAttachmentCategoryDTO;
 import io.github.springsongs.modules.sys.dto.SpringAttachmentCategoryUiTreeDTO;
 import io.github.springsongs.modules.sys.repo.SpringAttachmentCategoryRepo;
 import io.github.springsongs.modules.sys.service.ISpringAttachmentCategoryService;
+import io.github.springsongs.modules.sys.util.SpringAttachmentCategoryBuildUiTreeUtil;
 import io.github.springsongs.util.Constant;
-import io.github.springsongs.util.SpringAttachmentCategoryBuildUiTreeUtil;
 
 @Service
 public class SpringAttachmentCategoryServiceImpl implements ISpringAttachmentCategoryService {

@@ -28,8 +28,8 @@ import io.github.springsongs.modules.sys.domain.SpringOrganization;
 import io.github.springsongs.modules.sys.dto.SpringOrganizationDTO;
 import io.github.springsongs.modules.sys.repo.SpringOrganizationRepo;
 import io.github.springsongs.modules.sys.service.ISpringOrganizationService;
+import io.github.springsongs.modules.sys.util.SpringOrganizationBuildTableTreeUtil;
 import io.github.springsongs.util.Constant;
-import io.github.springsongs.util.SpringOrganizationBuildTableTreeUtil;
 
 @Service
 public class SpringOrganizationServiceImpl implements ISpringOrganizationService {
