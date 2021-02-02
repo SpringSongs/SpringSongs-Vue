@@ -91,13 +91,13 @@
               <el-dialog title="新增" :visible.sync="dialogAddVisible" width="50%" :before-close="handleClose">
                 <el-form ref="addForm" :model="addForm" label-width="80px" :rules="addFormRules">
                   <el-form-item label="编码" prop="code">
-                    <el-input v-model="addForm.code" auto-complete="off" />
+                    <el-input v-model.trim="addForm.code" auto-complete="off" />
                   </el-form-item>
                   <el-form-item label="名称" prop="title">
-                    <el-input v-model="addForm.title" auto-complete="off" />
+                    <el-input v-model.trim="addForm.title" auto-complete="off" />
                   </el-form-item>
                   <el-form-item label="链接" prop="vueUrl">
-                    <el-input v-model="addForm.vueUrl" auto-complete="off" />
+                    <el-input v-model.trim="addForm.vueUrl" auto-complete="off" />
                   </el-form-item>
                   <el-form-item label="菜单图标" prop="icon">
                     <el-row>
@@ -118,7 +118,7 @@
                           </div>
                         </el-popover>
                         <el-input
-                          v-model="addForm.vueIcon"
+                          v-model.trim="addForm.vueIcon"
                           v-popover:iconListPopover
                           :readonly="true"
                           placeholder="菜单图标名称"
@@ -137,14 +137,14 @@
                     </el-row>
                   </el-form-item>
                   <el-form-item label="链接" prop="angularUrl">
-                    <el-input v-model="addForm.angularUrl" auto-complete="off" />
+                    <el-input v-model.trim="addForm.angularUrl" auto-complete="off" />
                   </el-form-item>
                   <el-form-item label="排序" prop="sortCode">
-                    <el-input v-model="addForm.sortCode" auto-complete="off" />
+                    <el-input v-model.trim="addForm.sortCode" auto-complete="off" />
                   </el-form-item>
                   <el-form-item label="是否显示" prop="showStatus">
                     <el-switch
-                      v-model="addForm.showStatus"
+                      v-model.trim="addForm.showStatus"
                       active-color="#13ce66"
                       inactive-color="#ff4949"
                       :active-value="true"
@@ -153,7 +153,7 @@
                   </el-form-item>
                   <el-form-item label="是否菜单" prop="menuFlag">
                     <el-switch
-                      v-model="addForm.menuFlag"
+                      v-model.trim="addForm.menuFlag"
                       active-color="#13ce66"
                       inactive-color="#ff4949"
                       :active-value="false"
@@ -162,7 +162,7 @@
                   </el-form-item>
                   <el-form-item label="允许编辑" prop="enableEdit">
                     <el-switch
-                      v-model="addForm.enableEdit"
+                      v-model.trim="addForm.enableEdit"
                       active-color="#13ce66"
                       inactive-color="#ff4949"
                       :active-value="true"
@@ -171,7 +171,7 @@
                   </el-form-item>
                   <el-form-item label="允许删除" prop="enableDelete">
                     <el-switch
-                      v-model="addForm.enableDelete"
+                      v-model.trim="addForm.enableDelete"
                       active-color="#13ce66"
                       inactive-color="#ff4949"
                       :active-value="true"
@@ -188,13 +188,13 @@
               <el-dialog title="修改" :visible.sync="dialogEditVisible" width="50%" :before-close="handleClose">
                 <el-form ref="editForm" :model="editForm" label-width="80px" :rules="editFormRules">
                   <el-form-item label="编码" prop="code">
-                    <el-input v-model="editForm.code" auto-complete="off" />
+                    <el-input v-model.trim="editForm.code" auto-complete="off" />
                   </el-form-item>
                   <el-form-item label="名称" prop="title">
-                    <el-input v-model="editForm.title" auto-complete="off" />
+                    <el-input v-model.trim="editForm.title" auto-complete="off" />
                   </el-form-item>
                   <el-form-item label="链接" prop="vueUrl">
-                    <el-input v-model="editForm.vueUrl" auto-complete="off" />
+                    <el-input v-model.trim="editForm.vueUrl" auto-complete="off" />
                   </el-form-item>
                   <el-form-item label="菜单图标" prop="icon">
                     <el-row>
@@ -215,7 +215,7 @@
                           </div>
                         </el-popover>
                         <el-input
-                          v-model="editForm.vueIcon"
+                          v-model.trim="editForm.vueIcon"
                           v-popover:iconListPopover
                           :readonly="true"
                           placeholder="菜单图标名称"
@@ -234,10 +234,10 @@
                     </el-row>
                   </el-form-item>
                   <el-form-item label="链接" prop="angularUrl">
-                    <el-input v-model="editForm.angularUrl" auto-complete="off" />
+                    <el-input v-model.trim="editForm.angularUrl" auto-complete="off" />
                   </el-form-item>
                   <el-form-item label="排序" prop="sortCode">
-                    <el-input v-model="editForm.sortCode" auto-complete="off" />
+                    <el-input v-model.trim="editForm.sortCode" auto-complete="off" />
                   </el-form-item>
                   <el-form-item label="是否显示" prop="showStatus">
                     <el-switch
@@ -250,7 +250,7 @@
                   </el-form-item>
                   <el-form-item label="是否菜单" prop="menuFlag">
                     <el-switch
-                      v-model="editForm.menuFlag"
+                      v-model.trim="editForm.menuFlag"
                       active-color="#13ce66"
                       inactive-color="#ff4949"
                       :active-value="true"
@@ -259,7 +259,7 @@
                   </el-form-item>
                   <el-form-item label="允许编辑" prop="enableEdit">
                     <el-switch
-                      v-model="editForm.enableEdit"
+                      v-model.trim="editForm.enableEdit"
                       active-color="#13ce66"
                       inactive-color="#ff4949"
                       :active-value="true"
@@ -268,7 +268,7 @@
                   </el-form-item>
                   <el-form-item label="允许删除" prop="enableDelete">
                     <el-switch
-                      v-model="editForm.enableDelete"
+                      v-model.trim="editForm.enableDelete"
                       active-color="#13ce66"
                       inactive-color="#ff4949"
                       :active-value="true"

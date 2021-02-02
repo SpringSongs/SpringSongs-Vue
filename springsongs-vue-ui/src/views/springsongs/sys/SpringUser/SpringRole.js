@@ -44,6 +44,7 @@ export default {
       searchUserRolePage: 0,
       searchResourceForm: {},
       systemList: {},
+      systemCode:'',
       menuListTreeProps: {
         label: 'text',
         children: 'children'
@@ -155,6 +156,8 @@ export default {
     },
     systemListChange: function(selectVal) {
       this.initMenuTree(selectVal);
+      this.systemCode=selectVal;
+
     },
     listMenuTree: function(systemCode) {
       if (systemCode === '') {
@@ -177,7 +180,6 @@ export default {
             self.$message.error(menu.msg)
           }
           if (perms.code === 200) {
-            console.log(perms.data);
             self.menuIdList = perms.data
             let ids = [];
             for (var i = 0; i < self.menuIdList.length; i++) {
@@ -197,12 +199,13 @@ export default {
     },
     handleAuthoritySave: function() {
       const self = this
-      self.menuIdList = [].concat(self.$refs.menuListTree.getCheckedKeys(), [this.tempKey + ',' + self.$refs.menuListTree
+      if (this.systemCode === '') {
+        this.systemCode = 'Base';
+      }
+      self.menuIdList = [].concat(self.$refs.menuListTree.getCheckedKeys(), [this.tempKey+","+self.$refs.menuListTree
           .getHalfCheckedKeys().toString()
-        ], self.$refs.menuListTree
-        .getHalfCheckedKeys())
-      console.log(self.menuIdList);
-      setAuthority(this.roleId, self.menuIdList).then((res) => {
+        ])
+      setAuthority(this.roleId,this.systemCode, self.menuIdList).then((res) => {
         self.$message.success(res.msg)
         self.dialogAuthorityVisible = false
       })

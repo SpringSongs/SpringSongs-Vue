@@ -173,6 +173,9 @@
                   <el-form-item label="用户名" prop="userName">
                     <el-input v-model="addForm.userName" auto-complete="off" />
                   </el-form-item>
+                  <el-form-item label="密码" prop="password">
+                    <el-input v-model="addForm.password" auto-complete="off" />
+                  </el-form-item>
                   <el-form-item label="真实姓名" prop="trueName">
                     <el-input v-model="addForm.trueName" auto-complete="off" />
                   </el-form-item>
@@ -398,3 +401,5 @@
     padding: 10px 0px;
   }
 </style>
+
+

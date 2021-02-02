@@ -15,6 +15,8 @@ export default {
       provinceData: [],
       cityData: [],
       areaData: [],
+      townValue:'',
+      townData:[],
       tableData: [],
       fileList: [],
       multipleSelection: [],
@@ -125,6 +127,15 @@ export default {
             currentParentNameHasValue = true
           }
         }
+        if (!currentParentNameHasValue) {
+          obj = self.townData.find((item) => {
+            return item.id === self.addForm.parentId
+          })
+          if (obj !== undefined) {
+            self.addForm.parentName = obj.name
+            currentParentNameHasValue = true
+          }
+        }
       }
     },
     // 保存
@@ -196,6 +207,15 @@ export default {
               currentParentNameHasValue = true
             }
           }
+          if (!currentParentNameHasValue) {
+            obj = self.townData.find((item) => {
+              return item.id === self.editForm.parentId
+            })
+            if (obj !== undefined) {
+              self.editForm.parentName = obj.name
+              currentParentNameHasValue = true
+            }
+          }
         })
       }
     },
@@ -229,6 +249,15 @@ export default {
         }
         if (!currentParentNameHasValue) {
           obj = self.areaData.find((item) => {
+            return item.id === self.editForm.parentId
+          })
+          if (obj !== undefined) {
+            self.editForm.parentName = obj.name
+            currentParentNameHasValue = true
+          }
+        }
+        if (!currentParentNameHasValue) {
+          obj = self.townData.find((item) => {
             return item.id === self.editForm.parentId
           })
           if (obj !== undefined) {
@@ -289,8 +318,10 @@ export default {
       const self = this
       this.cityValue = ''
       this.areaValue = ''
+      this.townValue =''
       this.cityData = []
       this.areaData = []
+      this.townData= []
       listSpringDistrictByParentId(this.provinceValue).then(res => {
         self.cityData = res.data
       })
@@ -301,6 +332,8 @@ export default {
       this.page = 0
       const self = this
       this.areaValue = ''
+      this.townValue =''
+      this.townData= []
       listSpringDistrictByParentId(this.cityValue).then(res => {
         self.areaData = res.data
       })
@@ -308,8 +341,18 @@ export default {
       this.handleSearch()
     },
     chooseArea() {
+      const self = this
       this.page = 0
       this.searchForm.parentId = this.areaValue
+      this.townValue =''
+      listSpringDistrictByParentId(this.areaValue).then(res => {
+        self.townData = res.data
+      })
+      this.handleSearch()
+    },
+    chooseTown() {
+      this.page = 0
+      this.searchForm.parentId = this.townValue
       this.handleSearch()
     },
     handleRefresh() {

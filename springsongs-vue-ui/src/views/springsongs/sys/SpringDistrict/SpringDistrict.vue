@@ -7,27 +7,33 @@
             <el-tab-pane label="行政区域查询">
               <el-form ref="searchForm" :model="searchForm">
                 <el-row>
-                  <el-col :span="16">
-                    <div class="flex-container">
-                      <div class="flex-item">
-                        <label>省</label>
-                        <el-select v-model="provinceValue" placeholder="请选择省" @change="chooseProvince">
-                          <el-option v-for="item in provinceData" :key="item.id" :label="item.name" :value="item.id" />
+                  <el-col :span="6">
+                    <el-form-item label="省">
+                      <el-select v-model="provinceValue" placeholder="请选择省" @change="chooseProvince">
+                        <el-option v-for="item in provinceData" :key="item.id" :label="item.name" :value="item.id" />
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="6">
+                    <el-form-item label="市">
+                      <el-select v-model="cityValue" placeholder="请选择市" @change="chooseCity">
+                        <el-option v-for="item in cityData" :key="item.id" :label="item.name" :value="item.id" />
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="6">
+                    <el-form-item label="区、县">
+                      <el-select v-model="areaValue" placeholder="请选择区、县" @change="chooseArea">
+                        <el-option v-for="item in areaData" :key="item.id" :label="item.name" :value="item.id" />
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="6">
+                      <el-form-item label="镇、村">
+                        <el-select v-model="townValue" placeholder="镇、村" @change="chooseTown">
+                          <el-option v-for="item in townData" :key="item.id" :label="item.name" :value="item.id" />
                         </el-select>
-                      </div>
-                      <div class="flex-item">
-                        <label>市</label>
-                        <el-select v-model="cityValue" placeholder="请选择市" @change="chooseCity">
-                          <el-option v-for="item in cityData" :key="item.id" :label="item.name" :value="item.id" />
-                        </el-select>
-                      </div>
-                      <div class="flex-item">
-                        <label>区、县</label>
-                        <el-select v-model="areaValue" placeholder="请选择区、县" @change="chooseArea">
-                          <el-option v-for="item in areaData" :key="item.id" :label="item.name" :value="item.id" />
-                        </el-select>
-                      </div>
-                    </div>
+                      </el-form-item>
                   </el-col>
                 </el-row>
               </el-form>
@@ -44,15 +50,8 @@
                 </el-button-group>
               </div>
               <template>
-                <el-table
-                  ref="multipleTable"
-                  :data="tableData"
-                  tooltip-effect="dark"
-                  highlight-current-row
-                  style="width: 100%;"
-                  border
-                  @selection-change="handleSelectionChange"
-                >
+                <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" highlight-current-row style="width: 100%;"
+                  border @selection-change="handleSelectionChange">
                   <el-table-column type="selection" width="55" />
                   <el-table-column type="index" width="60" />
                   <el-table-column prop="name" label="名称" />
@@ -66,14 +65,8 @@
                 <el-row>
                   <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
                     <div class="pagination">
-                      <el-pagination
-                        layout="total, sizes, prev, pager, next, jumper"
-                        :total="total"
-                        :page-size="size"
-                        :current-page="page"
-                        @current-change="handleCurrentChange"
-                        @size-change="sizeChangeHandle"
-                      />
+                      <el-pagination layout="total, sizes, prev, pager, next, jumper" :total="total" :page-size="size"
+                        :current-page="page" @current-change="handleCurrentChange" @size-change="sizeChangeHandle" />
                     </div>
                   </el-col>
                 </el-row>
@@ -124,20 +117,4 @@
     padding: 10px 0px;
   }
 
-  .flex-container {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
-
-  .flex-item {
-    padding: 5px;
-    height: auto;
-    color: tomato;
-    font-weight: bold;
-    text-align: center;
-  }
 </style>
